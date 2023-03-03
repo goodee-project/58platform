@@ -3,7 +3,7 @@ package goodee.gdj58.platform.vo;
 import lombok.Data;
 
 @Data
-public class shoppingGoodsImg {
+public class ShoppingGoodsImg {
 	private int goodsImgNo;
 	private int goodsNo;
 	private String goodsImgSaveName;
