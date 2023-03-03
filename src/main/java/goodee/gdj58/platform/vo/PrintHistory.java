@@ -3,7 +3,7 @@ package goodee.gdj58.platform.vo;
 import lombok.Data;
 
 @Data
-public class printHistory {
+public class PrintHistory {
 	private int printHistoryNo;
 	private String id;
 	private String printFileName;

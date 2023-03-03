@@ -3,7 +3,7 @@ package goodee.gdj58.platform.vo;
 import lombok.Data;
 
 @Data
-public class paySaveHistory {
+public class PaySaveHistory {
 	private int paySaveHistoryNo;
 	private String paySaveHistoryCategory;
 	private int paySaveHistoryContent;

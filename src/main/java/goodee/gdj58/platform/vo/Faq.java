@@ -3,7 +3,7 @@ package goodee.gdj58.platform.vo;
 import lombok.Data;
 
 @Data
-public class faq {
+public class Faq {
 	private int faqNo;
 	private String serviceName;
 	private String faqQuestion;

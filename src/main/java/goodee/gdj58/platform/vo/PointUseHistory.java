@@ -3,7 +3,7 @@ package goodee.gdj58.platform.vo;
 import lombok.Data;
 
 @Data
-public class pointUseHistory {
+public class PointUseHistory {
 	private int pointUseHistoryNo;
 	private String pointUseHistoryCategory;
 	private int pointUseHistoryContent;
