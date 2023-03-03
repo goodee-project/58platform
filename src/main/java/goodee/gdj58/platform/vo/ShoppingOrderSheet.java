@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ShoppingOrderSheet {
 	private int orderSheetNo;
-	private int companyId;
+	private String companyId;
 	private int customerAddressNo;
 	private String customerId;
 	private String orderSheetState;
