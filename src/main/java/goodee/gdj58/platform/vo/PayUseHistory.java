@@ -9,6 +9,6 @@ public class PayUseHistory {
 	private int payUseHistoryContent;
 	private String customerId;
 	private int price;
-	private String creatdate;
+	private String createdate;
 	
 }

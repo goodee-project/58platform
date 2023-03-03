@@ -7,6 +7,7 @@ public class BookingCompanyType {
 	private int bookingCompanyTypeNo;
 	private String bookingCompanyTypeContent;
 	private int parentNo;
+	private int groupNo;
 	private int sequence;
 	private int depth;
 }

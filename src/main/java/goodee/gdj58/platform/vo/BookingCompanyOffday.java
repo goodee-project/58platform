@@ -7,5 +7,5 @@ public class BookingCompanyOffday {
 	private int bookingCompanyOffdayNo;
 	private String bookingCompanyId;
 	private String bookingCompanyOffdayDate;
-	private String bookingCOmpanyOffdayMemo;
+	private String bookingCompanyOffdayMemo;
 }

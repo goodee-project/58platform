@@ -9,6 +9,6 @@ public class PointSaveHistory {
 	private int pointSaveHistoryContent;
 	private String customerId;
 	private int point;
-	private String creatdate;
+	private String createdate;
 
 }

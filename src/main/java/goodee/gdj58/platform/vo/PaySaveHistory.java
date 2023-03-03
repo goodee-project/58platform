@@ -9,5 +9,5 @@ public class PaySaveHistory {
 	private int paySaveHistoryContent;
 	private String customerId;
 	private int price;
-	private String creatdate;
+	private String createdate;
 }

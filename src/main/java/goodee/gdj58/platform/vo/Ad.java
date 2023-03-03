@@ -12,6 +12,6 @@ public class Ad {
 	private String adPosition;
 	private String adStartdate;
 	private String adEnddate;
-	private String adDuration;
+	private int adDuration;
 	private String createdate;
 }

@@ -10,6 +10,6 @@ public class BookingProduct {
 	private int bookingProductPrice;
 	private String bookingProductOpen;
 	private int bookingProductMaxPeople;
-	private int bookingProductminPeople;
+	private int bookingProductMinPeople;
 	private String createdate;
 }

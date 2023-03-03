@@ -7,8 +7,8 @@ public class Customer {
 	private String customerId;
 	private String customerPw;
 	private String customerName;
-	private String customerNickName;
-	private String customerPostCode;
+	private String customerNickname;
+	private String customerPostcode;
 	private String customerAddress;
 	private String customerPhone;
 	private String customerRank;
