@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.platform.mapper.CustomerMapper">
+
+	<resultMap type="goodee.gdj58.platform.vo.Customer"
+		id="Customer">
+		
+		<id property="customerId" column="customerId" />
+		<id property="customerPw" column="customerPw" />
+		<id property="customerName" column="customerName" />
+		<id property="customerNickname" column="customerNickname" />
+		<id property="customerPostcode" column="customerPostcode" />
+		<id property="customerAddress" column="customerAddress" />
+		<id property="customerPhone" column="customerPhone" />
+		<id property="customerRank" column="customerRank" />
+		<id property="customerEmail" column="customerEmail" />
+		<id property="customerPay" column="customerPay" />
+		<id property="customerPoint" column="customerPoint" />
+		<id property="customerBirth" column="customerBirth" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+		<id property="customerGender" column="customerGender" />
+	</resultMap>
+
+
+	<!-- 회원 조회 -->
+	<select id="selectCustomerList" 
+		resultType="goodee.gdj58.platform.vo.BookingCompany"
+		parameterType="java.util.Map">
+		
+		SELECT bc.booking_company_id id, bc.booking_company_name "name"
+			, ti.total_id_active active, ti.createdate createdate
+		FROM booking_company bc
+		INNER JOIN total_id ti ON bc.booking_company_id = ti.id
+		
+	</select>
+
+</mapper>
