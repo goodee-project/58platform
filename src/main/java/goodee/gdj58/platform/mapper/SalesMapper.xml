@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.platform.mapper.SalesMapper">
+	
+	<!-- 페이머니조회관련 -->
+	
+	<!-- 일/월/연 별 페이충전총액목록 조회 -->
+	<select id="selectSavePayListByDate"
+		resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT
+			DATE_FORMAT(createdate, #{kind}) as date
+			, SUM(price) as totalSavePay
+		FROM pay_save_history
+		WHERE pay_save_history_category = '충전'
+		<if test="startDate != ''">
+			AND DATE(createdate) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		GROUP BY DATE_FORMAT(createdate, #{kind})
+	</select>
+	
+	<!-- 누적 페이충전총액 조회 -->
+	<select id="selectTotalSavePayAllTime"
+		resultType="int">
+		SELECT
+			SUM(price)
+		FROM pay_save_history
+		WHERE pay_save_history_category = '충전'	
+	</select>
+</mapper>
