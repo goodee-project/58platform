@@ -15,13 +15,14 @@ import goodee.gdj58.platform.service.ReportService;
 public class ReportController {
 	@Autowired ReportService reportService;
 	
-	@GetMapping("/employee/getReport")
+	@GetMapping("/employee/report/reportList")
 	public String getReport(Model model
 		, @RequestParam(value="reportCategory", defaultValue="예약") String reportCategory) {
 		
 		
 		List<Map<String, Object>> reportList = reportService.getReport(reportCategory);
 		
+		model.addAttribute("reportCategory", reportCategory);
 		model.addAttribute("reportList", reportList);
 		
 		return "report/getReport";

@@ -212,15 +212,58 @@
               </a>
             </li>
             <li>
-              <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class="bi bi-exclamation-triangle-fill"></i>
+              <a class="has-arrow company" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-buildings-fill"></i>
                 </div>
-                <div class="menu-title">Errors</div>
+                <div class="menu-title">기업</div>
               </a>
               <ul>
-                <li> <a href="${pageContext.request.contextPath}/employee/getReport?reportCategory="쇼핑""><i class="bi bi-circle"></i>신고조회(쇼핑)</a>
+                <li> <a href="${pageContext.request.contextPath}/employee/company/companyList"><i class="bi bi-circle"></i>기업조회</a>
                 </li>
-                <li> <a href="${pageContext.request.contextPath}/employee/getReport?reportCategory="예약""><i class="bi bi-circle"></i>신고조회(예약)</a>
+                <li> <a href="${pageContext.request.contextPath}/employee/company/companySignUpCheck"><i class="bi bi-circle"></i>기업 활성화 승인</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/company/deleteCompanyList"><i class="bi bi-circle"></i>탈퇴 기업목록 조회</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/company/updateCompanyList"><i class="bi bi-circle"></i>정보 변경요청 기업</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="has-arrow employee" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-file-person-fill"></i>
+                </div>
+                <div class="menu-title">직원</div>
+              </a>
+              <ul>
+                <li> <a href="${pageContext.request.contextPath}/employee/emp/employeeList"><i class="bi bi-circle"></i>직원조회</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/emp/addEmployee"><i class="bi bi-circle"></i>직원등록</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="has-arrow report" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <div class="menu-title">신고</div>
+              </a>
+              <ul>
+                <li> <a href="${pageContext.request.contextPath}/employee/report/reportList?reportCategory=쇼핑"><i class="bi bi-circle"></i>신고조회(쇼핑)</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/report/reportList?reportCategory=예약"><i class="bi bi-circle"></i>신고조회(예약)</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="has-arrow notice" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-megaphone-fill"></i>
+                </div>
+                <div class="menu-title">공지사항</div>
+              </a>
+              <ul>
+                <li> <a href="${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=쇼핑"><i class="bi bi-circle"></i>공지사항(쇼핑)</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=예약"><i class="bi bi-circle"></i>공지사항(예약)</a>
                 </li>
               </ul>
             </li>

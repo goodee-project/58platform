@@ -55,28 +55,34 @@
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
+									신고
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">Data Table</li>
+								<c:if test="${reportCategory == '쇼핑'}">
+									<li class="breadcrumb-item active" aria-current="page">신고 조회(쇼핑)</li>
+								</c:if>
+								<c:if test="${reportCategory == '예약'}">
+									<li class="breadcrumb-item active" aria-current="page">신고 조회(예약)</li>
+								</c:if>
 							</ol>
 						</nav>
 					</div>
-					<div class="ms-auto">
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary">Settings</button>
-							<button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
-							</button>
-							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
-								<a class="dropdown-item" href="javascript:;">Another action</a>
-								<a class="dropdown-item" href="javascript:;">Something else here</a>
-								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
-							</div>
-						</div>
-					</div>
 				</div>
 				<!--end breadcrumb-->
-				<h6 class="mb-0 text-uppercase">DataTable Example</h6>
 				<hr/>
+				<c:if test="${reportCategory == '쇼핑'}">
+				<div class="btn-group">
+					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/report/reportList?reportCategory=쇼핑'">쇼핑몰</button>
+					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/report/reportList?reportCategory=예약'">예약</button>
+				</div>
+				</c:if>
+				<c:if test="${reportCategory == '예약'}">
+				<div class="btn-group">
+					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/report/reportList?reportCategory=쇼핑'">쇼핑몰</button>
+					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/report/reportList?reportCategory=예약'">예약</button>
+				</div>
+				</c:if>
+				<br><br>
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
@@ -85,11 +91,11 @@
 									<tr>
 										<th style="width : 10%">신고 번호</th>
 										<th style="width : 10%">서비스 종류</th>
-										<th style="width : 10%">신고 기업</th>
+										<th style="width : 15%">신고 기업</th>
 										<th style="width : 10%">고객 ID</th>
 										<th style="width : 10%">주문/예약 번호</th>
-										<th style="width : 30%">신고 사유</th>
-										<th style="width : 20%">신고일</th>
+										<th style="width : 35%">신고 사유</th>
+										<th style="width : 10%">신고일</th>
 									</tr>
 								</thead>
 							
@@ -100,7 +106,8 @@
 											<td>${l.reportCategory}</td>
 											<td>${l.companyName}</td>
 											<td>${l.customerId}</td>
-											<td>${l.reportContent}</td>
+											<td><a href="Page.html" 
+	onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">${l.reportContent}</a></td>
 											<td>${l.reportMemo}</td>
 											<td>${l.createdate}</td>
 										</tr>

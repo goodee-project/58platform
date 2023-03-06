@@ -10,26 +10,25 @@
 	 	, report.report_content reportContent
 	 	, report.report_memo reportMemo
 	 	, report.createdate
-	 	 <if test="#{reportCategory eq '쇼핑'}">
+	 	<if test="reportCategory eq '쇼핑'">
 	 		, shopping_company.company_name companyName
 	 		, shopping_order_sheet.customer_id customerId
 	 	</if>
-	 	<if test="#{reportCategory eq '예약'}">
+	 	<if test="reportCategory eq '예약'">
 	 		, booking_company.booking_company_name companyName
 	 		, booking.customer_id customerId
 	 	</if>
 	 FROM 
 	 	report
-	 	<if test="#{reportCategory eq '쇼핑'}">
+	 	<if test="reportCategory eq '쇼핑'">
 	 		INNER JOIN shopping_goods_order
 	 		ON shopping_goods_order.goods_order_no = report.report_content
 	 		INNER JOIN shopping_order_sheet
 	 		ON shopping_order_sheet.order_sheet_no = shopping_goods_order.order_sheet_no
 	 		INNER JOIN shopping_company
 	 		ON shopping_company.company_id = shopping_order_sheet.company_id
-	 	</if>
-	 	
-	 	<if test="#{reportCategory eq '예약'}">
+	 	</if> 	
+	 	<if test="reportCategory eq '예약'">
 	 		INNER JOIN booking
 	 		ON booking.booking_no = report.report_content
 	 		INNER JOIN booking_company
