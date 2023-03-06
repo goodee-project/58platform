@@ -6,6 +6,7 @@ import lombok.Data;
 public class ShoppingGoods {
 	private int goodsNo;
 	private int typeNo;
+	private String companyId;
 	private String goodsName;
 	private int goodsPrice;
 	private String goodsActive;
