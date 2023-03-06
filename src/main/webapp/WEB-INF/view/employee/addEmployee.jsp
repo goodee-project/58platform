@@ -9,13 +9,14 @@
 	</head>
 	<body>
 		<h1>직원등록</h1>
-		<form action="${pageContext.request.contextPath}/employee/addEmployee" method="post">
+		<form action="${pageContext.request.contextPath}/employee/emp/addEmployee" method="post">
 			<input type="hidden" name="employeeLevel" value="사원">
 			<table>
 				<tr>
 					<td>ID</td>
 					<td>
 						<input type="text" name="employeeId">
+						<
 					</td>
 				</tr>
 				<tr>

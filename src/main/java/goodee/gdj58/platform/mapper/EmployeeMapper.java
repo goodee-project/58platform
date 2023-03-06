@@ -12,6 +12,11 @@ import goodee.gdj58.platform.vo.TotalId;
 @Mapper
 public interface EmployeeMapper {
 	
+	// 직원 비활성화
+	int updateEmployeeDeactive(TotalId totalId);
+	// 직원 활성화
+	int updateEmployeeActive(TotalId totalId);
+	
 	// 직원등록
 	int insertEmployee(Employee employee);
 	// 직원정보등록

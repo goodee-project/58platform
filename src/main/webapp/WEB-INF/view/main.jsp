@@ -8,11 +8,11 @@
 		<title>main</title>
 	</head>
 	<body>
-		${login.employeeName}
+		${loginEmp.employeeName}
 		로그인
-		<c:if test="${login != null}">
-			<a href="${pageContext.request.contextPath}/employee/logout">로그아웃</a>
-			<a href="${pageContext.request.contextPath}/employee/employeeList">직원관리</a>
+		<c:if test="${loginEmp != null}">
+			<a href="${pageContext.request.contextPath}/employee/emp/logout">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/employee/emp/employeeList">직원관리</a>
 		</c:if>
 	</body>
 </html>

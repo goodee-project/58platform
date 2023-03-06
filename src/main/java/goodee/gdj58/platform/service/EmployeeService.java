@@ -18,9 +18,20 @@ public class EmployeeService {
 	@Autowired 
 	private EmployeeMapper employeeMapper;
 	
+	// 직원 비활성화
+	public int modifyEmployeeDeactive(TotalId totalId) {
+		return employeeMapper.updateEmployeeDeactive(totalId);
+	}
+	// 직원 활성화
+	public int modifyEmployeeActive(TotalId totalId) {
+		return employeeMapper.updateEmployeeActive(totalId);
+	}
+	
 	// 직원등록
 	public int addEmployee(Employee employee, EmployeeInfo employeeInfo, TotalId totalId) {
-		return employeeMapper.insertEmployee(employee) + employeeMapper.insertEmployeeInfo(employeeInfo) + employeeMapper.insertEmployee(employee);
+		employeeMapper.insertEmployee(employee);
+		employeeMapper.insertEmployeeInfo(employeeInfo);
+		return employeeMapper.insertTotalId(totalId);
 	}
 	
 	// 직원 목록

@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.EmployeeMapper">
 	
+	<!-- 직원 비활성화 -->
+	<update id="updateEmployeeDeactive" parameterType="goodee.gdj58.platform.vo.TotalId">
+		UPDATE total_id SET 
+			total_id_active = '비활성화'
+			, total_id_deactive_memo = '퇴사'
+			, total_id_deactive_date = CURDATE()
+			, total_id_reactive_date = NULL
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 직원 활성화 -->
+	<update id="updateEmployeeActive" parameterType="goodee.gdj58.platform.vo.TotalId">
+		UPDATE total_id SET 
+			total_id_active = '활성화'
+			, total_id_deactive_memo = NULL
+			, total_id_deactive_date = NULL
+			, total_id_reactive_date = CURDATE()
+		WHERE id = #{id}
+	</update>
+	
 	<!-- 직원등록 -->
 	<insert id="insertEmployee" parameterType="goodee.gdj58.platform.vo.Employee">
 		INSERT INTO employee(
@@ -40,7 +60,7 @@
 			, total_id_active
 			, createdate
 		) VALUES (
-			#{employeeId}
+			#{id}
 			, '플랫폼'
 			, '활성화'
 			, CURDATE()
