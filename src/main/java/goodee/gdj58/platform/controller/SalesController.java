@@ -17,7 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 public class SalesController {
 	@Autowired SalesService salesService;
 	
-	@GetMapping("/sales/payStatistics")
+	// 페이머니 충전 통계 (일/월/연/기간별 조회)
+	@GetMapping("/employee/sales/payStatistics")
 	public String getSavePayList(Model model
 									// ymd : year/month/date (연별/월별/일별)
 									, @RequestParam(value="ymd", defaultValue="d") String ymd
@@ -40,6 +41,12 @@ public class SalesController {
 		List<Map<String,Object>> list = salesService.getSavePayListByDate(kind, startDate, endDate);
 		int totalSavePayAllTime = salesService.getTotalSavePayAllTime();
 		
+		// 기간설정된 경우 기간에따른 총 페이머니 및 건수 조회
+		if(startDate != "" && endDate != "") {
+			Map<String,Object> map = salesService.getCntAndSumByPeriod(startDate, endDate);
+			model.addAttribute("map",map);
+		}
+		
 		model.addAttribute("list",list);
 		model.addAttribute("ymd",ymd);
 		model.addAttribute("startDate",startDate);
@@ -47,4 +54,27 @@ public class SalesController {
 		model.addAttribute("totalSavePayAllTime",totalSavePayAllTime);
 		return "sales/payStatistics";
 	}
+	
+	// 회원의 페이머니 충전 내역 통계 (기간)
+	@GetMapping("/employee/sales/paySaveHistory")
+	public String getSavePayHistoryByCustomer(Model model
+											, @RequestParam(value="startDate", defaultValue="") String startDate
+											, @RequestParam(value="endDate", defaultValue="") String endDate) {
+		// log.debug("\u001B[46m"+"테스트");
+		log.debug("\u001B[46m"+"startDate : "+startDate);
+		
+		// 기간설정된 경우 기간에따른 총 페이머니 및 건수 조회
+		if(startDate != "" && endDate != "") {
+			Map<String,Object> map = salesService.getCntAndSumByPeriod(startDate, endDate);
+			model.addAttribute("map",map);
+		}
+		
+		List<Map<String,Object>> list = salesService.getSavePayListByCustomer(startDate, endDate);
+		model.addAttribute("list",list);
+		model.addAttribute("startDate",startDate);
+		model.addAttribute("endDate",endDate);
+		
+		return "sales/paySaveHistory";
+	}
+	
 }

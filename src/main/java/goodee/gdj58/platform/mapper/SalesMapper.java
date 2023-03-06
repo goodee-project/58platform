@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SalesMapper {
 	
 	// 페이머니
+	List<Map<String,Object>> selectSavePayListByCustomer(Map<String,Object> paramMap); // 모든 회원의 충전내역 연대순 출력
 	List<Map<String,Object>> selectSavePayListByDate(Map<String,Object> paramMap); // 일월연별 목록출력
-	int selectTotalSavePayAllTime();
+	Map<String,Object> selectCntAndSumByPeriod(Map<String,Object> paramMap); // 기간동안의 총액 및 건수
+	int selectTotalSavePayAllTime(); // 누적금액
 }

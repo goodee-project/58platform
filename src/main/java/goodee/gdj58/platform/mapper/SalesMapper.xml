@@ -4,6 +4,42 @@
 	
 	<!-- 페이머니조회관련 -->
 	
+	<!-- 충전금액 상위 10명 회원 조회 -->
+	<select id="selectTopTenCustomer"
+		resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT 
+			p.customer_id customerId,
+			c.customer_name customerName,
+			SUM(p.price) totalChargeAmount
+		FROM pay_save_history p
+		INNER JOIN customer c ON p.customer_id = c.customer_id
+		WHERE p.pay_save_history_category = '충전'
+		AND DATE(p.createdate) BETWEEN #{startDate} AND #{endDate}
+		GROUP BY p.customer_id, c.customer_name
+		ORDER BY totalChargeAmount DESC
+		LIMIT 10
+	</select>
+	
+	<!-- 고객포함 개별 충전내역목록 출력하기 -->
+	<select id="selectSavePayListByCustomer"
+		resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT
+			p.customer_id customerId
+			, c.customer_name customerName
+			, p.price price
+			, DATE(p.createdate) date
+		FROM pay_save_history p
+		INNER JOIN customer c
+		ON p.customer_id = c.customer_id
+		WHERE pay_save_history_category = '충전'
+		<if test="startDate != ''">
+			AND DATE(p.createdate) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		ORDER BY p.createdate DESC
+	</select>
+	
 	<!-- 일/월/연 별 페이충전총액목록 조회 -->
 	<select id="selectSavePayListByDate"
 		resultType="java.util.Map"
@@ -17,9 +53,22 @@
 			AND DATE(createdate) BETWEEN #{startDate} AND #{endDate}
 		</if>
 		GROUP BY DATE_FORMAT(createdate, #{kind})
+		ORDER BY createdate DESC
 	</select>
 	
-	<!-- 누적 페이충전총액 조회 -->
+	<!-- 해당기간 누적 페이충전총액 및 건수 조회 -->
+	<select id="selectCntAndSumByPeriod"
+		parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+			COUNT(*) as ttlCnt
+			, SUM(price) as ttlSum
+		FROM pay_save_history
+		WHERE pay_save_history_category = '충전'
+		AND DATE(createdate) BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<!-- 올타임 누적 페이충전총액 조회 -->
 	<select id="selectTotalSavePayAllTime"
 		resultType="int">
 		SELECT

@@ -19,6 +19,14 @@ public class SalesService {
 	private SalesMapper salesMapper;
 	
 	// 페이머니 관련
+	// 페이머니 충전 일괄출력
+	public List<Map<String,Object>> getSavePayListByCustomer(String startDate, String endDate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		return salesMapper.selectSavePayListByCustomer(paramMap);
+	}
+	
 	// 일월연별 충전금(페이머니) 목록출력
 	public List<Map<String,Object>> getSavePayListByDate(String kind, String startDate, String endDate) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -26,6 +34,13 @@ public class SalesService {
 		paramMap.put("startDate", startDate);
 		paramMap.put("endDate", endDate);
 		return salesMapper.selectSavePayListByDate(paramMap);
+	}
+	// 기간동안의 총액 및 총건수
+	public Map<String,Object> getCntAndSumByPeriod(String startDate, String endDate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		return salesMapper.selectCntAndSumByPeriod(paramMap);
 	}
 	// 누적 총 충전액 조회
 	public int getTotalSavePayAllTime() {

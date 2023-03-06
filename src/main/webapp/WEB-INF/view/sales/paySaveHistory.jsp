@@ -26,7 +26,6 @@
 	<link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
 	<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
 	<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
-	
 </head>
 <body>
 	<!--start wrapper-->
@@ -49,7 +48,7 @@
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">날짜별 페이충전금액 및 누적액 조회</li>
+								<li class="breadcrumb-item active" aria-current="page">All Customer Save PayMoney History</li>
 							</ol>
 						</nav>
 					</div>
@@ -67,34 +66,22 @@
 					</div>
 				</div>
 				<!--end breadcrumb-->
-				<h6 class="mb-0 text-uppercase">일별/월별/연별/기간별 페이충전금액 조회</h6>
+				<h6 class="mb-0 text-uppercase">모든 회원 일일 충전내역 총 출력</h6>
 				<hr/>
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
-							<!-- 누적총액확인 -->
-							<div>
-								누적충전금액(All Time) : 
-								<fmt:formatNumber type="number" value="${totalSavePayAllTime}"/> (￦)
-							</div>
-							
-							<!-- 일/월/연별 조회하기 -->
-							<div>
-								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=d&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">일별</a>
-								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=m&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">월별</a>
-								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=y&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">연별</a>
-							</div>
 							
 							<!-- 기간설정 -->
 							<div>
-								<form action="${pageContext.request.contextPath}/employee/sales/payStatistics">
+								<form action="${pageContext.request.contextPath}/employee/sales/paySaveHistory">
 									조회 기간
 									<input type="date" name="startDate" value="${startDate}">
 									~
 									<input type="date" name="endDate" value="${endDate}">
 									<input type="hidden" name="ymd" value="${ymd}">
 									<button type="submit" class="btn btn-sm btn-success">조회</button>
-									<a href="${pageContext.request.contextPath}/employee/sales/payStatistics" class="btn btn-sm btn-info">reset</a>
+									<a href="${pageContext.request.contextPath}/employee/sales/paySaveHistory" class="btn btn-sm btn-info">reset</a>
 								</form>
 								
 							</div>
@@ -104,24 +91,26 @@
 									<br>'${map.ttlCnt}'건의 충전이 있었습니다. 
 								</div>
 							</c:if>
-							<div>
-								<a href="${pageContext.request.contextPath}/employee/sales/paySaveHistory" class="btn btn-sm btn-danger">모든 회원 충전금내역조회</a>
-							</div>
+							<a href="${pageContext.request.contextPath}/employee/sales/payStatistics" class="btn btn-sm btn-danger">페이충전 누적액 조회</a>
+							
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th style="width : 10%">날짜</th>
-										<th style="width : 10%">충전총액(￦)</th>
+										<th>회원ID</th>
+										<th>회원이름</th>
+										<th>충전페이머니</th>
+										<th>날짜</th>
 									</tr>
 								</thead>
-							
 								<tbody>
 									<c:forEach var="p" items="${list}">
 										<tr>
-											<td>${p.date}</td>
+											<td>${p.customerId}</td>
+											<td>${p.customerName}</td>
 											<td>
-												<fmt:formatNumber type="number" value="${p.totalSavePay}"/>
+												<fmt:formatNumber type="number" value="${p.price}"/>
 											</td>
+											<td>${p.date}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
