@@ -14,7 +14,6 @@ public class BookingCompany {
 	private String bookingCompanyBank;
 	private String bookingCompanyAccount;
 	private String bookingCompanyNumber;
-	private String bookingCompanyActive;
 	private String bookingCompanyInfoAgree;
 	private int bookingCompanyFailLoginCount;
 	private double bookingCompanyLatitude;
