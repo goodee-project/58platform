@@ -11,13 +11,13 @@ import goodee.gdj58.platform.vo.Notice;
 public interface NoticeMapper {
 	
 	// 공지시항 수정
-	int updateNotice(int noticeNo);
+	int updateNotice(Notice notice);
 	
 	// 공ㅈ시항 삭제
 	int deleteNotice(int noticeNo);
 	
 	// 공지사항 상세보기
-	List<Notice> selectNoticeOne(int noticeNo);
+	Notice selectNoticeOne(int noticeNo);
 	
 	// 공지사항 등록
 	int insertNotice(Notice notice);

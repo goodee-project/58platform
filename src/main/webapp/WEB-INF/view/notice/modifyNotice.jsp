@@ -14,11 +14,10 @@
 		</div>
 		
 		<div>
-		<!-- Notice Form.. -->
-		<form method="post" action="${pageContext.request.contextPath}/employee/notice/addNotice">
+		<!-- Notice modfiy Form.. -->
+		<form method="post" action="${pageContext.request.contextPath}/employee/notice/modifyNotice">
 			<table border="1">
-			<c:forEach var="n" items="${list}">
-				<input type="hidden" name="noticeNo" value="${m.noticeNo}">
+				<input type="hidden" name="noticeNo" value="${n.noticeNo}">
 				<tr>
 					<th>분류</th>
 					<td>
@@ -28,22 +27,26 @@
 				<tr>
 					<th>제목</th>
 					<td>
-						<input type="text" name="noticeTitle" value="${n.noticeTitle}"placeholder="제목을 입력하세요">
+						<input type="text" name="noticeTitle" value="${n.noticeTitle}" placeholder="제목을 입력하세요">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea rows="5" cols="80" name="noticeMemo" value="${n.noticeMemo}" placeholder="내용을 입력하세요"></textarea>
+						<textarea rows="5" cols="80" name="noticeMemo" placeholder="내용을 입력하세요">${n.noticeMemo}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>작성일</th>
 					<td>
-						<input type="text" name="noticeTitle" value="${n.noticeTitle}"placeholder="제목을 입력하세요">
+						<input type="text" name="createdate" value="${n.createdate}" readonly="readonly">
+					</td>
+				</tr>	
+				<tr>
+					<th>최종 수정일</th>
+					<td>
+						<input type="text" name="updatedate" value="${n.updatedate}" readonly="readonly">
 					</td>
 				</tr>
-				</c:forEach>
-				
 			</table>
 			<button type="submit" id="addBtn">공지 수정</button>
 		</form>

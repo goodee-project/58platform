@@ -18,8 +18,8 @@ public class NoticeService {
 	
 		
 	// 공지사항 수정
-	public int modifyNotice(int noticeNo) {
-		return noticeMapper.updateNotice(noticeNo);
+	public int modifyNotice(Notice notice) {
+		return noticeMapper.updateNotice(notice);
 	}
 	
 	
@@ -29,7 +29,7 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세보기
-	public List<Notice> noticeOne(int noticeNo) {
+	public Notice getNoticeOne(int noticeNo) {
 		return noticeMapper.selectNoticeOne(noticeNo);
 	}
 	

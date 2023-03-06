@@ -4,7 +4,7 @@
 	
 	
 	<!-- 공지사항 수정 -->
-	<update id="updateNotice" parameterType="goodee.gdj58.platform.vo.Notice">
+	<update id="updateNotice" parameterType="goodee.gdj58.platform.vo.Notice" >
 		UPDATE notice
 		SET
 		notice_no = #{noticeNo}
@@ -15,22 +15,6 @@
 		WHERE notice_no = #{noticeNo} 
 	</update>
 	
-	<!-- 공지사항 상세보기 
-	<select id="selectNoticeOne"
-		resultType="goodee.gdj58.platform.vo.Notice"
-		parameterType="int">
-		SELECT
-			notice_no noticeNo
-			, service_name serviceName
-			, notice_title noticeTitle
-			, notice_memo noticeMemo
-			, createdate
-			, updatedate
-		FROM notice
-		WHERE notice_no = #{noticeNo}
-	</select>
-	-->
-	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM notice
@@ -38,9 +22,7 @@
 	</delete>
 	
 	<!-- 공지사항 상세보기 -->
-	<select id="selectNoticeOne"
-		resultType="goodee.gdj58.platform.vo.Notice"
-		parameterType="int">
+	<select id="selectNoticeOne" resultType="goodee.gdj58.platform.vo.Notice">
 		SELECT
 			notice_no noticeNo
 			, service_name serviceName

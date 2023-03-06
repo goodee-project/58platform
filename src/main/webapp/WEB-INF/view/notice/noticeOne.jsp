@@ -27,26 +27,24 @@
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
-			<c:forEach var="e" items="${list}">
-				<tr>
-					<td>${e.noticeNo}</td>
-					<td>${e.serviceName}</td>
-					<td>${e.noticeTitle}</td>
-					<td>${e.noticeMemo}</td>
-					<td>${e.createdate}</td>
-					<td>${e.updatedate}</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/employee/notice/modifyNotice?noticeNo=${e.noticeNo}">
-							수정
-						</a>
-					</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeNo=${e.noticeNo}">
-							삭제
-						</a>
-					</td>
-				</tr>
-			</c:forEach>
+			<tr>
+				<td>${n.noticeNo}</td>
+				<td>${n.serviceName}</td>
+				<td>${n.noticeTitle}</td>
+				<td>${n.noticeMemo}</td>
+				<td>${n.createdate}</td>
+				<td>${n.updatedate}</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/employee/notice/modifyNotice?noticeNo=${n.noticeNo}">
+						수정
+					</a>
+				</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeNo=${n.noticeNo}">
+						삭제
+					</a>
+				</td>
+			</tr>
 		</table>
 	</body>
 </html>

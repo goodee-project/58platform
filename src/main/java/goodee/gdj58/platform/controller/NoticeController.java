@@ -21,66 +21,69 @@ public class NoticeController {
 
 		
 	// 공지사항 수정
-	@GetMapping("/employee/notice/modifyNotice") public String modifyNoticeList(Model model
-																,@RequestParam(value="noticeNo") int noticeNo) {
-		log.debug("\u001B[45m 수정공지번호 : "+ noticeNo);
-		
-		List<Notice> list = noticeService.noticeOne(noticeNo);
-		return "/notice/modifyNotice?noticeNo="+noticeNo; 
+	@GetMapping("/employee/notice/modifyNotice") 
+	public String modifyNoticeList(Model model
+										,@RequestParam(value="noticeNo") int noticeNo) {
+	   log.debug("\u001B[45m 수정에 표시할 공지번호 : "+ noticeNo);
+	   
+	   Notice notice = noticeService.getNoticeOne(noticeNo);
+	   model.addAttribute("n", notice); 
+	   
+	   return "notice/modifyNotice"; 
 	}
-	
-	@PostMapping("/employee/notice/modifyNotice") public String modifyNotice(Model model
-																,@RequestParam(value="noticeNo") int noticeNo) {
-		log.debug("\u001B[45m 수정공지번호 : "+ noticeNo);
+	   
+	@PostMapping("/employee/notice/modifyNotice") 
+	public String modifyNotice(Model model, Notice notice) {
 		
-		noticeService.modifyNotice(noticeNo);
-		return "/notice/noticeOne?noticeNo="+noticeNo; 
-		
-		int row = noticeService.modifyNotice(noticeNo);
-		
-		
-		if(row == 0) {
-			return "redirect:/employee/notice/modifyNotice?noticeNo="+noticeNo;
-			
-		}
-		return "/notice/noticeOne?noticeNo="+noticeNo; 
-	}
+	   log.debug("\u001B[45m 수정공지번호 : "+ notice);
+	      
+	   int row = noticeService.modifyNotice(notice);
+	   if(row == 0) {
+	      return "redirect:/employee/notice/modifyNotice?noticeNo="+notice.getNoticeNo();
+	      
+	   } 
+	   return "redirect:/employee/notice/noticeOne?noticeNo="+notice.getNoticeNo(); 
+ }
 	
 	
 	// 공지사항 삭제
-	@GetMapping("/employee/notice/removeNotice") public String removeNotice(Model model
-																,@RequestParam(value="noticeNo") int noticeNo) {
+	@GetMapping("/employee/notice/removeNotice") 
+	public String removeNotice(Model model
+									,@RequestParam(value="noticeNo") int noticeNo) {
 		log.debug("\u001B[45m 삭제공지번호 : "+ noticeNo);
 		
 		int row = noticeService.removeNotice(noticeNo);
 		if(row == 0) {
-			return "/notice/noticeOne?noticeNo="+noticeNo; 
+			return "notice/noticeOne?noticeNo="+noticeNo; 
 		}
 		
 		return "redirect:/employee/notice/noticeList";
 	}
 	
 	// 공지사항 상세보기 
-	@GetMapping("/employee/notice/noticeOne") public String noticeOne(Model model
-																,@RequestParam(value="noticeNo") int noticeNo) {
+	@GetMapping("/employee/notice/noticeOne") 
+	public String noticeOne(Model model
+								,@RequestParam(value="noticeNo") int noticeNo) {
 		log.debug("\u001B[45m 상세공지번호 : "+ noticeNo);
 		
-		List<Notice> list = noticeService.noticeOne(noticeNo);
+		Notice notice = noticeService.getNoticeOne(noticeNo);
 		
-		model.addAttribute("list", list); 
+		model.addAttribute("n", notice); 
 		return "notice/noticeOne";
 	}
 	
 	// 공지사항 추가
-	@GetMapping("/employee/notice/addNotice") public String addNotice(Model model
-																,@RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
+	@GetMapping("/employee/notice/addNotice") 
+	public String addNotice(Model model
+								,@RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
 		log.debug("\u001B[45m 서비스명 : "+ serviceName);
 		model.addAttribute("serviceName",serviceName);
 		return "notice/addNotice";
 	}
 	
-	@PostMapping("/employee/notice/addNotice") public String addNotice(Model model, Notice notice
-																,@RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
+	@PostMapping("/employee/notice/addNotice") 
+	public String addNotice(Model model, Notice notice
+								,@RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
 		
 		log.debug("\u001B[45m 공지 추가 : "+notice.getServiceName());
 		log.debug("\u001B[45m 공지 추가 : "+notice.getNoticeTitle());
