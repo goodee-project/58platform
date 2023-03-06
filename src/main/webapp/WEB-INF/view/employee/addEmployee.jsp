@@ -6,17 +6,41 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>addEmployee</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#ckBtn').click(function(){
+					$.ajax({
+						url:'${pageContext.request.contextPath}/employeeIdck'
+						, type:'get'
+						, data : {employeeId:$('#id').val()}
+						, success:function(model){ // model : 'YES' / 'NO'
+							if(model=='YES') {
+								// 사용가능한 아이디
+								$('#employeeId').val($('#id').val());
+							} else {
+								// 사용중인 아이디
+								alert($('#id').val()+'는 사용중인 아이디입니다.');
+							}
+						}
+					});
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<h1>직원등록</h1>
+		<div>
+			<input type="text" id="id">
+			<button type="button" id="ckBtn">중복검사</button>
+		</div>
 		<form action="${pageContext.request.contextPath}/employee/emp/addEmployee" method="post">
 			<input type="hidden" name="employeeLevel" value="사원">
 			<table>
 				<tr>
 					<td>ID</td>
 					<td>
-						<input type="text" name="employeeId">
-						<
+						<input type="text" name="employeeId" id="employeeId" readonly="readonly">
 					</td>
 				</tr>
 				<tr>

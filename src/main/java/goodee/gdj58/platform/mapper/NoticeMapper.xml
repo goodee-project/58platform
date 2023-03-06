@@ -15,7 +15,7 @@
 		WHERE notice_no = #{noticeNo} 
 	</update>
 	
-	<!-- 공지사항 상세보기 -->
+	<!-- 공지사항 상세보기 
 	<select id="selectNoticeOne"
 		resultType="goodee.gdj58.platform.vo.Notice"
 		parameterType="int">
@@ -29,6 +29,7 @@
 		FROM notice
 		WHERE notice_no = #{noticeNo}
 	</select>
+	-->
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">

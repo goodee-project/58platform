@@ -34,6 +34,17 @@ public class EmployeeService {
 		return employeeMapper.insertTotalId(totalId);
 	}
 	
+	// 아이디 중복 체크 null을 반환하면 사용가능한 아이디, 아이디를 반환하면 사용불가능한 아이디
+	public String getEmployeeIdCk(String employeeId) {
+		// null을 반환하면 사용가능한 아이디, 아이디를 반환하면 사용불가능한 아이디
+		String resultStr = "NO";
+		
+		if(employeeMapper.selectTotalIdCk(employeeId) == null) {
+			resultStr = "YES";
+		}
+		return resultStr;
+	}
+	
 	// 직원 목록
 	public List<Map<String, Object>> getEmployeeList() {
 		return employeeMapper.selectEmployeeList();

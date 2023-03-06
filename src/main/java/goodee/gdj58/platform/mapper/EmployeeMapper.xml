@@ -67,6 +67,14 @@
 		)
 	</insert>
 	
+	<!-- 아이디 중복 체크 -->
+	<select id="selectTotalIdCk" parameterType="string" resultType="string">
+		SELECT 
+			id 
+		FROM total_id 
+		WHERE id = #{employeeId}
+	</select>
+	
 	<!-- 직원 목록 -->
 	<select id="selectEmployeeList" resultType="java.util.Map">
 		SELECT 

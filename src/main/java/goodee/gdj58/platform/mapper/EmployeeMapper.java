@@ -23,6 +23,8 @@ public interface EmployeeMapper {
 	int insertEmployeeInfo(EmployeeInfo employeeInfo);
 	// total아이디 등록
 	int insertTotalId(TotalId totalId);
+	// 아이디 중복 체크 null을 반환하면 사용가능한 아이디, 아이디를 반환하면 사용불가능한 아이디
+	public String selectTotalIdCk(String id);
 	
 	// 직원 목록
 	List<Map<String, Object>> selectEmployeeList();
