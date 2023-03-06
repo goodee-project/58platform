@@ -8,12 +8,19 @@
 </head>
 	<body>
 		<h1>공지 등록</h1>
-		<form method="post" action="${pageContext.request.contextPath}/notice/addNotice">
+		
+		<div>
+			<input type="button" value="뒤로가기" onclick="history.back();">
+		</div>
+		
+		<div>
+		<!-- Notice Form.. -->
+		<form method="post" action="${pageContext.request.contextPath}/employee/notice/addNotice">
 			<table border="1">
 				<tr>
 					<th>분류</th>
 					<td>
-						<input type="text" name="serviceName" value="${serviceName}">
+						<input type="text" name="serviceName" value="${serviceName}" readonly="readonly">
 					</td>
 				</tr>
 				<tr>
@@ -24,11 +31,12 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<textarea rows="5" cols="80" name="serviceName" placeholder="내용을 입력하세요"></textarea>
+						<textarea rows="5" cols="80" name="noticeMemo" placeholder="내용을 입력하세요"></textarea>
 					</td>
 				</tr>
 			</table>
 			<button type="submit" id="addBtn">공지 추가</button>
 		</form>
+		</div>
 	</body>
 </html>

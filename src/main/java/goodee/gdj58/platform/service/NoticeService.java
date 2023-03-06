@@ -16,12 +16,31 @@ import goodee.gdj58.platform.vo.Notice;
 public class NoticeService {
 	@Autowired private NoticeMapper noticeMapper;
 	
+		
+	// 공지사항 수정
+	public int modifyNotice(int noticeNo) {
+		return noticeMapper.updateNotice(noticeNo);
+	}
+	
+	
+	// 공지사항 삭제
+	public int removeNotice(int noticeNo) {
+		return noticeMapper.deleteNotice(noticeNo);
+	}
+	
+	// 공지사항 상세보기
+	public List<Notice> noticeOne(int noticeNo) {
+		return noticeMapper.selectNoticeOne(noticeNo);
+	}
+	
+	// 공지사항 추가
+	public int addNotice(Notice notice) {
+		return noticeMapper.insertNotice(notice);
+	}
 	
 	// 공지사항 리스트
 	public List<Notice> getShoppingNoticeList(String serviceName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		return noticeMapper.selectShoppingNoticeList(paramMap, serviceName);
 	}
-
-	
 }
