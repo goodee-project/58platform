@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.platform.mapper.Company">
+
+	<!-- 예약기업 조회 -->
+	<select id="selectBookingCompanyList" 
+		resultType="goodee.gdj58.platform.vo.BookingCompany"
+		parameterType="java.util.Map">
+		
+		SELECT bc.booking_company_id id, bc.booking_company_name "name"
+			, ti.total_id_active active, ti.createdate createdate
+		FROM booking_company bc
+		INNER JOIN total_id ti ON bc.booking_company_id = ti.id
+		
+	</select>
+	<!-- 예약기업 상세 -->
+	<select id="selectBookingCompanyOneList" 
+		resultType="goodee.gdj58.platform.vo.BookingCompany"
+		parameterType="java.util.Map">
+		
+		SELECT
+			emp_no empNo<!-- rs.getInt("emp_no"),  new Employee().setEmpNo()-->
+			, emp_id empId
+			, emp_name empName
+		FROM employee
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				emp_name like CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		ORDER BY emp_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- 예약기업 수(페이징용) -->
+	<select id="cntBookingCompanyList"
+		resultType="int"
+		parameterType="java.lang.String">
+		
+		SELECT COUNT(*) count
+		FROM employee
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				emp_name like CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 쇼핑기업 조회 -->
+	<select id="selectShoppingCompanyList" 
+		resultType="goodee.gdj58.platform.vo.ShoppingCompany"
+		parameterType="java.util.Map">
+		
+		SELECT sc.company_id id, sc.company_name "name"
+		, ti.total_id_active active, ti.createdate createdate
+		FROM shopping_company sc
+		INNER JOIN total_id ti ON sc.company_id = ti.id
+		
+	</select>
+	<!-- 쇼핑기업 상세 -->
+	<select id="selectShoppingCompanyOneList" 
+		resultType="goodee.gdj58.platform.vo.ShoppingCompany"
+		parameterType="java.util.Map">
+		
+		SELECT
+			emp_no empNo<!-- rs.getInt("emp_no"),  new Employee().setEmpNo()-->
+			, emp_id empId
+			, emp_name empName
+		FROM employee
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				emp_name like CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		ORDER BY emp_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- 쇼핑기업 수(페이징용) -->
+	<select id="cntShoppingCompanyList"
+		resultType="int"
+		parameterType="java.lang.String">
+		
+		SELECT COUNT(*) count
+		FROM employee
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				emp_name like CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+	</select>
+</mapper>
