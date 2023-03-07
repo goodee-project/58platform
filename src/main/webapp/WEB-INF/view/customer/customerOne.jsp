@@ -20,10 +20,12 @@
 	<tr>
 		<th>ID</th>
 		<th>이름</th>
+		<th>닉네임</th>
 		<th>회원등급</th>
-		<th>상태</th>
+		<th>잔여 페이머니</th>
+		<th>회원 나이</th>
+		<th>회원 성별</th>
 		<th>가입일</th>
-		<th>회원상세</th>
 	</tr>
 	<c:forEach var="c" items="${list}">
 		<tr>

@@ -24,19 +24,18 @@ public class CustomerController {
                                 , @RequestParam(value="customerId", defaultValue = "") String customerId) {
 
         log.debug("\u001B[44m" + active + "<-- active 디버깅");
-        log.debug("\u001B[44m" + customerId + "<-- customerId 디버깅");
-
-        List<Map<String, Object>> list = customerService.getCustomerList();
+        log.debug("\u001B[44m" + customerId + "<-- customerId customerList디버깅");
 
         if(active != null) {
         	customerService.modifyCustomerActive(customerId, active);
         }
+        List<Map<String, Object>> list = customerService.getCustomerList();
         model.addAttribute("list", list);
 
         return "customer/customerList";
     }
 	
-	// 회원조회 상세
+	// 회원 상세조회
 	@GetMapping("/employee/customer/customerOne")
 	public String customerOne() {
 		
@@ -45,16 +44,30 @@ public class CustomerController {
 	
 	// 회원 포인트 내역조회
 	@GetMapping("/employee/customer/pointDetails")
-	public String pointDetails() {
+	public String pointDetails(Model model
+    							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
+        log.debug("\u001B[44m" + customerId + "<-- customerId pointDetails디버깅");
 		
+        int customerPoint = customerService.getsCustomerPointList(customerId);
+        List<Map<String, Object>> list = customerService.getPointDetails(customerId);
+        model.addAttribute("customerPoint", customerPoint);
+        model.addAttribute("list", list);
+        
 		return "customer/pointDetails";
 	}
 	
 	// 회원 페이머니 내역조회
-	@GetMapping("/employee/customer/paymoneyDetails")
-	public String paymoneyDetails() {
-		
-		return "customer/paymoneyDetails";
+	@GetMapping("/employee/customer/payMoneyDetails")
+	public String paymoneyDetails(Model model
+    							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
+        log.debug("\u001B[44m" + customerId + "<-- customerId paymoneyDetails디버깅");
+
+        int customerPayMoney = customerService.getsCustomerPayMoneyList(customerId);
+        List<Map<String, Object>> list = customerService.getPayMoneyDetails(customerId);
+        model.addAttribute("customerPayMoney", customerPayMoney);
+        model.addAttribute("list", list);
+        
+		return "customer/payMoneyDetails";
 	}
 	
 	// 탈퇴 회원조회

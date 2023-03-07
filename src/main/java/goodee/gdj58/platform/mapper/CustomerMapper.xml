@@ -9,16 +9,86 @@
 		SELECT c.customer_id customerId, c.customer_name customerName, c.customer_rank customerRank
 			, ti.total_id_active totalIdActive, ti.createdate createdate
 		FROM customer c
-		INNER JOIN total_id ti ON c.customer_id = ti.id
-		
+		INNER JOIN total_id ti ON c.customer_id = ti.id		
 	</select>
 	
+	<!-- 회원등급 수정 -->
 	<select id="updateCustomerActive"
 		resultType="java.util.Map"
 		parameterType="java.lang.String">
-		
-		UPDATE total_id SET total_id_active = #{active} WHERE id = #{customerId};
-		
+				
+		UPDATE total_id SET total_id_active = #{active} WHERE id = #{customerId};		
 	</select>
-
+	
+	<!-- 회원 포인트 내역 조회 -->
+	<select id="selectPointDetails"
+		resultType="java.util.Map"
+		parameterType="java.lang.String">
+		
+		SELECT ROW_NUMBER() OVER(ORDER BY createdate ASC) no,
+			pointHistoryCategory,
+			pointHistoryContent,
+			point,
+			createdate
+		FROM (
+			SELECT point_save_history_category pointHistoryCategory,
+				point_save_history_content pointHistoryContent,
+				point,
+				createdate
+			FROM point_save_history
+			WHERE customer_id = #{customerId}
+			UNION ALL
+			SELECT point_use_history_category,
+				point_use_history_content,
+				point,
+				createdate
+			FROM point_use_history
+			WHERE customer_id = #{customerId}
+		) AS pointDetails
+		ORDER BY No DESC
+	</select>
+	
+	<!-- 회원 잔여 포인트 -->
+	<select id="selectCustomerPoint"
+		resultType="int"
+		parameterType="java.lang.String">
+		
+		SELECT customer_point customerPoint FROM customer WHERE customer_id = #{customerId}
+	</select>
+	
+	<!-- 회원 페이머니 내역 조회 -->
+	<select id="selectPayMoneyDetails"
+		resultType="java.util.Map"
+		parameterType="java.lang.String">
+		
+		SELECT ROW_NUMBER() OVER(ORDER BY createdate ASC) no,
+			paySaveHistoryCategory,
+			paySaveHistoryContent,
+			price,
+			createdate
+		FROM (
+			SELECT pay_save_history_category paySaveHistoryCategory,
+				pay_save_history_content paySaveHistoryContent,
+				price,
+				createdate
+			FROM pay_save_history
+			WHERE customer_id = #{customerId}
+			UNION ALL
+			SELECT pay_use_history_category,
+				pay_use_history_content,
+				price,
+				createdate
+			FROM pay_use_history
+			WHERE customer_id = #{customerId}
+		) AS payDetails
+		ORDER BY No DESC
+	</select>
+	
+	<!-- 회원 잔여 페이머니 -->
+	<select id="selectCustomerPayMoney"
+		resultType="int"
+		parameterType="java.lang.String">
+		
+		SELECT customer_pay customerPay FROM customer WHERE customer_id = #{customerId}
+	</select>
 </mapper>
