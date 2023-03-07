@@ -53,7 +53,6 @@
 			AND DATE(createdate) BETWEEN #{startDate} AND #{endDate}
 		</if>
 		GROUP BY DATE_FORMAT(createdate, #{kind})
-		ORDER BY createdate DESC
 	</select>
 	
 	<!-- 해당기간 누적 페이충전총액 및 건수 조회 -->

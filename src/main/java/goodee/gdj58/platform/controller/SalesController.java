@@ -55,6 +55,14 @@ public class SalesController {
 		return "sales/payStatistics";
 	}
 	
+	// 페이머니충전통계 Chart
+	@GetMapping("/employee/sales/payStatisticsChart")
+	public String getSavePayChart(Model model) {
+
+		return "sales/payStatisticsChart";
+	}
+	
+	
 	// 회원의 페이머니 충전 내역 통계 (기간)
 	@GetMapping("/employee/sales/paySaveHistory")
 	public String getSavePayHistoryByCustomer(Model model
@@ -76,5 +84,7 @@ public class SalesController {
 		
 		return "sales/paySaveHistory";
 	}
+	
+	
 	
 }
