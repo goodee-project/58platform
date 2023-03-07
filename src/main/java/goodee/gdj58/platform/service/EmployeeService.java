@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import goodee.gdj58.platform.mapper.EmployeeMapper;
 import goodee.gdj58.platform.vo.Employee;
 import goodee.gdj58.platform.vo.EmployeeInfo;
+import goodee.gdj58.platform.vo.PwHistory;
 import goodee.gdj58.platform.vo.TotalId;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
@@ -20,17 +22,34 @@ public class EmployeeService {
 	private EmployeeMapper employeeMapper;
 	
 	// 직원 비밀번호 변경
-	public int modifyEmployeePw(String newPw, String employeeId, String oldPw) {
+	public int modifyEmployeePw(String newPw, String employeeId, String oldPw, String id, PwHistory pwHistory) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("newPw", newPw);
 		paramMap.put("employeeId", employeeId);
 		paramMap.put("oldPw", oldPw);
-		return employeeMapper.updateEmployeePw(paramMap);
+		employeeMapper.updateEmployeePw(paramMap);
+		int count = employeeMapper.selectPwHistoryCount(id);
+		// System.out.println(count + "<--비밀번호 변경이력 디버깅");
+		if(count > 2) {
+			employeeMapper.deletePwHistory(id);
+		}
+		return employeeMapper.insertPwHistoryByModifyEmployeePw(pwHistory);
 	}
 	
 	// 직원 비밀번호 변경을 위한 조회
 	public Employee getEmployeePwByModify(String employeeId) {
 		return employeeMapper.selectEmployeePwByUpdate(employeeId);
+	}
+	
+	// 비밀번호 변경 이력 중복검사 null을 반환하면 사용가능한 비밀번호, 비밀번호를 반환하면 사용불가능한 비밀번호
+	public String getPwHistoryCk(PwHistory pwHistory) {
+		// null을 반환하면 사용가능한 비밀번호, 비밀번호를 반환하면 사용불가능한 비밀번호
+		String resultStr = "NO";
+		
+		if(employeeMapper.selectPwHistoryCk(pwHistory) == null) {
+			resultStr = "YES";
+		}
+		return resultStr;
 	}
 	
 	// 직원 개인정보 변경
@@ -58,10 +77,11 @@ public class EmployeeService {
 	}
 	
 	// 직원등록
-	public int addEmployee(Employee employee, EmployeeInfo employeeInfo, TotalId totalId) {
+	public int addEmployee(Employee employee, EmployeeInfo employeeInfo, TotalId totalId, PwHistory pwHistory) {
 		employeeMapper.insertEmployee(employee);
 		employeeMapper.insertEmployeeInfo(employeeInfo);
-		return employeeMapper.insertTotalId(totalId);
+		employeeMapper.insertTotalId(totalId);
+		return employeeMapper.insertPwHistory(pwHistory);
 	}
 	
 	// 아이디 중복 체크 null을 반환하면 사용가능한 아이디, 아이디를 반환하면 사용불가능한 아이디

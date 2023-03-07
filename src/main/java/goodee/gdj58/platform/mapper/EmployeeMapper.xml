@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.EmployeeMapper">
 	
+	<!-- 비밀번호 변경 이력 3개 쌓이면 pk가 가장 작은것 삭제 -->
+	<delete id="deletePwHistory" parameterType="string">
+		DELETE FROM	pw_history 
+		WHERE id = #{id}
+		AND pw_history_no = (SELECT MIN(pw_history_no) FROM pw_history WHERE id = #{id})
+	</delete>
+	
+	<!-- 직원 비밀번호 변경이력 개수 조회 -->
+	<select id="selectPwHistoryCount" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM pw_history WHERE id = #{id}
+	</select>
+	
+	<!-- 직원 비밀번호 변경시 변경 이력 -->
+	<insert id="insertPwHistoryByModifyEmployeePw" parameterType="goodee.gdj58.platform.vo.PwHistory">
+		INSERT INTO pw_history (
+			id, PASSWORD, createdate
+		) VALUES (
+			#{id}, PASSWORD(#{password}), CURDATE()
+		)
+	</insert>
+	
 	<!-- 직원 비밀번호 변경 -->
 	<update id="updateEmployeePw" parameterType="java.util.Map">
 		UPDATE
@@ -20,6 +41,14 @@
 			,employee_level employeeLevel
 		FROM employee
 		WHERE employee_id = #{employeeId}
+	</select>
+	
+	<!-- 비밀번호 변경 이력 중복검사 null을 반환하면 사용가능한 비밀번호, 비밀번호를 반환하면 사용불가능한 비밀번호 -->
+	<select id="selectPwHistoryCk" parameterType="goodee.gdj58.platform.vo.PwHistory" resultType="string">
+		SELECT 
+			password
+		FROM pw_history 
+		WHERE id = #{id} AND PASSWORD = PASSWORD(#{password})
 	</select>
 	
 	<!-- 직원 개인정보 변경 -->
@@ -124,6 +153,15 @@
 			, '플랫폼'
 			, '활성화'
 			, CURDATE()
+		)
+	</insert>
+	
+	<!-- 회원가입시 pw_history에 등록 -->
+	<insert id="insertPwHistory" parameterType="goodee.gdj58.platform.vo.PwHistory">
+		INSERT INTO pw_history (
+			id, PASSWORD, createdate
+		) VALUES (
+			#{id}, PASSWORD(#{password}), CURDATE()
 		)
 	</insert>
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.gdj58.platform.service.EmployeeService;
 import goodee.gdj58.platform.vo.Employee;
 import goodee.gdj58.platform.vo.EmployeeInfo;
+import goodee.gdj58.platform.vo.PwHistory;
 import goodee.gdj58.platform.vo.TotalId;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +28,7 @@ public class EmployeeController {
 	
 	// 직원 비밀번호 변경 액션
 	@PostMapping("/employee/emp/modifyEmployeePw")
-	public String modifyEmployeePw(HttpSession session
+	public String modifyEmployeePw(HttpSession session, PwHistory pwHistory
 									, @RequestParam(value="newPw") String newPw
 									, @RequestParam(value="oldPw") String oldPw) {
 		
@@ -38,8 +39,13 @@ public class EmployeeController {
 		// 세션정보 불러오기
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
 		String employeeId = loginEmp.getEmployeeId();
+		String id = loginEmp.getEmployeeId();
+		// pwHistory vo 타입에 olePw, employeeId 저장
+		pwHistory.setPassword(newPw);
+		pwHistory.setId(employeeId);
 		
-		int row = employeeService.modifyEmployeePw(employeeId, newPw, oldPw);
+		// 비밀번호 수정 메서드 호출
+		int row = employeeService.modifyEmployeePw(newPw, employeeId, oldPw, id, pwHistory);
 		
 		log.debug("\u001B[31m" + row + "<-- row 디버깅");
 		
@@ -123,7 +129,14 @@ public class EmployeeController {
 	
 	// 직원등록 액션
 	@PostMapping("/employee/emp/addEmployee")
-	public String addEmployee(ServletRequest request, Employee employee, EmployeeInfo employeeInfo, TotalId totalId) throws UnsupportedEncodingException {
+	public String addEmployee(ServletRequest request
+								, Employee employee
+								, EmployeeInfo employeeInfo
+								, TotalId totalId
+								, PwHistory pwHistory) throws UnsupportedEncodingException {
+		
+		log.debug("\u001B[31m" + employee + "<-- employee 디버깅");
+		log.debug("\u001B[31m" + employeeInfo + "<-- employeeInfo 디버깅");
 		
 		// utf-8 인코딩
 		request.setCharacterEncoding("utf-8");
@@ -132,8 +145,12 @@ public class EmployeeController {
 		String id = employee.getEmployeeId();
 		totalId.setId(id);
 		
+		// pw_history에 넣을 데이터 저장
+		pwHistory.setId(employee.getEmployeeId());
+		pwHistory.setPassword(employee.getEmployeePw());
+		
 		// 직원등록 메서드 호출
-		employeeService.addEmployee(employee, employeeInfo, totalId);
+		employeeService.addEmployee(employee, employeeInfo, totalId, pwHistory);
 		
 		return "redirect:/employee/emp/employeeList";
 	}
@@ -147,9 +164,6 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + changeLevel + "<-- changeLevel 디버깅");
 		log.debug("\u001B[31m" + id + "<-- id 디버깅");
 		
-		// 직원목록 메서드 호출
-		List<Map<String, Object>> list = employeeService.getEmployeeList();
-		
 		// 활성화가 들어오면 활성화시키기 비활성화가 들어오면 비활성화시
 		if(changeLevel.equals("활성화")) {
 			employeeService.modifyEmployeeActive(id);
@@ -157,6 +171,9 @@ public class EmployeeController {
 			employeeService.modifyEmployeeDeactive(id);
 		}
 		log.debug("\u001B[31m" + changeLevel + "<-- changeLevel 디버깅");
+		
+		// 직원목록 메서드 호출
+		List<Map<String, Object>> list = employeeService.getEmployeeList();
 		
 		model.addAttribute("list", list);
 		
