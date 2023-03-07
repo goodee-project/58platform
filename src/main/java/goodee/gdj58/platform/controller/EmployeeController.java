@@ -25,6 +25,94 @@ import lombok.extern.slf4j.Slf4j;
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
 	
+	// 직원 비밀번호 변경 액션
+	@PostMapping("/employee/emp/modifyEmployeePw")
+	public String modifyEmployeePw(HttpSession session
+									, @RequestParam(value="newPw") String newPw
+									, @RequestParam(value="oldPw") String oldPw) {
+		
+		// 비밀번호 2개 디버깅
+		log.debug("\u001B[31m" + newPw + "<-- newPw 디버깅");
+		log.debug("\u001B[31m" + oldPw + "<-- oldPw 디버깅");
+		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		String employeeId = loginEmp.getEmployeeId();
+		
+		int row = employeeService.modifyEmployeePw(employeeId, newPw, oldPw);
+		
+		log.debug("\u001B[31m" + row + "<-- row 디버깅");
+		
+		return "redirect:/employee/emp/logout";		
+	}
+	
+	// 직원 비밀번호 변경 폼
+	@GetMapping("/employee/emp/modifyEmployeePw")
+	public String modifyEmployeePw(Model model, HttpSession session) {
+		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		String employeeId = loginEmp.getEmployeeId();
+		
+		// 직원 비밀번호 수정을 위한 조회 메서드 호출
+		Employee employee = employeeService.getEmployeePwByModify(employeeId);
+		
+		model.addAttribute("e", employee);
+		
+		return "employee/modifyEmployeePw";
+	}
+	
+	// 직원 개인정보 수정 액션
+	@PostMapping("/employee/emp/modifyEmployeeInfo")
+	public String modifyEmployee(EmployeeInfo employeeInfo, HttpSession session) {
+		
+		// 디버깅
+		log.debug("\u001B[31m" + employeeInfo + "<-- changeLevel 디버깅");
+		
+		// 세션 정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		String employeeId = loginEmp.getEmployeeId();
+		
+		// employeeInfo vo에 employeeId 지정
+		employeeInfo.setEmployeeId(employeeId);
+		
+		// 직원 개인정보 수정 메서드 호출
+		employeeService.modifyEmployeeInfo(employeeInfo);
+		
+		return "redirect:/employee/emp/employeeOne";
+	}
+	
+	// 직원 개인정보 수정폼
+	@GetMapping("/employee/emp/modifyEmployeeInfo")
+	public String modifyEmployee(Model model, HttpSession session) {
+		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		String employeeId = loginEmp.getEmployeeId();
+		
+		// 직원 개인정보 수정을 위한 조회 메서드 호출
+		Map<String, Object> map = employeeService.getEmployeeByModify(employeeId);
+		
+		model.addAttribute("m", map);
+		
+		return "employee/modifyEmployeeInfo";
+	}
+	
+	// 직원 myPage
+	@GetMapping("/employee/emp/employeeOne")
+	public String employeeOne(Model model, String employeeId, HttpSession session) {
+		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		employeeId = loginEmp.getEmployeeId();
+		
+		// 직원 개인정보 메서드 호출
+		Map<String, Object> map = employeeService.getEmployeeOne(employeeId);
+		
+		model.addAttribute("m", map);
+		
+		return "employee/employeeOne";
+	}
 	
 	// 직원등록 폼
 	@GetMapping("/employee/emp/addEmployee")
@@ -37,9 +125,14 @@ public class EmployeeController {
 	@PostMapping("/employee/emp/addEmployee")
 	public String addEmployee(ServletRequest request, Employee employee, EmployeeInfo employeeInfo, TotalId totalId) throws UnsupportedEncodingException {
 		
+		// utf-8 인코딩
+		request.setCharacterEncoding("utf-8");
+		
+		// 직원 아이디 통합아이디에 저장
 		String id = employee.getEmployeeId();
 		totalId.setId(id);
 		
+		// 직원등록 메서드 호출
 		employeeService.addEmployee(employee, employeeInfo, totalId);
 		
 		return "redirect:/employee/emp/employeeList";
@@ -47,9 +140,23 @@ public class EmployeeController {
 	
 	// 직원 목록
 	@GetMapping("/employee/emp/employeeList")
-	public String employeeList(Model model) {
+	public String employeeList(Model model
+								, @RequestParam(value="changeLevel", defaultValue = "") String changeLevel
+								, @RequestParam(value="id", defaultValue = "") String id) {
 		
+		log.debug("\u001B[31m" + changeLevel + "<-- changeLevel 디버깅");
+		log.debug("\u001B[31m" + id + "<-- id 디버깅");
+		
+		// 직원목록 메서드 호출
 		List<Map<String, Object>> list = employeeService.getEmployeeList();
+		
+		// 활성화가 들어오면 활성화시키기 비활성화가 들어오면 비활성화시
+		if(changeLevel.equals("활성화")) {
+			employeeService.modifyEmployeeActive(id);
+		} else if(changeLevel.equals("비활성화")) {
+			employeeService.modifyEmployeeDeactive(id);
+		}
+		log.debug("\u001B[31m" + changeLevel + "<-- changeLevel 디버깅");
 		
 		model.addAttribute("list", list);
 		
@@ -60,7 +167,9 @@ public class EmployeeController {
 	@GetMapping("/employee/emp/logout")
 	public String logout(HttpSession session) {
 		
+		// 세션 삭제
 		session.invalidate();
+		
 		return "redirect:/login";
 	}
 	
@@ -75,8 +184,12 @@ public class EmployeeController {
 	@PostMapping("/login")
 	public String login(HttpSession session, Employee employee) {
 		
+		// 로그인 정보 불러오는 메서드 호출
 		Employee loginEmp = employeeService.login(employee);
+		
+		// 세션에 저장
 		session.setAttribute("loginEmp", loginEmp);
+		
 		return "redirect:/employee/emp/main";
 	}
 	

@@ -8,11 +8,12 @@
 		<title>employeeOne</title>
 	</head>
 	<body>
-		<h1>${loginEmp.employeeName}님의 정보</h1>
-		<table border="1">
-			<tr>
-				<td></td>
-			</tr>
-		</table>
+		직책 : ${m.employeeLevel}
+		<h1>${loginEmp.employeeName}님의 개인정보</h1>
+		<div>since ${m.createdate}(입사일)</div>
+		<div>연락처 : ${m.employeePhone}</div>
+		<div>e-mail : ${m.employeeEmail}</div>
+		<a href="${pageContext.request.contextPath}/employee/emp/modifyEmployeeInfo">정보수정</a>
+		<a href="${pageContext.request.contextPath}/employee/emp/modifyEmployeePw">비밀번호수정</a>
 	</body>
 </html>

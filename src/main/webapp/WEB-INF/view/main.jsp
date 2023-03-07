@@ -8,7 +8,10 @@
 		<title>main</title>
 	</head>
 	<body>
-		${loginEmp.employeeName}
+		<a href="${pageContext.request.contextPath}/employee/emp/employeeOne">
+			${loginEmp.employeeName}
+		</a>
+		
 		로그인
 		<c:if test="${loginEmp != null}">
 			<a href="${pageContext.request.contextPath}/employee/emp/logout">로그아웃</a>

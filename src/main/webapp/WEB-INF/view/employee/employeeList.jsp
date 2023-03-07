@@ -10,7 +10,7 @@
 		<script>
 			$(document).ready(function() {
 				$('.changeLevel').change(function() {
-					$('#changeForm').submit();
+					$(this.form).submit();
 				});
 			});
 		</script>
@@ -42,19 +42,18 @@
 							<td>${e.employeeLevel}</td>
 							<td>
 								<form action="${pageContext.request.contextPath}/employee/emp/employeeList" method="get" id="changeForm">
+									<input type="hidden" name="id" value="${e.employeeId}">
 									<c:if test="${e.employeeLevel ne '총관리자'}">
-										<c:if test="${e.totalIdActive eq '활성화'}">
-											<select name="changeLevel" class="changeLevel">
-												<option value="활성화" selected="selected">활성화</option>
+										<select name="changeLevel" class="changeLevel">
+											<c:if test="${e.totalIdActive eq '활성화'}">
+												<option value="활성화">활성화</option>
 												<option value="비활성화">비활성화</option>
-											</select>
-										</c:if>
-										<c:if test="${e.totalIdActive eq '비활성화'}">
-											<select name="changeLevel" class="changeLevel">
+											</c:if>
+											<c:if test="${e.totalIdActive eq '비활성화'}">
 												<option value="활성화">활성화</option>
 												<option value="비활성화" selected="selected">비활성화</option>
-											</select>
-										</c:if>
+											</c:if>
+										</select>
 									</c:if>
 								</form>
 								<c:if test="${e.employeeLevel eq '총관리자'}">

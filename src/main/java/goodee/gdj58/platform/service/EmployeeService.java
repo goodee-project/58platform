@@ -1,5 +1,6 @@
 package goodee.gdj58.platform.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +19,42 @@ public class EmployeeService {
 	@Autowired 
 	private EmployeeMapper employeeMapper;
 	
+	// 직원 비밀번호 변경
+	public int modifyEmployeePw(String newPw, String employeeId, String oldPw) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("newPw", newPw);
+		paramMap.put("employeeId", employeeId);
+		paramMap.put("oldPw", oldPw);
+		return employeeMapper.updateEmployeePw(paramMap);
+	}
+	
+	// 직원 비밀번호 변경을 위한 조회
+	public Employee getEmployeePwByModify(String employeeId) {
+		return employeeMapper.selectEmployeePwByUpdate(employeeId);
+	}
+	
+	// 직원 개인정보 변경
+	public int modifyEmployeeInfo(EmployeeInfo employeeInfo) {
+		return employeeMapper.updateEmployeeInfo(employeeInfo);
+	}
+	
+	// 직원 개인정보 변경을 위한 조회
+	public Map<String, Object> getEmployeeByModify(String employeeId) {
+		return employeeMapper.selectEmployeeByUpdate(employeeId);
+	}
+	
+	// 직원 myPage
+	public Map<String, Object> getEmployeeOne(String employeeId) {
+		return employeeMapper.selectEmployeeOne(employeeId);
+	}
+	
 	// 직원 비활성화
-	public int modifyEmployeeDeactive(TotalId totalId) {
-		return employeeMapper.updateEmployeeDeactive(totalId);
+	public int modifyEmployeeDeactive(String id) {
+		return employeeMapper.updateEmployeeDeactive(id);
 	}
 	// 직원 활성화
-	public int modifyEmployeeActive(TotalId totalId) {
-		return employeeMapper.updateEmployeeActive(totalId);
+	public int modifyEmployeeActive(String id) {
+		return employeeMapper.updateEmployeeActive(id);
 	}
 	
 	// 직원등록

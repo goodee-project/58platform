@@ -12,10 +12,23 @@ import goodee.gdj58.platform.vo.TotalId;
 @Mapper
 public interface EmployeeMapper {
 	
+	// 직원 비밀번호 변경
+	int updateEmployeePw(Map<String, Object> paramMap);
+	// 직원 비밀번호 변경을 위한 조회
+	Employee selectEmployeePwByUpdate(String employeeId);
+	
+	// 직원 개인정보 변경
+	int updateEmployeeInfo(EmployeeInfo employeeInfo);
+	// 직원 개인정보 변경을 위한 조회
+	Map<String, Object> selectEmployeeByUpdate(String employeeId);
+	
+	// 직원 개인정보
+	Map<String, Object> selectEmployeeOne(String employeeId);
+	
 	// 직원 비활성화
-	int updateEmployeeDeactive(TotalId totalId);
+	int updateEmployeeDeactive(String id);
 	// 직원 활성화
-	int updateEmployeeActive(TotalId totalId);
+	int updateEmployeeActive(String id);
 	
 	// 직원등록
 	int insertEmployee(Employee employee);
