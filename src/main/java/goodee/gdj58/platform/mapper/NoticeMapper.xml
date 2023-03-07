@@ -41,12 +41,10 @@
 			, notice_title 
 			, notice_memo 
 			, createdate
-			, updatedate
 		) VALUES (
 			#{serviceName}
 			,#{noticeTitle}
 			,#{noticeMemo}
-			, CURDATE()
 			, CURDATE()
 		)
 	</insert>
@@ -65,7 +63,7 @@
 			, updatedate
 		FROM notice
 		WHERE service_name = #{serviceName}
-		ORDER BY createdate DESC
+		ORDER BY createdate DESC, notice_no DESC
 	</select>
 	
 </mapper>

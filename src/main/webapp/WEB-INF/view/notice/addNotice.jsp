@@ -33,77 +33,164 @@
 		<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
  		<title>Add Notice</title>
+ 		
+ 		<!-- jQuery -->
+		<!-- CDN 주소 추가 방식 -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				// 등록 버튼 클릭시 확인 및 공백값 체크
+				$('#addBtn').click(function(){
+					var out = confirm('등록 하시겠습니까?');
+					if(out == true){
+							// 제목 미입력시
+							if( ($('#noticeTitle').val().length) < 1 )  {
+								alert('입력된값이 없습니다.');
+								$('#noticeTitle').focus();
+								return;
+							}
+							// 제목 공백만 입력시
+							if($('#noticeTitle').val().trim() == '')  {
+								alert('공백만 입력할 수 없습니다.');
+								$('#noticeTitle').text('');
+								$('#noticeTitle').focus();
+								return;
+							} 
+							// 내용 미입력시
+							if( ($('#noticeMemo').val().length) < 1 )  {
+								alert('입력된값이 없습니다.');
+								$('#noticeMemo').focus();
+								return;
+							}
+							// 내용 공백만 입력시
+							if($('#noticeMemo').val().trim() == '')  {
+								alert('공백만 입력할 수 없습니다.');
+								$('#noticeMemo').text('');
+								$('#noticeMemo').focus();
+								return;
+							} 
+							$('#addNoticeForm').submit();
+							alert('등록되었습니다.')
+					} else { 
+						alert('취소되었습니다.')
+						return false;
+					}
+				});
+			});
+		</script>
+		
 	</head>
 
-<body>
-	<!--start wrapper-->
-		<div class="wrapper">
-	    	<!--start header -->
-			<c:import url="/WEB-INF/inc/header.jsp"></c:import>
-			<!--end header -->
-			
-			<!--start sidebar -->
-			<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
-			<!--end sidebar -->
-			
-	       <!--start content-->
-	       <main class="page-content">
-					<!--breadcrumb-->
-					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-						<div class="breadcrumb-title pe-3">Tables</div>
-						<div class="ps-3">
-							<nav aria-label="breadcrumb">
-								<ol class="breadcrumb mb-0 p-0">
-									<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-megaphone-fill"></i></a>
-										공지사항
-									</li>
-									<c:if test="${serviceName == '쇼핑'}">
-										<li class="breadcrumb-item active" aria-current="page">공지사항 등록(쇼핑)</li>
-									</c:if>
-									<c:if test="${serviceName == '예약'}">
-										<li class="breadcrumb-item active" aria-current="page">공지사항 등록(예약)</li>
-									</c:if>
-								</ol>
-							</nav>
-						</div>
-					</div>
-					
-					
-       <!--start content-->
-       <main class="page-content">
-				<div class="row">
-					<div class="col-xl-9 mx-auto">
-						<h6 class="mb-0 text-uppercase">공지사항 등록</h6>
-						<hr/>
-						<div class="card">
-							<div class="card-body">
-							
-								<!-- Notice Form.. -->
-								<form method="post" action="${pageContext.request.contextPath}/employee/notice/addNotice">
-								<input class="form-control mb-3" type="text" name="serviceName" value="${serviceName}" readonly="readonly" aria-label="Disabled input example" disabled>
-								<input class="form-control mb-3" type="text" name="noticeTitle" placeholder="제목을 입력하세요" aria-label="default input example">
-								<textarea class="form-control form-control-sm mb-3" aria-label=".form-control-sm example" rows="5" cols="80" name="noticeMemo" placeholder="내용을 입력하세요"></textarea>
-									<button type="submit" id="addBtn">공지 추가</button>
-								</form>
+	<body>
+		<!--start wrapper-->
+			<div class="wrapper">
+		    	<!--start header -->
+				<c:import url="/WEB-INF/inc/header.jsp"></c:import>
+				<!--end header -->
+				
+				<!--start sidebar -->
+				<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
+				<!--end sidebar -->
+				
+		       <!--start content-->
+		       <main class="page-content">
+						<!--breadcrumb-->
+						<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+							<div class="breadcrumb-title pe-3">공지사항</div>
+							<div class="ps-3">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb mb-0 p-0">
+										<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-megaphone-fill"></i></a>
+											공지사항
+										</li>
+										<c:if test="${serviceName == '쇼핑'}">
+											<li class="breadcrumb-item active" aria-current="page">공지사항 등록(쇼핑)</li>
+										</c:if>
+										<c:if test="${serviceName == '예약'}">
+											<li class="breadcrumb-item active" aria-current="page">공지사항 등록(예약)</li>
+										</c:if>
+									</ol>
+								</nav>
 							</div>
 						</div>
-					</div>
-				</div>
-				<!--end row-->
+						
+						<!--end breadcrumb-->
+						<hr/>
+						<!--  step1 쇼핑/예약 리스트페이지로.. -->
+						<c:if test="${serviceName == '쇼핑'}">
+						<div class="btn-group">
+							<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=쇼핑'">쇼핑몰</button>
+		           			<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=예약'">예약</button>
+						</div>
+						</c:if>
+						<c:if test="${serviceName == '예약'}">
+						<div class="btn-group"> 
+							<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=쇼핑'">쇼핑몰</button>
+		           			<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=예약'">예약</button>
+						</div>
+						</c:if>
+						<!--  step2 쇼핑/예약 등록페이지로.. -->
+						<%-- <c:if test="${serviceName == '쇼핑'}">
+						<div class="btn-group">
+							<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=쇼핑'">쇼핑몰</button>
+		           			<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=예약'">예약</button>
+						</div>
+						</c:if>
+						<c:if test="${serviceName == '예약'}">
+						<div class="btn-group"> 
+							<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=쇼핑'">쇼핑몰</button>
+		           			<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=예약'">예약</button>
+						</div>
+						</c:if> --%>
+						
+						<!--end page main-->
+				      	<!--start content-->
+				        <main class="page-content">
+							<div class="row">
+								<div class="col-xl-9 mx-auto">
+									<h6 class="mb-0 text-uppercase">공지사항 등록</h6>
+									<hr/>
+									<div class="card">
+										<div class="card-body">
+											
+											<!-- Notice Form.. -->
+											<form id="addNoticeForm"method="post" action="${pageContext.request.contextPath}/employee/notice/addNotice">
+												<input type="hidden" name="serviceName" value="${serviceName}">
+												<div>
+													<label class="float-label">분류</label>
+													<input class="form-control mb-3" type="text" name="serviceName" value="${serviceName}" aria-label="Disabled input example" disabled readonly>
+												</div>
+												<div>
+													<label class="float-label">제목</label>
+													<input class="form-control mb-3" type="text" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력하세요" aria-label="default input example">
+												</div>
+												<div>
+													<label class="float-label">내용</label>
+													<textarea class="form-control form-control-sm mb-3" id="noticeMemo" name="noticeMemo" aria-label=".form-control-sm example" rows="5" cols="80" placeholder="내용을 입력하세요"></textarea>
+												</div>
+												<button class="btn btn-outline-primary" id="addBtn" type="button">등록</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end row-->
+						</main>
+	       				
 			</main>
-       <!--end page main-->
-
-
-       <!--start overlay-->
-        <div class="overlay nav-toggle-icon"></div>
-       <!--end overlay-->
-
-        <!--Start Back To Top Button-->
-        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
-        
-  </div>
-  <!--end wrapper-->
+			<!--end page main-->
+			
+	       <!--start overlay-->
+	        <div class="overlay nav-toggle-icon"></div>
+	       <!--end overlay-->
+	
+	        <!--Start Back To Top Button-->
+	        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+	        <!--End Back To Top Button-->
+	        
+	  </div>
+  	<!--end wrapper-->
 
 
 	<!-- Bootstrap bundle JS -->

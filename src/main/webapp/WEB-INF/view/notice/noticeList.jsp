@@ -49,7 +49,7 @@
 	       <main class="page-content">
 					<!--breadcrumb-->
 					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-						<div class="breadcrumb-title pe-3">Tables</div>
+						<div class="breadcrumb-title pe-3">공지사항</div>
 						<div class="ps-3">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb mb-0 p-0">
@@ -82,6 +82,8 @@
 					</div>
 					</c:if>
 					<br><br>
+					
+					<!--start content-->
 					<div class="card">
 						<div class="card-body">
 							<div class="table-responsive">
@@ -101,7 +103,7 @@
 												<td>${e.noticeNo}</td>
 												<td>${e.serviceName}</td>
 												<td>
-													<a href="${pageContext.request.contextPath}/employee/notice/noticeOne?noticeNo=${e.noticeNo}">
+													<a href="${pageContext.request.contextPath}/employee/notice/noticeOne?noticeNo=${e.noticeNo}&serviceName=${serviceName}">
 														${e.noticeTitle}
 													</a>
 												</td>
@@ -146,5 +148,12 @@
 		
 	  <!--app-->
 	  <script src="/58platform/assets/js/app.js"></script>
+	  <script>
+          $(document).ready(function () {
+                $('#example').DataTable({
+                    order: [[3, 'desc']],
+                });
+            });
+      </script>
 	</body>
 </html>
