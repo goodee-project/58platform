@@ -84,7 +84,6 @@
 			         </ul>
 			         <div class="d-flex ms-3 gap-3">
 			           <a href="${pageContext.request.contextPath}/login" class="btn btn-primary btn-sm px-4 radius-30">Login</a>
-			           <a href="${pageContext.request.contextPath}/employee/emp/addEmployee" class="btn btn-white btn-sm px-4 radius-30">Register</a>
 			         </div>
 			       </div>
 			     </div>
@@ -104,7 +103,7 @@
 								<div class="card-body p-4 p-sm-5">
 									<h5 class="card-title">Login</h5>
 									<p class="card-text mb-4">안녕하세요 FTP조 Final Project입니다.</p>
-									<form action="${pageContext.request.contextPath}/login" method="post" class="form-body">
+									<form action="${pageContext.request.contextPath}/login" method="post" class="form-body" id="loginForm">
 										<div class="row g-3">
 											<div class="col-12">
 											  <label for="inputEmailAddress" class="form-label">Employee Id</label>
@@ -175,6 +174,8 @@
 		    		alert('아이디를 입력해주세요.');
 		    	} else if($('#empId').val() != '' && $('#pwck').val() == '') {
 		    		alert('비밀번호를 입력해주세요.');
+		    	} else if($('#empId').val() != '' && $('#pwck').val() != '') {
+		    		$('#loginForm').submit();
 		    	}
 		    });
 		});
