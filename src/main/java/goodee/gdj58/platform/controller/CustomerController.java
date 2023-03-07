@@ -1,21 +1,40 @@
 package goodee.gdj58.platform.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.platform.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class CustomerController {
 	@Autowired CustomerService customerService;
 	
-	// 회원조회
-	@GetMapping("/employee/customer/customerList")
-	public String customerList() {
-		
-		return "customer/customerList";
-	}
+	// 회원조회	
+    @GetMapping("/employee/customer/customerList")
+    public String customerList(Model model
+                                , @RequestParam(value="active", defaultValue = "") String active
+                                , @RequestParam(value="customerId", defaultValue = "") String customerId) {
+
+        log.debug("\u001B[44m" + active + "<-- active 디버깅");
+        log.debug("\u001B[44m" + customerId + "<-- customerId 디버깅");
+
+        List<Map<String, Object>> list = customerService.getCustomerList();
+
+        if(active != null) {
+        	customerService.modifyCustomerActive(customerId, active);
+        }
+        model.addAttribute("list", list);
+
+        return "customer/customerList";
+    }
 	
 	// 회원조회 상세
 	@GetMapping("/employee/customer/customerOne")
