@@ -25,6 +25,6 @@ public class ReportController {
 		model.addAttribute("reportCategory", reportCategory);
 		model.addAttribute("reportList", reportList);
 		
-		return "report/getReport";
+		return "report/reportList";
 	}
 }

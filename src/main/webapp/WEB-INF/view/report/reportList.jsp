@@ -31,7 +31,7 @@
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
   <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>Snacked - Bootstrap 5 Admin Template</title>
+  <title>신고조회</title>
 </head>
 
 <body>
