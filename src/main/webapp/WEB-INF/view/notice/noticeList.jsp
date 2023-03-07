@@ -25,7 +25,7 @@
 		<link href="/58platform/assets/css/pace.min.css" rel="stylesheet" />
 		
 		
-		 <!--Theme Styles-->
+		<!--Theme Styles-->
 		<link href="/58platform/assets/css/dark-theme.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
@@ -76,9 +76,9 @@
 					</div>
 					</c:if>
 					<c:if test="${serviceName == '예약'}">
-					<div class="btn-group">
-						<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=쇼핑'">쇼핑몰</button>
-	           			<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=예약'">예약</button>
+					<div class="btn-group"> 
+						<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=쇼핑'">쇼핑몰</button>
+	           			<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/noticeList?serviceName=예약'">예약</button>
 					</div>
 					</c:if>
 					<br><br>
@@ -112,7 +112,7 @@
 								</table>
 								<!-- 공지사항 추가-->
 								<div>
-									<a href="${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=${serviceName}">공지사항 등록</a>
+									<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/notice/addNotice?serviceName=${serviceName}'">공지사항 등록</button>
 								</div>
 							</div>
 						</div>
