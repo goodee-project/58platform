@@ -29,16 +29,16 @@ public class CompanyService {
 	}
 	
 	// 예약 기업 상세보기
-	public Map<String, Object> getBookingCompanyOne(){
+	public Map<String, Object> getBookingCompanyOne(String companyName){
 		
-		Map<String, Object> BookingCompanyOne = companyMapper.selectBookingCompanyOne();
+		Map<String, Object> BookingCompanyOne = companyMapper.selectBookingCompanyOne(companyName);
 		return BookingCompanyOne;
 		
 	}
 	// 쇼핑몰 기업 상세보기
-	public Map<String, Object> getShoppingCompanyOne(){
+	public Map<String, Object> getShoppingCompanyOne(String companyName){
 		
-		Map<String, Object> ShoppingCompanyOne = companyMapper.selectShoppingCompanyOne();
+		Map<String, Object> ShoppingCompanyOne = companyMapper.selectShoppingCompanyOne(companyName);
 		return ShoppingCompanyOne;		
 	}
 	

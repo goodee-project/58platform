@@ -1,5 +1,6 @@
 package goodee.gdj58.platform.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.platform.service.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class CompanyContoroller {
 	@Autowired CompanyService companyService;
@@ -34,6 +37,7 @@ public class CompanyContoroller {
 	}
 	
 	// 기업 상세조회
+	@SuppressWarnings("null")
 	@GetMapping("/employee/company/companyOne")
 	public String companyOne(Model model
 			, @RequestParam(value="serviceName", defaultValue = "예약") String serviceName
@@ -41,9 +45,19 @@ public class CompanyContoroller {
 		Map<String, Object> company = null;
 		
 		if(serviceName.equals("예약")) {
-			company = companyService.getBookingCompanyOne();
+			company = companyService.getBookingCompanyOne(companyName);
+			String companyAddtionService = (String) company.get("companyAddtionService");
+			String [] arr = companyAddtionService.split(",");
+			
+			List<String> companyAddtionServiceList = new ArrayList<>();
+			for(int i=0; i<arr.length; i++) { // 부가서비스 리스트
+				companyAddtionServiceList.add(arr[i]);
+				log.debug("\u001B[31m 서비스 종류 : "+companyAddtionServiceList.get(i));
+			}
+			
+			model.addAttribute("companyAddtionServiceList", companyAddtionServiceList);
 		} else if(serviceName.equals("쇼핑")) {
-			company = companyService.getShoppingCompanyOne();
+			company = companyService.getShoppingCompanyOne(companyName);
 		}
 		
 		model.addAttribute("company", company);

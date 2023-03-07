@@ -89,7 +89,7 @@
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th style="width : 10%">기업 ID</th>
+										<th class="sorting" style="width : 10%">기업 ID</th>
 										<th style="width : 30%">기업 명</th>
 										<th style="width : 30%">기업 대표</th>
 										<th style="width : 10%">전화번호</th>
@@ -145,7 +145,13 @@
   <script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
   <script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
   <script src="/58platform/assets/js/table-datatable.js"></script>
-	
+  <script>
+     $(document).ready(function () {
+           $('#example').DataTable({
+               order: [[5, 'desc']],
+           });
+       });
+  </script>
   <!--app-->
   <script src="/58platform/assets/js/app.js"></script>
 </body>

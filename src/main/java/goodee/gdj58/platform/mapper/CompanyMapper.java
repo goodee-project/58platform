@@ -13,7 +13,7 @@ public interface CompanyMapper {
 	List<Map<String, Object>> selectShoppingCompanyList();
 	
 	// 예약 기업 상세보기
-	Map<String, Object> selectBookingCompanyOne();
+	Map<String, Object> selectBookingCompanyOne(String companyName);
 	// 쇼핑몰 기업 상세보기
-	Map<String, Object> selectShoppingCompanyOne();
+	Map<String, Object> selectShoppingCompanyOne(String companyName);
 }
