@@ -1,4 +1,4 @@
-package goodee.gdj58.platform.controller;
+package goodee.gdj58.platform.restController;
 
 import java.util.List;
 import java.util.Map;
