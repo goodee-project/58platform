@@ -40,7 +40,7 @@ public class CompanyContoroller {
 	// 기업 조회
 	@GetMapping("/employee/company/companyList")
 	public String companyList(Model model
-		, @RequestParam(value="serviceName", defaultValue = "예약") String serviceName) {
+		, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
 		List<Map<String, Object>> companyList = null;
 		
 		if(serviceName.equals("예약")) { // 예약 기업
@@ -59,8 +59,8 @@ public class CompanyContoroller {
 	@SuppressWarnings("null")
 	@GetMapping("/employee/company/companyOne")
 	public String companyOne(Model model
-			, @RequestParam(value="serviceName", defaultValue = "예약") String serviceName
-			, @RequestParam(value="companyName", defaultValue = "예약") String companyName) {
+			, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName
+			, @RequestParam(value="companyName", defaultValue = "쇼핑") String companyName) {
 		Map<String, Object> company = null;
 		
 		if(serviceName.equals("예약")) {

@@ -14,7 +14,6 @@ public interface CompanyMapper {
 	
 	// 쇼핑몰 판매 상품 조회  
 	List<Map<String, Object>> selectCompanySellList(String companyName);
-	
 	// 예약 판매 상품 조회  
 	List<Map<String, Object>> selectBookingProductList(String companyName);
 	

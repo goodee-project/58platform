@@ -108,7 +108,7 @@
 	
 	<!-- 쇼핑기업 조회 -->
 	<select id="selectShoppingCompanyList" 
-		resultType="goodee.gdj58.platform.vo.ShoppingCompany">
+		resultType="java.util.Map">
 		
 		SELECT 
 			shopping_company.company_id companyId
@@ -125,21 +125,38 @@
 	</select>
 	<!-- 쇼핑기업 상세(수정 필요) -->
 	<select id="selectShoppingCompanyOne" 
-		resultType="goodee.gdj58.platform.vo.ShoppingCompany"
-		parameterType="java.util.Map">
+		resultType="java.util.Map"
+		parameterType="String">
 		
 		SELECT
-			emp_no empNo<!-- rs.getInt("emp_no"),  new Employee().setEmpNo()-->
-			, emp_id empId
-			, emp_name empName
-		FROM employee
-		<where>
-			<if test="searchWord != null || searchWord !=''">
-				emp_name like CONCAT('%',#{searchWord},'%')
-			</if>
-		</where>
-		ORDER BY emp_no DESC
-		LIMIT #{beginRow}, #{rowPerPage}
+			shopping_company.company_id companyId
+			, shopping_company.company_name companyName
+			, shopping_company.company_ceo companyCeo
+			, shopping_company.company_address companyAddress
+			, shopping_company.company_phone companyPhone
+			, shopping_company.company_email companyEmail
+			, shopping_company.company_bank companyBank
+			, shopping_company.company_account companyAccount
+			, shopping_company.company_registration_number companyNumber
+			, shopping_company.company_email_marketing companyAgree
+			, shopping_company.type_content companyTypeContent
+			, total_id.total_id_active active
+			, total_id.createdate createdate
+			, (SELECT
+					SUM(shopping_order_sheet.order_sheet_price)			
+				FROM
+					shopping_order_sheet
+					INNER JOIN shopping_company
+					ON shopping_order_sheet.company_id = shopping_company.company_id
+				WHERE
+					shopping_company.company_name = #{companyName}
+					AND shopping_order_sheet.order_sheet_state = '구매확정'
+				) totalPrice
+		FROM
+			shopping_company
+			INNER JOIN total_id
+			ON shopping_company.company_id = total_id.id
+		WHERE shopping_company.company_name = #{companyName}
 	</select>
 	<!-- 쇼핑기업 수(페이징용)(수정 필요) -->
 	<select id="cntShoppingCompanyList"
