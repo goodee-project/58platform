@@ -55,12 +55,12 @@
                        </div>
                       <div class="text-center">
                       	<div>
-                      		<a href="https://github.com/xoghksl96"><span class="badge bg-dark">김태환</span></a>
-                      		<a href="https://github.com/KIMSOOGON"><span class="badge bg-dark">김수곤</span></a>
-                      		<a href="https://github.com/AndreaJo1201"><span class="badge bg-dark">조건희</span></a>
-                      		<a href="https://github.com/lagna8823"><span class="badge bg-dark">곽효상</span></a>
-                      		<a href="https://github.com/nomad-lee"><span class="badge bg-dark">이호민</span></a>
-                      		<a href="https://github.com/ansankjh"><span class="badge bg-dark">강지훈</span></a>
+                      		<a href="https://github.com/xoghksl96" target="_blank"><span class="badge bg-dark">김태환</span></a>
+                      		<a href="https://github.com/KIMSOOGON" target="_blank"><span class="badge bg-dark">김수곤</span></a>
+                      		<a href="https://github.com/AndreaJo1201" target="_blank"><span class="badge bg-dark">조건희</span></a>
+                      		<a href="https://github.com/lagna8823" target="_blank"><span class="badge bg-dark">곽효상</span></a>
+                      		<a href="https://github.com/nomad-lee" target="_blank"><span class="badge bg-dark">이호민</span></a>
+                      		<a href="https://github.com/ansankjh" target="_blank"><span class="badge bg-dark">강지훈</span></a>
                       	</div>
                       	<br>
                       	<form action="${pageContext.request.contextPath}/login" method="post">
@@ -88,9 +88,9 @@
 						</div>
 						<div class="text-center">
 						<div>
-                    		<a href="https://github.com/Ga5ri"><span class="badge bg-dark">장준영</span></a>
-                    		<a href="https://github.com/0725LDK"><span class="badge bg-dark">이득규</span></a>
-                    		<a href="https://github.com/eunseoa"><span class="badge bg-dark">최은서</span></a>
+                    		<a href="https://github.com/Ga5ri" target="_blank"><span class="badge bg-dark">장준영</span></a>
+                    		<a href="https://github.com/0725LDK" target="_blank"><span class="badge bg-dark">이득규</span></a>
+                    		<a href="https://github.com/eunseoa" target="_blank"><span class="badge bg-dark">최은서</span></a>
                     	</div>
                     	<br>
                       	<form action="http://3.38.82.69/58booking_c/log/loginCustomer" method="post">
@@ -118,9 +118,9 @@
                        </div>
                       <div class="text-center">
 						<div>
-                    		<a href="https://github.com/TaeheeMin"><span class="badge bg-dark">민태희</span></a>
-                    		<a href="https://github.com/GaeulLee"><span class="badge bg-dark">이가을</span></a>
-                    		<a href="https://github.com/M1nsong-Kim"><span class="badge bg-dark">김민송</span></a>
+                    		<a href="https://github.com/TaeheeMin" target="_blank"><span class="badge bg-dark">민태희</span></a>
+                    		<a href="https://github.com/GaeulLee" target="_blank"><span class="badge bg-dark">이가을</span></a>
+                    		<a href="https://github.com/M1nsong-Kim" target="_blank"><span class="badge bg-dark">김민송</span></a>
                     	</div>
                     	<br>
                       	<form action="http://3.38.82.69/58booking_b/beforeLoin/loginCompany" method="post">
@@ -148,8 +148,8 @@
                        </div>
                       <div class="text-center">
                       	<div>
-                    		<a href="https://github.com/hhyyeeoonn"><span class="badge bg-dark">김계현</span></a>
-                    		<a href="https://github.com/JINJIN0604"><span class="badge bg-dark">김설</span></a>
+                    		<a href="https://github.com/hhyyeeoonn" target="_blank"><span class="badge bg-dark">김계현</span></a>
+                    		<a href="https://github.com/JINJIN0604" target="_blank"><span class="badge bg-dark">김설</span></a>
                     	</div>
                     	<br>
                       	<form action="http://3.38.82.69/58shop_c/login" method="post">
@@ -177,9 +177,9 @@
                        </div>
                       <div class="text-center">
                       	<div>
-                    		<a href="https://github.com/DoubleTing0"><span class="badge bg-dark">진민구</span></a>
-                    		<a href="https://github.com/ldk77"><span class="badge bg-dark">이동규</span></a>
-                    		<a href="https://github.com/dllllllrkdms"><span class="badge bg-dark">이가은</span></a>
+                    		<a href="https://github.com/DoubleTing0" target="_blank"><span class="badge bg-dark">진민구</span></a>
+                    		<a href="https://github.com/ldk77" target="_blank"><span class="badge bg-dark">이동규</span></a>
+                    		<a href="https://github.com/dllllllrkdms" target="_blank"><span class="badge bg-dark">이가은</span></a>
                     	</div>
                     	<br>
                       	<form action="http://3.38.82.69/58shop_b/login" method="post">
@@ -207,9 +207,9 @@
                        </div>
                       <div class="text-center">
                       <div>
-                    		<a href="https://github.com/xoghksl96"><span class="badge bg-dark">김태환</span></a>
-                    		<a href="https://github.com/AndreaJo1201"><span class="badge bg-dark">조건희</span></a>
-                    		<a href="https://github.com/ansankjh"><span class="badge bg-dark">강지훈</span></a>
+                    		<a href="https://github.com/xoghksl96" target="_blank"><span class="badge bg-dark">김태환</span></a>
+                    		<a href="https://github.com/AndreaJo1201" target="_blank"><span class="badge bg-dark">조건희</span></a>
+                    		<a href="https://github.com/ansankjh" target="_blank"><span class="badge bg-dark">강지훈</span></a>
                     	</div>
                       	<br>
                       	<form action="http://3.38.82.69/58ad/login" method="post">
