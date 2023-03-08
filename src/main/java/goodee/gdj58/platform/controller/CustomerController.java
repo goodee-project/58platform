@@ -47,7 +47,8 @@ public class CustomerController {
 	public String pointDetails(Model model
     							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
         log.debug("\u001B[44m" + customerId + "<-- customerId pointDetails디버깅");
-		
+
+        customerId = "test"; //임시 이후 httpSession으로 변경예정
         int customerPoint = customerService.getsCustomerPointList(customerId);
         List<Map<String, Object>> list = customerService.getPointDetails(customerId);
         model.addAttribute("customerPoint", customerPoint);
@@ -61,7 +62,8 @@ public class CustomerController {
 	public String paymoneyDetails(Model model
     							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
         log.debug("\u001B[44m" + customerId + "<-- customerId paymoneyDetails디버깅");
-
+        
+        customerId = "test"; //임시 이후 httpSession으로 변경예정
         int customerPayMoney = customerService.getsCustomerPayMoneyList(customerId);
         List<Map<String, Object>> list = customerService.getPayMoneyDetails(customerId);
         model.addAttribute("customerPayMoney", customerPayMoney);
@@ -72,7 +74,10 @@ public class CustomerController {
 	
 	// 탈퇴 회원조회
 	@GetMapping("/employee/customer/inactiveCustomerList")
-	public String inactiveCustomerList() {
+	public String inactiveCustomerList(Model model) {
+
+        List<Map<String, Object>> list = customerService.getInactiveCustomerList();
+        model.addAttribute("list", list);
 		
 		return "customer/inactiveCustomerList";
 	}

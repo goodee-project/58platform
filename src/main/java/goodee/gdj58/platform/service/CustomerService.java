@@ -46,5 +46,8 @@ public class CustomerService {
 		return customerMapper.selectCustomerPayMoney(customerId);
 	}
 	// 탈퇴회원 조회
+	public List<Map<String, Object>> getInactiveCustomerList() {
+		return customerMapper.selectInactiveCustomerList();
+	}
 	
 }

@@ -27,4 +27,5 @@ public interface CustomerMapper {
 	int selectCustomerPayMoney(String customerId);
 	
 	// 탈퇴 회원조회
+	List<Map<String, Object>> selectInactiveCustomerList();
 }

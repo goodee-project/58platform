@@ -29,17 +29,9 @@
   <link href="/58platform/assets/css/dark-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
-  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" /><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script>
-	$(document).ready(function() {
-		$('#active').change(function() {
-			$('#changeForm').submit();
-			alert('change')
-		});
-	});
-  </script>
-
-  <title>회원조회</title>
+  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
+   
+  <title>탈퇴 회원조회</title>
 </head>
 
 <body>
@@ -57,71 +49,57 @@
 		
        <!--start content-->
        <main class="page-content">
-				<!--breadcrumb-->
-				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Tables</div>
-					<div class="ps-3">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
-									회원관리
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">회원조회</li>
-							</ol>
-						</nav>
-					</div>
+			<!--breadcrumb-->
+			<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				<div class="breadcrumb-title pe-3">Tables</div>
+				<div class="ps-3">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb mb-0 p-0">
+							<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
+								회원관리
+							</li>
+							<li class="breadcrumb-item active" aria-current="page">탈퇴회원조회</li>
+						</ol>
+					</nav>
 				</div>
-				<!--end breadcrumb-->
-				<hr/>
-				<br><br>
-				<div class="card">
-					<div class="card-body">
-						<div class="table-responsive">
-							<table id="example" class="table table-striped table-bordered" style="width:100%">
-								<thead>
+			</div>
+			<!--end breadcrumb-->
+			<hr/>
+			<br><br>
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="example" class="table table-striped table-bordered" style="width:100%">
+							<thead>
+								<tr>
+									<th style="width : 10%">ID</th>
+									<th style="width : 10%">이름</th>
+									<th style="width : 15%">회원등급</th>
+									<th style="width : 10%">상태</th>
+									<th style="width : 10%">가입일</th>
+									<th style="width : 35%">회원상세</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+								<c:forEach var="c" items="${list}">
 									<tr>
-										<th style="width : 10%">ID</th>
-										<th style="width : 10%">이름</th>
-										<th style="width : 15%">회원등급</th>
-										<th style="width : 10%">상태</th>
-										<th style="width : 10%">가입일</th>
-										<th style="width : 35%">회원상세</th>
+										<td>${c.customerId}</td>
+										<td>${c.customerName}</td>
+										<td>${c.customerRank}</td>
+										<td>${c.totalIdDeactiveMemo}</td>
+										<td>${c.createdate}</td>
+										<td>
+											<a type="button" href="${pageContext.request.contextPath}/employee/customer/customerOne?customerId=${c.customerId}">보기</a>
+										</td>
 									</tr>
-								</thead>
-							
-								<tbody>
-									<c:forEach var="c" items="${list}">
-										<tr>
-											<td>${c.customerId}</td>
-											<td>${c.customerName}</td>
-											<td>${c.customerRank}</td>
-											<td>				
-												<form action="${pageContext.request.contextPath}/employee/customer/customerList" method="get" id="changeForm">
-													<input type="hidden" name="customerId" value="${c.customerId}">
-													<select name="active" id="active">
-														<c:if test="${c.totalIdActive eq '활성화'}">
-															<option value="활성화" selected="selected">활성화</option>
-															<option value="비활성화">비활성화</option>
-														</c:if>
-														<c:if test="${c.totalIdActive eq '비활성화'}">
-															<option value="활성화">활성화</option>
-															<option value="비활성화" selected="selected">비활성화</option>
-														</c:if>
-													</select>
-												</form>
-											</td>
-											<td>${c.createdate}</td>
-											<td>
-												<a type="button" href="${pageContext.request.contextPath}/employee/customer/customerOne?customerId=${c.customerId}">보기</a>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
-			</main>
+			</div>
+		</main>
        <!--end page main-->
 
 

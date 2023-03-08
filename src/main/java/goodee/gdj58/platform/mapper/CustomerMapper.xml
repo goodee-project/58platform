@@ -12,6 +12,16 @@
 		INNER JOIN total_id ti ON c.customer_id = ti.id		
 	</select>
 	
+	<!-- 회원 상세조회 -->
+	<select id="selectCustomerList" 
+		resultType="java.util.Map">
+		
+		SELECT c.customer_id customerId, c.customer_name customerName, c.customer_rank customerRank
+			, ti.total_id_active totalIdActive, ti.createdate createdate
+		FROM customer c
+		INNER JOIN total_id ti ON c.customer_id = ti.id		
+	</select>
+	
 	<!-- 회원등급 수정 -->
 	<select id="updateCustomerActive"
 		resultType="java.util.Map"
@@ -87,8 +97,19 @@
 	<!-- 회원 잔여 페이머니 -->
 	<select id="selectCustomerPayMoney"
 		resultType="int"
-		parameterType="java.lang.String">
+		parameterType="string">
 		
 		SELECT customer_pay customerPay FROM customer WHERE customer_id = #{customerId}
+	</select>
+	
+	<!-- 탈퇴 회원조회 -->
+	<select id="selectInactiveCustomerList" 
+		resultType="java.util.Map">
+		
+		SELECT c.customer_id customerId, c.customer_name customerName, c.customer_rank customerRank
+			, ti.total_id_active totalIdActive, ti.total_id_deactive_memo totalIdDeactiveMemo, ti.createdate createdate
+		FROM customer c
+		INNER JOIN total_id ti ON c.customer_id = ti.id
+		WHERE total_id_deactive_memo = "탈퇴"
 	</select>
 </mapper>
