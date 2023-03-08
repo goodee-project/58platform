@@ -100,7 +100,7 @@
 								</thead>
 							
 								<tbody>
-									<c:forEach var="s" items="${sellList}">
+									<c:forEach var="s" items="${companySellList}">
 										<tr>
 											<td>${s.bookingProductNo}</td>
 											<td>${s.bookingProductImgSaveName}</td>
