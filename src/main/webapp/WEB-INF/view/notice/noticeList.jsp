@@ -31,7 +31,7 @@
 		<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
- 		<title>Notice List</title>
+ 		<title>공지사항 조회</title>
 	</head>
 	
 	<body>

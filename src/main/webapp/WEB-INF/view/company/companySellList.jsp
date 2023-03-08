@@ -51,37 +51,19 @@
        <main class="page-content">
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Tables</div>
+					<div class="breadcrumb-title pe-3">판매상품조회</div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
-									기업
+									기업 > 기업조회 > 판매상품조회
 								</li>
-								<c:if test="${serviceName == '쇼핑'}">
-									<li class="breadcrumb-item active" aria-current="page">기업 조회(쇼핑)</li>
-								</c:if>
-								<c:if test="${serviceName == '예약'}">
-									<li class="breadcrumb-item active" aria-current="page">기업 조회(예약)</li>
-								</c:if>
 							</ol>
 						</nav>
 					</div>
 				</div>
 				<!--end breadcrumb-->
 				<hr/>
-				<c:if test="${serviceName == '쇼핑'}">
-				<div class="btn-group">
-					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=쇼핑'">쇼핑몰</button>
-					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=예약'">예약</button>
-				</div>
-				</c:if>
-				<c:if test="${serviceName == '예약'}">
-				<div class="btn-group">
-					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=쇼핑'">쇼핑몰</button>
-					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=예약'">예약</button>
-				</div>
-				</c:if>
 				<br><br>
 				<div class="card">
 					<div class="card-body">

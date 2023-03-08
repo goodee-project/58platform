@@ -32,7 +32,7 @@
 		<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
- 		<title>Add Notice</title>
+ 		<title>공지사항 등록</title>
  		
  		<!-- jQuery -->
 		<!-- CDN 주소 추가 방식 -->

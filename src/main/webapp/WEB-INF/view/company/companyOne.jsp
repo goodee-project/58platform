@@ -31,7 +31,7 @@
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
   <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>신고조회</title>
+  <title>기업 상세보기</title>
 </head>
 
 <body>
