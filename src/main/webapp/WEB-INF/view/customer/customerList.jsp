@@ -29,11 +29,12 @@
   <link href="/58platform/assets/css/dark-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
-  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" /><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script>
 	$(document).ready(function() {
-		$('#active').change(function() {
-			$('#changeForm').submit();
+		$('.active').change(function() {
+			$(this.form).submit();
 			alert('change')
 		});
 	});
@@ -80,12 +81,12 @@
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th style="width : 10%">ID</th>
-										<th style="width : 10%">이름</th>
+										<th style="width : 15%">ID</th>
+										<th style="width : 15%">이름</th>
 										<th style="width : 15%">회원등급</th>
-										<th style="width : 10%">상태</th>
-										<th style="width : 10%">가입일</th>
-										<th style="width : 35%">회원상세</th>
+										<th style="width : 15%">상태</th>
+										<th style="width : 15%">가입일</th>
+										<th style="width : 15%">회원상세</th>
 									</tr>
 								</thead>
 							
@@ -98,7 +99,7 @@
 											<td>				
 												<form action="${pageContext.request.contextPath}/employee/customer/customerList" method="get" id="changeForm">
 													<input type="hidden" name="customerId" value="${c.customerId}">
-													<select name="active" id="active">
+													<select name="active" class="active">
 														<c:if test="${c.totalIdActive eq '활성화'}">
 															<option value="활성화" selected="selected">활성화</option>
 															<option value="비활성화">비활성화</option>

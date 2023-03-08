@@ -72,12 +72,12 @@
 						<table id="example" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
-									<th style="width : 10%">ID</th>
-									<th style="width : 10%">이름</th>
+									<th style="width : 15%">ID</th>
+									<th style="width : 15%">이름</th>
 									<th style="width : 15%">회원등급</th>
-									<th style="width : 10%">상태</th>
-									<th style="width : 10%">가입일</th>
-									<th style="width : 35%">회원상세</th>
+									<th style="width : 15%">상태</th>
+									<th style="width : 15%">가입일</th>
+									<th style="width : 15%">회원상세</th>
 								</tr>
 							</thead>
 						

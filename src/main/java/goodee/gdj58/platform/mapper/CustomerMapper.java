@@ -12,6 +12,7 @@ public interface CustomerMapper {
 	List<Map<String, Object>> selectCustomerList();
 	
 	// 회원 상세조회
+	List<Map<String, Object>> selectCustomerOne(String customerId);
 	
 	// 회원등급 수정
 	String updateCustomerActive(String customerId, String active);

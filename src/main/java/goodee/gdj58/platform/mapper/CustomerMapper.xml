@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.CustomerMapper">
 
-	<!-- 회원 조회 
+	<!-- 회원 조회 -->
 	<select id="selectCustomerList" 
 		resultType="java.util.Map">
 		
@@ -11,16 +11,23 @@
 		FROM customer c
 		INNER JOIN total_id ti ON c.customer_id = ti.id		
 	</select>
-	-->
 	
 	<!-- 회원 상세조회 -->
-	<select id="selectCustomerList" 
-		resultType="java.util.Map">
+	<select id="selectCustomerOne"
+		resultType="java.util.Map"
+		parameterType="java.lang.String">
 		
-		SELECT c.customer_id customerId, c.customer_name customerName, c.customer_rank customerRank
+		SELECT c.customer_id customerId, c.customer_name customerName
+			, c.customer_nickname customerNickname, c.customer_rank customerRank
+			, c.customer_phone customerPhone, c.customer_email customerEmail
+			, c.customer_pay customerPay , c.customer_point customerPoint
+			, c.customer_birth customerBirth, c.customer_gender customerGender
 			, ti.total_id_active totalIdActive, ti.createdate createdate
+			, ci.customer_img_save_name customerImgSaveName
 		FROM customer c
-		INNER JOIN total_id ti ON c.customer_id = ti.id		
+		INNER JOIN total_id ti ON c.customer_id = ti.id
+		INNER JOIN customer_img ci ON ti.id = ci.customer_id
+		WHERE c.customer_id = #{customerId}
 	</select>
 	
 	<!-- 회원등급 수정 -->
@@ -73,13 +80,13 @@
 		parameterType="java.lang.String">
 		
 		SELECT ROW_NUMBER() OVER(ORDER BY createdate ASC) no,
-			paySaveHistoryCategory,
-			paySaveHistoryContent,
+			payHistoryCategory,
+			payHistoryContent,
 			price,
 			createdate
 		FROM (
-			SELECT pay_save_history_category paySaveHistoryCategory,
-				pay_save_history_content paySaveHistoryContent,
+			SELECT pay_save_history_category payHistoryCategory,
+				pay_save_history_content payHistoryContent,
 				price,
 				createdate
 			FROM pay_save_history

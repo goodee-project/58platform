@@ -29,8 +29,40 @@
   <link href="/58platform/assets/css/dark-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
-  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
+  <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script>
+	  function calculateAge() {
+		  const birthDate = new Date(${c.customerBirth});
 
+		// 생일로부터 오늘까지의 시간 차이를 계산합니다.
+		const timeDiff = Date.now() - birthDate.getTime();
+
+		// 연도로 변환합니다.
+		const ageDate = new Date(timeDiff);
+
+		// 계산된 나이를 가져옵니다.
+		const calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+		// 나이를 보여줄 HTML 엘리먼트를 선택하여 텍스트를 변경합니다.
+		$('#customerBirth').text(calculatedAge);
+		
+		/* 
+		  var birthdate = document.getElementById("customerBirth").value;
+		  var today = new Date();
+		  var age = today.getFullYear() - new Date(birthdate).getFullYear() + 1;
+		  
+		  // 만 나이 계산
+		  var koreanAge = age;
+		  if (new Date(birthdate).getMonth() > today.getMonth()) {
+		    koreanAge -= 1;
+		  } else if (new Date(birthdate).getMonth() == today.getMonth() && new Date(birthdate).getDate() > today.getDate()) {
+		    koreanAge -= 1;
+		  }
+  		  ${'#customerBirth'}.text(koreanAge);
+		 */
+		}
+  </script>
   <title>고객 상세조회</title>
 </head>
 
@@ -71,14 +103,27 @@
 						<div class="card shadow-sm border-0 overflow-hidden">
 							<div class="card-body">
 								<div class="profile-avatar text-center">
-									<img src="/58platform/assets/images/avatars/avatar-1.png" class="rounded-circle shadow" width="120" height="120" alt="">
+									<img src="/58platform/assets/images/avatars/${c.customerImgSaveName}" class="rounded-circle shadow" width="120" height="120" alt="">
 								</div>
 								<div class="text-center mt-4">
-									<h4 class="mb-1">${c.customerName}, ${c.customerBirth}, ${c.customerGender}</h4>
-									<p class="mb-0 text-secondary">Sydney, Australia</p>
+									<h4 class="mb-1">${c.customerName}, <span id="customerBirth"><input type="text" value="${c.customerBirth}">${c.customerBirth}</span>, ${c.customerGender}</h4>
 									<div class="mt-4"></div>
 								</div>
-								<hr>
+								<hr>								
+								<label class="form-label">잔여 포인트</label>
+								<div class="input-group col-12">
+									<input type="text" class="form-control" value="${c.customerPoint}" aria-label="customerPoint" aria-describedby="pointDetails">
+									<a href="${pageContext.request.contextPath}/employee/customer/pointDetails?customerId=${c.customerId}">
+										<button class="btn btn-outline-secondary" id="pointDetails">내역</button>
+									</a>
+								</div>								
+								<label class="form-label mt-3">잔여 페이머니</label>
+								<div class="input-group col-12">
+									<input type="text" class="form-control" value="${c.customerPay}" aria-label="customerPay" aria-describedby="payMoneydetails">
+									<a href="${pageContext.request.contextPath}/employee/customer/payMoneyDetails?customerId=${c.customerId}">
+										<button class="btn btn-outline-secondary" id="payMoneydetails">내역</button>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -99,15 +144,7 @@
 											</div>
 											<div class="col-6">
 												<label class="form-label">회원 닉네임</label>
-												<input type="text" class="form-control" value="${c.customerNickName}">
-											</div>
-											<div class="col-6">
-												<label class="form-label">잔여 포인트</label>
-												<input type="text" class="form-control" value="${c.customerPoint}">
-											</div>
-											<div class="col-6">
-												<label class="form-label">잔여 페이머니</label>
-												<input type="text" class="form-control" value="${c.customerPay}">
+												<input type="text" class="form-control" value="${c.customerNickname}">
 											</div>
 											<div class="col-6">
 												<label class="form-label">회원등급</label>

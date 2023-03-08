@@ -21,6 +21,9 @@ public class CustomerService {
 	}
 	
 	// 회원 상세조회
+	public List<Map<String, Object>> getCustomerOne(String customerId) {
+		return customerMapper.selectCustomerOne(customerId);
+	}
 	
 	// 회원등급 수정
 	public String modifyCustomerActive(String customerId, String active) {
