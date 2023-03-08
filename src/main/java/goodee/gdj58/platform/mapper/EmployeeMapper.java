@@ -52,7 +52,9 @@ public interface EmployeeMapper {
 	
 	// 직원 목록
 	List<Map<String, Object>> selectEmployeeList();
-	
+
+	// 로그인 비밀번호 체크
+	Employee selectEmployeePw(String employeeId);
 	// 직원 로그인
 	Employee login(Employee employee);
 }

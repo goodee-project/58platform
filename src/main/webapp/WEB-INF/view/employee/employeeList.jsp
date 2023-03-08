@@ -9,11 +9,13 @@
 		<title>employeeList</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" href="/58platform/assets/images/favicon-32x32.png" type="image/png" />
+		
 		<!--plugins-->
 		<link href="/58platform/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 		<link href="/58platform/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
 		<link href="/58platform/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
 		<link href="/58platform/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+		
 		<!-- Bootstrap CSS -->
 		<link href="/58platform/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/bootstrap-extended.css" rel="stylesheet" />
@@ -25,18 +27,11 @@
 		<!-- loader-->
 		<link href="/58platform/assets/css/pace.min.css" rel="stylesheet" />
 		
-		
 		<!--Theme Styles-->
 		<link href="/58platform/assets/css/dark-theme.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
-		<style>
-			.a {
-				vertical-align : middle;
-			}
-		</style>
-		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {

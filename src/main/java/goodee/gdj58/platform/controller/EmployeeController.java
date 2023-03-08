@@ -192,17 +192,24 @@ public class EmployeeController {
 	
 	// 직원 로그인 폼
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) {
 		
 		return "login";
 	}
 	
 	// 직원 로그인 액션
 	@PostMapping("/login")
-	public String login(HttpSession session, Employee employee) {
+	public String login(HttpSession session, Employee employee, Model model) {
+		
+		log.debug("\u001B[31m" + employee + "<-- employee 로그인 할때 디버깅");
 		
 		// 로그인 정보 불러오는 메서드 호출
 		Employee loginEmp = employeeService.login(employee);
+		
+		if(loginEmp == null) {
+			model.addAttribute("msg", "존재하지않는 아이디거나 패스워드가 일치하지않습니다.");
+			return "login";
+		}
 		
 		// 세션에 저장
 		session.setAttribute("loginEmp", loginEmp);

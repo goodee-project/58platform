@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.CustomerMapper">
 
-	<!-- 회원 조회 -->
+	<!-- 회원 조회 
 	<select id="selectCustomerList" 
 		resultType="java.util.Map">
 		
@@ -11,6 +11,7 @@
 		FROM customer c
 		INNER JOIN total_id ti ON c.customer_id = ti.id		
 	</select>
+	-->
 	
 	<!-- 회원 상세조회 -->
 	<select id="selectCustomerList" 

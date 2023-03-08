@@ -110,6 +110,7 @@
 											  <div class="ms-auto position-relative">
 											    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-arrow-return-right"></i></div>
 											    <input type="text" name="employeeId" value="admin" class="form-control radius-30 ps-5" placeholder="ID를 입력해주세요." id="empId">
+											    <span id="idMsg"></span>
 											  </div>
 											</div>
 											<div class="col-12">
@@ -117,6 +118,7 @@
 											  <div class="ms-auto position-relative">
 											    <div class="position-absolute top-50 translate-middle-y search-icon px-3 password"><i class="bi bi-lock-fill"></i></div>
 											    <input type="password" name="employeePw" value="1234" class="form-control radius-30 ps-5" placeholder="비밀번호를 입력해주세요." id="pwck">
+											    <span id="pwMsg"></span>
 											  </div>
 											</div>
 											<div class="col-6">
@@ -125,8 +127,10 @@
 											    <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
 											  </div>
 											</div>
-											<div class="col-6 text-end">	<a href="authentication-forgot-password.html">Forgot Password ?</a>
+											<div class="col-6 text-end">	
+												<a href="authentication-forgot-password.html">Forgot Password ?</a>
 											</div>
+											<span class="text-danger">${msg}</span>
 											<div class="col-12">
 											  <div class="d-grid">
 											    <button type="button" class="btn btn-primary radius-30" id="btn">Login</button>
@@ -158,6 +162,7 @@
 		<script src="assets/js/pace.min.js"></script>
 		<script>
 		$(document).ready(function(){
+			// 비밀번호 보이기/숨기기
 		    $('.password i').on('click',function(){
 		        $('#pwck').toggleClass('active');
 		        if($('#pwck').hasClass('active')){
@@ -168,17 +173,26 @@
 		            $('#pwck').attr('type','password');
 		        }
 		    });
-		    
+		    // 아이디, 비밀번호 유효성 검사
 		    $('#btn').click(function() {
 		    	if($('#empId').val() == '') {
-		    		alert('아이디를 입력해주세요.');
+		    		$('#idMsg').text('ID를 입력해주세요.');
 		    	} else if($('#empId').val() != '' && $('#pwck').val() == '') {
-		    		alert('비밀번호를 입력해주세요.');
+		    		$('#pwMsg').text('비밀번호를 입력해주세요.');
 		    	} else if($('#empId').val() != '' && $('#pwck').val() != '') {
 		    		$('#loginForm').submit();
 		    	}
 		    });
 		});
+		
+		// 새로고침시 get 파라미터 제거
+		$(document).keydown(function(e){
+			key = (e)?e.keyCode:event.keyCode;
+			//alert(key);
+			if(key == 116 || (event.ctrlKey && event.keyCode == 82)) {
+				history.replaceState({}, null, location.pathname);
+			}
+		})
 		</script>
 	</body>
 </html>

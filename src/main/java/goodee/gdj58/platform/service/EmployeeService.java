@@ -100,6 +100,11 @@ public class EmployeeService {
 		return employeeMapper.selectEmployeeList();
 	}
 	
+	// 로그인 비밀번호 체크
+	public Employee getEmployeePw(String employeeId) {
+		return employeeMapper.selectEmployeePw(employeeId);
+	}
+	
 	// 직원 로그인
 	public Employee login(Employee employee) {
 		return employeeMapper.login(employee);
