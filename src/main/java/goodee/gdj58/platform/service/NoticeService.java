@@ -16,7 +16,18 @@ import goodee.gdj58.platform.vo.Notice;
 public class NoticeService {
 	@Autowired private NoticeMapper noticeMapper;
 	
+	
+	// 공지사항 제목 중복 체크 (제목 중복 체크 null을 반환하면 사용가능한 제목, 제목 반환하면 사용불가능한 제목)
+	public String getNoticeTitleCk(String noticeTitle) {
+		// null을 반환하면 사용가능한 아이디, 아이디를 반환하면 사용불가능한 아이디
+		String resultStr = "NO";
 		
+		if(noticeMapper.selectNoticeTitleCk(noticeTitle) == null) {
+			resultStr = "YES";
+		}
+		return resultStr;
+	}
+	
 	// 공지사항 수정
 	public int modifyNotice(Notice notice) {
 		return noticeMapper.updateNotice(notice);
