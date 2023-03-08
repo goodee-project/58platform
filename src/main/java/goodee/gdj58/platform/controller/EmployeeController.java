@@ -88,7 +88,7 @@ public class EmployeeController {
 		return "redirect:/employee/emp/employeeOne";
 	}
 	
-	// 직원 개인정보 수정폼
+	/* 직원 개인정보 수정폼
 	@GetMapping("/employee/emp/modifyEmployeeInfo")
 	public String modifyEmployee(Model model, HttpSession session) {
 		
@@ -103,6 +103,7 @@ public class EmployeeController {
 		
 		return "employee/modifyEmployeeInfo";
 	}
+	*/
 	
 	// 직원 myPage
 	@GetMapping("/employee/emp/employeeOne")

@@ -28,9 +28,9 @@ public interface EmployeeMapper {
 	
 	// 직원 개인정보 변경
 	int updateEmployeeInfo(EmployeeInfo employeeInfo);
-	// 직원 개인정보 변경을 위한 조회
+	/* 직원 개인정보 변경을 위한 조회
 	Map<String, Object> selectEmployeeByUpdate(String employeeId);
-	
+	*/
 	// 직원 개인정보
 	Map<String, Object> selectEmployeeOne(String employeeId);
 	

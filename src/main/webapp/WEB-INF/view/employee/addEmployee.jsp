@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en" class="semi-dark">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -48,18 +48,18 @@
 			            $('#pw').attr('type','password');
 			        }
 			    });
-				
-			 // 비밀번호확인 보이기/숨기기
-		    $('.pwck i').on('click',function(){
-		        $('#pwck').toggleClass('active');
-		        if($('#pwck').hasClass('active')){
-		            $(this).attr('class',"bi bi-unlock-fill")
-		            $('#pwck').attr('type',"text");
-		        }else{
-		            $(this).attr('class',"bi bi-lock-fill")
-		            $('#pwck').attr('type','password');
-		        }
-		    });
+					
+				 // 비밀번호확인 보이기/숨기기
+			    $('.pwck i').on('click',function(){
+			        $('#pwck').toggleClass('active');
+			        if($('#pwck').hasClass('active')){
+			            $(this).attr('class',"bi bi-unlock-fill")
+			            $('#pwck').attr('type',"text");
+			        }else{
+			            $(this).attr('class',"bi bi-lock-fill")
+			            $('#pwck').attr('type','password');
+			        }
+			    });
 				
 				//한글입력 안되게 처리
 				$("input[name=id]").keyup(function(event){ 
@@ -88,16 +88,37 @@
 					});
 				});
 				
-				
+				// 아이디 대문자로 입력해도 소문자로만 받기
+				$("#employeeId").bind("keyup", function() {
+				     $(this).val($(this).val().toLowerCase());
+				});
 				
 				// 유효성 검사
-				
 				// pw가 빈칸이면
 				$('#pw').blur(function() {
 					if($('#pw').val() == '') {
-						$('#pwMsg').text('비밀번호를 입력해주세요.');
+						$('#pwMsg').text('필수정보입니다.');
 					} else if($('#pw').val() != '') {
 						$('#pwMsg').text('');
+					}
+					
+					var password = $("#pw").val();
+					var num = password.search(/[0-9]/g);
+					var eng = password.search(/[a-z]/ig);
+					var spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+					if(password.length < 6 || pw.length > 20) {
+						$('#pwMsg').text('6자리 ~ 20자리 이내로 입력해주세요.');
+						return false;
+					} else if (password.search(/\s/) != -1) {
+						$('#pwMsg').text('비밀번호는 공백 없이 입력해주세요.');
+						return false;
+					} else if (num < 0 || eng < 0 || spe < 0 ) {
+						$('#pwMsg').text('영문,숫자, 특수문자를 혼합하여 입력해주세요.');
+						return false;
+					} else {
+						console.log("통과");
+						return true;
 					}
 				});
 				
@@ -110,6 +131,30 @@
 					}
 				});
 				
+				// 아이디 길이 유효성 검사
+				$('#btn').blur(function() {
+					if($('#id').val().length < 4 || $('#id').val().length > 15) {
+						$('#employeeId').val('')
+						$('#idMsg').text('4자리 ~ 15자리이하로 입력해주세요.');
+					}
+				});
+				
+				// 이름 유효성 검사
+				$('#name').blur(function() {
+					if($('#name').val() == '') {
+						$('#nameMsg').text('필수정보입니다.')
+					} else if($('#employeeName').val() != '') {
+						$('#nameMsg').text('');
+					}
+				});
+				
+				// 연락처 유효성 검사
+				$('#phone').blur(function() {
+					if($('#phone').val().length != 11) {
+						$('#phone').val('');
+						$('#phoneMsg').text('연락처를 확인해주세요.');
+					}
+				});
 			});
 		</script>
 		<style>
@@ -127,11 +172,10 @@
 		
 		<!--start wrapper-->
 		<div class="wrapper">
-		
-		<!--start header -->
-		<c:import url="/WEB-INF/inc/header.jsp"></c:import>
-		<!--start sidebar -->
-		<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>    
+			<!--start header -->
+			<c:import url="/WEB-INF/inc/header.jsp"></c:import>
+			<!--start sidebar -->
+			<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>    
 			<!--start content-->
 			<main class="authentication-content po2">
 				<div class="container">
@@ -144,14 +188,14 @@
 								<div class="col-12 col-xl-4 order-xl-2">
 									<div class="card-body p-4 p-sm-5">
 										<h5 class="card-title">직원등록</h5>
-										<form action="${pageContext.request.contextPath}/employee/emp/addEmployee" method="post" class="form-body">
+										<form action="${pageContext.request.contextPath}/employee/emp/addEmployee" method="post" class="form-body" id="addForm">
 											<div class="row g-3">
 												<div class="col-12 ">
 													<label for="inputName" class="form-label">ID</label>
 													<div class="ms-auto position-relative">
 														<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-circle"></i></div>
 														<!-- 아이디입력창 누르면 모달 -->
-														<input type="text" class="form-control radius-30 ps-5" data-bs-toggle="modal" data-bs-target="#exampleModal" name="employeeId" id="employeeId" placeholder="ID를 입력해주세요." readonly="readonly" />
+														<input type="text" class="form-control radius-30 ps-5" data-bs-toggle="modal" data-bs-target="#exampleModal" name="employeeId" id="employeeId" placeholder="ID를 입력해주세요."  style="text-transform: lowercase;" readonly="readonly" />
 														<!-- Modal -->
 														<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 															<div class="modal-dialog">
@@ -195,13 +239,15 @@
 														<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-circle"></i></div>
 														<input type="text" name="employeeName" class="form-control radius-30 ps-5" id="name" placeholder="이름을 입력해주세요.">
 													</div>
+													<span id="nameMsg"></span>
 												</div>
 												<div class="col-12 ">
 													<label for="inputName" class="form-label">Phone</label>
 													<div class="ms-auto position-relative">
-													<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-telephone-fill"></i></div>
-													<input type="text" name="employeePhone" class="form-control radius-30 ps-5" id="phone" placeholder="연락처를 입력해주세요.">
+														<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-telephone-fill"></i></div>
+														<input type="text" name="employeePhone" class="form-control radius-30 ps-5" id="phone" placeholder="연락처 -를 빼고 11자리 입력해주세요.">
 													</div>
+													<span id="phoneMsg"></span>
 												</div>
 												<div class="col-12">
 													<label for="inputEmailAddress" class="form-label">Email Address</label>
@@ -209,6 +255,7 @@
 														<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
 														<input type="email" name="employeeEmail" class="form-control radius-30 ps-5" id="email" placeholder="Email을 입력해주세요.">
 													</div>
+													<span id="emailMsg"></span>
 												</div>
 												<div class="col-12">
 													<div class="d-grid">

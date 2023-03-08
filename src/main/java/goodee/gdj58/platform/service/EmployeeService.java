@@ -57,10 +57,11 @@ public class EmployeeService {
 		return employeeMapper.updateEmployeeInfo(employeeInfo);
 	}
 	
-	// 직원 개인정보 변경을 위한 조회
+	/* 직원 개인정보 변경을 위한 조회
 	public Map<String, Object> getEmployeeByModify(String employeeId) {
 		return employeeMapper.selectEmployeeByUpdate(employeeId);
 	}
+	*/
 	
 	// 직원 myPage
 	public Map<String, Object> getEmployeeOne(String employeeId) {

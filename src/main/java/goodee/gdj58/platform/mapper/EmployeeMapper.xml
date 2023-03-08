@@ -61,7 +61,7 @@
 		WHERE employee_id = #{employeeId}
 	</update>
 	
-	<!-- 직원 개인정보 변경을 위한 조회 -->
+	<!-- 직원 개인정보 변경을 위한 조회 
 	<select id="selectEmployeeByUpdate" parameterType="string" resultType="java.util.Map">
 		SELECT 
 			e.employee_id employeeId
@@ -75,6 +75,7 @@
 		ON e.employee_id = ei.employee_id
 		WHERE e.employee_id = #{employeeId}
 	</select>
+	-->
 	
 	<!-- 직원 myPage -->
 	<select id="selectEmployeeOne" parameterType="string" resultType="java.util.Map">

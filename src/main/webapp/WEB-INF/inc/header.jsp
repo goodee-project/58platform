@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<!--start top header-->
 	<header class="top-header">        
         <nav class="navbar navbar-expand gap-3 align-items-center">
@@ -15,6 +16,11 @@
                   </a>
               </li>
               <li class="nav-item dropdown dropdown-user-setting">
+				<div class="user-setting d-flex align-items-center">
+					${loginEmp.employeeName}[${loginEmp.employeeLevel}]님 반갑습니다.
+				</div>
+              </li>
+              <li class="nav-item dropdown dropdown-user-setting">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="user-setting d-flex align-items-center">
                     <img src="/58platform/assets/images/avatars/avatar-1.png" class="user-img" alt="">
@@ -26,50 +32,18 @@
                        <div class="d-flex align-items-center">
                           <img src="/58platform/assets/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="54" height="54">
                           <div class="ms-3">
-                            <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
-                            <small class="mb-0 dropdown-user-designation text-secondary">HR Manager</small>
+                            <h6 class="mb-0 dropdown-user-name">${loginEmp.employeeName}</h6>
+                            <small class="mb-0 dropdown-user-designation text-secondary">${loginEmp.employeeLevel}</small>
                           </div>
                        </div>
                      </a>
                    </li>
                    <li><hr class="dropdown-divider"></li>
                    <li>
-                      <a class="dropdown-item" href="pages-user-profile.html">
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/emp/employeeOne">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-person-fill"></i></div>
-                           <div class="ms-3"><span>Profile</span></div>
-                         </div>
-                       </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                         <div class="d-flex align-items-center">
-                           <div class=""><i class="bi bi-gear-fill"></i></div>
-                           <div class="ms-3"><span>Setting</span></div>
-                         </div>
-                       </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="index2.html">
-                         <div class="d-flex align-items-center">
-                           <div class=""><i class="bi bi-speedometer"></i></div>
-                           <div class="ms-3"><span>Dashboard</span></div>
-                         </div>
-                       </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                         <div class="d-flex align-items-center">
-                           <div class=""><i class="bi bi-piggy-bank-fill"></i></div>
-                           <div class="ms-3"><span>Earnings</span></div>
-                         </div>
-                       </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                         <div class="d-flex align-items-center">
-                           <div class=""><i class="bi bi-cloud-arrow-down-fill"></i></div>
-                           <div class="ms-3"><span>Downloads</span></div>
+                           <div class="ms-3"><span>MyPage</span></div>
                          </div>
                        </a>
                     </li>
