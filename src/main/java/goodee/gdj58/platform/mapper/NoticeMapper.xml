@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.NoticeMapper">
 	
+	<!-- 공지사항 제목 중복 체크 -->
+	<select id="selectNoticeTitleCk" parameterType="string" resultType="string">
+		SELECT 
+			notice_title 
+		FROM notice 
+		WHERE notice_title = #{noticeTitle}
+	</select>
 	
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="goodee.gdj58.platform.vo.Notice" >

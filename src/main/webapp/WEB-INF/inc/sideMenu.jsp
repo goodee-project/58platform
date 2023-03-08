@@ -268,6 +268,23 @@
               </ul>
             </li>
             <li>
+            <li>
+              <a class="has-arrow company" href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-bar-chart-line-fill"></i>
+                </div>
+                <div class="menu-title">통계</div>
+              </a>
+              <ul>
+                <li> <a href="${pageContext.request.contextPath}/employee/sales/payStatistics"><i class="bi bi-circle"></i>페이충전통계(표)</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/sales/payStatisticsChart"><i class="bi bi-circle"></i>페이충전통계(차트)</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/sales/paySaveHistory"><i class="bi bi-circle"></i>회원페이충전이력(표)</a>
+                </li>
+                <li> <a href="${pageContext.request.contextPath}/employee/company/paySaveHistoryChart"><i class="bi bi-circle"></i>회원페이충전이력(차트)</a>
+                </li>
+              </ul>
+            </li>
               <a href="pages-faq.html">
                 <div class="parent-icon"><i class="bi bi-question-lg"></i>
                 </div>

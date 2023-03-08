@@ -40,6 +40,25 @@
 		<script>
 			$(document).ready(function() {
 				
+				// 제목 중복값 체크 
+				$('#ckBtn').click(function(){
+					$.ajax({
+						url:'${pageContext.request.contextPath}/noticeTitleCk'
+						, type:'get'
+						, data : {noticeTitle:$('#noticeTitle').val()}
+						, success:function(model){ // model : 'YES' / 'NO'
+							if(model=='YES') {
+								// 사용가능한 아이디
+								$('#noticeTitle').val($('#noticeTitle').val());
+								alert($('#noticeTitle').val()+'는 사용가능한 제목입니다.');
+							} else {
+								// 사용중인 아이디
+								alert($('#noticeTitle').val()+'는 사용중인 제목입니다.');
+								$('#noticeTitle').val("[${serviceName}]");
+							}
+						}
+					});
+				});
 				// 등록 버튼 클릭시 확인 및 공백값 체크
 				$('#addBtn').click(function(){
 					var out = confirm('등록 하시겠습니까?');
@@ -162,8 +181,8 @@
 													<input class="form-control mb-3" type="text" name="serviceName" value="${serviceName}" aria-label="Disabled input example" disabled readonly>
 												</div>
 												<div>
-													<label class="float-label">제목</label>
-													<input class="form-control mb-3" type="text" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력하세요" aria-label="default input example">
+													<label class="float-label">제목</label>&nbsp;<button type="button" id="ckBtn">중복검사</button>
+													<input class="form-control mb-3" type="text" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력하세요" value="[${serviceName}]" aria-label="default input example">
 												</div>
 												<div>
 													<label class="float-label">내용</label>

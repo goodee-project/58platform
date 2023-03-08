@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.CompanyMapper">
-
+	
+	<!-- 쇼핑몰 판매 상품 조회 --> 
+	<select id="selectCompanySellList" 
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			booking_company.booking_company_id companyId
+			, booking_company.booking_company_name companyName
+			, booking_company.booking_company_ceo companyCeo
+			, booking_product.booking_product_no bookingProductNo
+			, booking_product.booking_product_name bookingProductName
+			, booking_product.booking_product_price bookingProductPrice
+			, booking_product.booking_product_open bookingProductOpen
+			, booking_product.booking_product_max_people bookingProductMaxPeople
+			, booking_product.booking_product_min_people bookingProductMinPeople
+			, booking_product.createdate createdate
+			, booking_product_img.booking_product_img_no bookingProductImgNo
+			, booking_product_img.booking_product_img_save_name bookingProductImgSaveName
+			, booking_product_img.booking_product_img_origin_name bookingProductImgOriginName
+		
+		FROM
+			booking_company
+			INNER JOIN booking_product
+			ON booking_company.booking_company_id = booking_product.booking_company_id
+			INNER JOIN booking_product_img
+			ON booking_product.booking_product_no = booking_product_img.booking_product_no
+		WHERE 
+			booking_company.booking_company_name = #{companyName}
+			ORDER BY createdate DESC;
+	
+	</select>
+	
 	<!-- 예약기업 조회 -->
 	<select id="selectBookingCompanyList" 
 		resultType="java.util.Map">
