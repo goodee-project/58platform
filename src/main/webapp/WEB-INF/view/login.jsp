@@ -41,11 +41,6 @@
 	<body class="bg-surface">
 		<!--start wrapper-->
 		<div class="wrapper">
-			<!--start header -->
-			<c:import url="/WEB-INF/inc/header.jsp"></c:import>
-			<!--start sidebar -->
-			<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>  
-			<!--start content-->
 			<main class="authentication-content po">
 				<div class="container">
 					<div class="mt-4">
