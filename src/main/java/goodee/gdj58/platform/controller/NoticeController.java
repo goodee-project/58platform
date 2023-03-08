@@ -43,10 +43,11 @@ public class NoticeController {
 									,@RequestParam(value="noticeNo") int noticeNo
 									,@RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
 		log.debug("\u001B[45m 삭제공지번호 : "+ noticeNo);
+		redirectAttributes.addAttribute("serviceName", serviceName);
 		
 		int row = noticeService.removeNotice(noticeNo);
 		if(row == 0) {
-			return "notice/noticeOne?noticeNo="+noticeNo; 
+			return "notice/noticeOne"; 
 		}
 		
 		return "redirect:/employee/notice/noticeList";

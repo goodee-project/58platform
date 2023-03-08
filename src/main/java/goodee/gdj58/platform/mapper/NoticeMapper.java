@@ -23,5 +23,5 @@ public interface NoticeMapper {
 	int insertNotice(Notice notice);
 	
 	// 공지사항 리스트
-	List<Notice> selectShoppingNoticeList(Map<String, Object> paramMap, String serviceName);
+	List<Notice> selectNoticeList(Map<String, Object> paramMap, String serviceName);
 }

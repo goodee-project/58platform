@@ -41,6 +41,6 @@ public class NoticeService {
 	// 공지사항 리스트
 	public List<Notice> getShoppingNoticeList(String serviceName) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		return noticeMapper.selectShoppingNoticeList(paramMap, serviceName);
+		return noticeMapper.selectNoticeList(paramMap, serviceName);
 	}
 }

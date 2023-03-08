@@ -174,7 +174,7 @@
 												</div>
 												<button class="btn btn-outline-primary" id="modifyBtn" type="button">수정</button>
 												<button class="btn btn-outline-primary" id="removeBtn" type="button" 
-															onClick="location.href='${pageContext.request.contextPath}/employee/notice/removeNotice?noticeNo=${n.noticeNo}&surviceName=${n.noticeNo}'">
+															onClick="location.href='${pageContext.request.contextPath}/employee/notice/removeNotice?noticeNo=${n.noticeNo}&serviceName=${n.serviceName}'">
 															삭제
 												</button>
 											</form>
