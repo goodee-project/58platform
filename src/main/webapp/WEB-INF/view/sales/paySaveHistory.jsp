@@ -79,7 +79,6 @@
 									<br>'${map.ttlCnt}'건의 충전이 있었습니다. 
 								</div>
 							</c:if>
-							<a href="${pageContext.request.contextPath}/employee/sales/payStatistics" class="btn btn-sm btn-danger">페이충전 누적액 조회</a>
 							
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>

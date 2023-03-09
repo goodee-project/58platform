@@ -163,21 +163,9 @@
 				</div>
 			</main>
 		
-		<!-- 
-		<a href="${pageContext.request.contextPath}/employee/emp/employeeOne">
-			${loginEmp.employeeName}
-		</a>
-		
-		로그인
-		<c:if test="${loginEmp != null}">
-			<a href="${pageContext.request.contextPath}/employee/emp/logout">로그아웃</a>
-			<a href="${pageContext.request.contextPath}/employee/emp/employeeList">직원관리</a>
-		</c:if>
-		 -->
-		
 		<!--start overlay-->
         <div class="overlay nav-toggle-icon"></div>
-       <!--end overlay-->
+        <!--end overlay-->
 
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>

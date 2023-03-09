@@ -62,7 +62,6 @@ public class SalesController {
 		return "sales/payStatisticsChart";
 	}
 	
-	
 	// 회원의 페이머니 충전 내역 통계 (기간)
 	@GetMapping("/employee/sales/paySaveHistory")
 	public String getSavePayHistoryByCustomer(Model model
@@ -85,6 +84,18 @@ public class SalesController {
 		return "sales/paySaveHistory";
 	}
 	
-	
+	// 상위 10명 고객 출력하기
+	@GetMapping("/employee/sales/vipCustomer")
+	public String getTopTenCustomer(Model model
+			, @RequestParam(value="startDate", defaultValue="") String startDate
+			, @RequestParam(value="endDate", defaultValue="") String endDate) {
+		
+		List<Map<String,Object>> list = salesService.getTopTenCustomer(startDate, endDate);
+		model.addAttribute("list", list);
+		model.addAttribute("startDate",startDate);
+		model.addAttribute("endDate",endDate);
+		
+		return "sales/vipCustomer";
+	}
 	
 }

@@ -116,8 +116,8 @@
               <ul>
                 <li><a href="${pageContext.request.contextPath}/employee/sales/payStatistics"><i class="bi bi-circle"></i>페이충전통계(표)</a></li>
                 <li><a href="${pageContext.request.contextPath}/employee/sales/payStatisticsChart"><i class="bi bi-circle"></i>페이충전통계(차트)</a></li>
-                <li><a href="${pageContext.request.contextPath}/employee/sales/paySaveHistory"><i class="bi bi-circle"></i>회원페이충전이력(표)</a></li>
-                <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>회원페이충전이력(차트)</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/sales/paySaveHistory"><i class="bi bi-circle"></i>회원페이충전이력</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/sales/vipCustomer"><i class="bi bi-circle"></i>큰손 회원 통계(VIP)</a></li>
               	<li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>광고매출통계(표)</a></li>
                 <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>광고매출통계(차트)</a></li>
               </ul>

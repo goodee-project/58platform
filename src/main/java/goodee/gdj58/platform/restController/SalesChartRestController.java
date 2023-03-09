@@ -41,4 +41,18 @@ public class SalesChartRestController {
 		
 		return list;
 	}
+	
+	@GetMapping("/vipCustomerChart")
+	public List<Map<String, Object>> vipCustomerChart(Model model
+			, @RequestParam(value="startDate", defaultValue="") String startDate
+			, @RequestParam(value="endDate", defaultValue="") String endDate) {
+		log.debug("\u001B[46m"+"rest/startDate : "+startDate);
+
+		List<Map<String,Object>> list = salesService.getTopTenCustomer(startDate, endDate);
+		model.addAttribute("startDate",startDate);
+		model.addAttribute("endDate",endDate);
+		model.addAttribute("list", list);
+		
+		return list;
+	}
 }

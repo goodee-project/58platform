@@ -9,15 +9,20 @@
 		resultType="java.util.Map"
 		parameterType="java.util.Map">
 		SELECT 
-			p.customer_id customerId,
-			c.customer_name customerName,
-			SUM(p.price) totalChargeAmount
+			p.customer_id customerId
+			, c.customer_name customerName
+			, c.customer_rank customerRank
+			, c.customer_birth customerBirth
+			, c.customer_gender customerGender
+			, SUM(p.price) totalChargePay
 		FROM pay_save_history p
 		INNER JOIN customer c ON p.customer_id = c.customer_id
 		WHERE p.pay_save_history_category = '충전'
-		AND DATE(p.createdate) BETWEEN #{startDate} AND #{endDate}
+		<if test="startDate != ''">
+			AND DATE(p.createdate) BETWEEN #{startDate} AND #{endDate}
+		</if>
 		GROUP BY p.customer_id, c.customer_name
-		ORDER BY totalChargeAmount DESC
+		ORDER BY totalChargePay DESC
 		LIMIT 10
 	</select>
 	

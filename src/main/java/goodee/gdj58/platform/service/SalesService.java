@@ -19,6 +19,14 @@ public class SalesService {
 	private SalesMapper salesMapper;
 	
 	// 페이머니 관련
+	// 상위 10명 vip 고객 출력
+	public List<Map<String,Object>> getTopTenCustomer(String startDate, String endDate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		return salesMapper.selectTopTenCustomer(paramMap);
+	}
+	
 	// 페이머니 충전 일괄출력
 	public List<Map<String,Object>> getSavePayListByCustomer(String startDate, String endDate) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
