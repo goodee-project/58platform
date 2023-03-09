@@ -48,65 +48,64 @@
 		<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
 		<!--end sidebar -->
 		
-       <!--start content-->
-       <main class="page-content">
-				<!--breadcrumb-->
-				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Tables</div>
-					<div class="ps-3">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
-									회원관리
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">회원 페이머니 내역</li>
-							</ol>
-						</nav>
-					</div>
+        <!--start content-->
+        <main class="page-content">
+			<!--breadcrumb-->
+			<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				<div class="breadcrumb-title pe-3"><a href="javascript:;"><i class="bi bi-person-fill"></i></a>회원</div>
+				<div class="ps-3">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb mb-0 p-0">
+							<li class="breadcrumb-item">회원조회</li>
+							<li class="breadcrumb-item">회원 상세조회</li>
+							<li class="breadcrumb-item active" aria-current="page">페이머니 내역</li>
+						</ol>
+					</nav>
 				</div>
-				<!--end breadcrumb-->
-				<hr/>
-				<br><br>
-				<div class="col-md-3 mb-3">					
-    				<label for="teen">잔여 페이머니</label>
-    				<input class="form-control" id="customerPoint" type="text" style="text-align:right;" value="${customerPayMoney} &#8361;">
-				</div>
-				<div class="card">
-					<div class="card-body">
-						<div class="table-responsive">
-							<table id="example" class="table table-striped table-bordered" style="width:100%">
-								<thead>
+			</div>
+			<!--end breadcrumb-->
+			<hr/>
+			<br><br>
+			<div class="col-md-3 mb-3">					
+   				<label for="teen">잔여 페이머니</label>
+   				<input class="form-control" id="customerPoint" type="text" style="text-align:right;" value="${customerPayMoney} &#8361;">
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="example" class="table table-striped table-bordered" style="width:100%">
+							<thead>
+								<tr>
+									<th style="width : 15%">No</th>
+									<th style="width : 15%">페이머니</th>
+									<th style="width : 15%">사용처</th>
+									<th style="width : 15%">내역</th>
+									<th style="width : 15%">날짜</th>
+								</tr>
+							</thead>
+						
+							<tbody>
+								<c:forEach var="p" items="${list}">
 									<tr>
-										<th style="width : 15%">No</th>
-										<th style="width : 15%">페이머니</th>
-										<th style="width : 15%">사용처</th>
-										<th style="width : 15%">내역</th>
-										<th style="width : 15%">날짜</th>
+										<td>${p.no}</td>
+										<td>${p.price}</td>
+										<td>${p.payHistoryCategory}</td>
+										<td>${p.payHistoryContent}</td>
+										<td>${p.createdate}</td>
 									</tr>
-								</thead>
-							
-								<tbody>
-									<c:forEach var="p" items="${list}">
-										<tr>
-											<td>${p.no}</td>
-											<td>${p.price}</td>
-											<td>${p.payHistoryCategory}</td>
-											<td>${p.payHistoryContent}</td>
-											<td>${p.createdate}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
-			</main>
-       <!--end page main-->
+			</div>
+		</main>
+        <!--end page main-->
 
 
-       <!--start overlay-->
+        <!--start overlay-->
         <div class="overlay nav-toggle-icon"></div>
-       <!--end overlay-->
+        <!--end overlay-->
 
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>

@@ -22,7 +22,8 @@ public class CustomerController {
     public String customerList(Model model
                                 , @RequestParam(value="active", defaultValue = "") String active
                                 , @RequestParam(value="customerId", defaultValue = "") String customerId) {
-
+    	
+    	// 활성화, 비활성화 변경용
         log.debug("\u001B[44m" + active + "<-- active 디버깅");
         log.debug("\u001B[44m" + customerId + "<-- customerId customerList디버깅");
 
@@ -41,7 +42,6 @@ public class CustomerController {
 								, @RequestParam(value="customerId", defaultValue = "") String customerId) {
         log.debug("\u001B[44m" + customerId + "<-- customerId pointDetails디버깅");
         
-        customerId = "cus1"; //임시 이후 httpSession으로 변경예정
         List<Map<String, Object>> list = customerService.getCustomerOne(customerId);
         model.addAttribute("list", list);        
 		
@@ -54,7 +54,6 @@ public class CustomerController {
     							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
         log.debug("\u001B[44m" + customerId + "<-- customerId pointDetails디버깅");
 
-        customerId = "cus1"; //임시 이후 httpSession으로 변경예정
         int customerPoint = customerService.getsCustomerPointList(customerId);
         List<Map<String, Object>> list = customerService.getPointDetails(customerId);
         model.addAttribute("customerPoint", customerPoint);
@@ -69,7 +68,6 @@ public class CustomerController {
     							, @RequestParam(value="customerId", defaultValue = "") String customerId) {
         log.debug("\u001B[44m" + customerId + "<-- customerId paymoneyDetails디버깅");
         
-        customerId = "cus1"; //임시 이후 httpSession으로 변경예정
         int customerPayMoney = customerService.getsCustomerPayMoneyList(customerId);
         List<Map<String, Object>> list = customerService.getPayMoneyDetails(customerId);
         model.addAttribute("customerPayMoney", customerPayMoney);
