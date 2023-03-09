@@ -212,7 +212,7 @@
                     		<a href="https://github.com/ansankjh" target="_blank"><span class="badge bg-dark">강지훈</span></a>
                     	</div>
                       	<br>
-                      	<form action="http://3.38.82.69/58ad/login" method="post">
+                      	<form action="http://3.38.82.69/58ad/customer/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
                               <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="advertise1" placeholder="Enter ID">
