@@ -66,12 +66,12 @@
                       	<form action="${pageContext.request.contextPath}/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="employeeId" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="employeeId" value="admin" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="employeePw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="employeePw" value="ftp123@" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">플랫폼 직원 로그인</button>
@@ -96,12 +96,12 @@
                       	<form action="http://3.38.82.69/58booking_c/log/loginCustomer" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="cus1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" value="1234" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">예약 고객 로그인</button>
@@ -126,12 +126,12 @@
                       	<form action="http://3.38.82.69/58booking_b/beforeLoin/loginCompany" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" placeholder="Enter ID">
+                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="com1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="companyPw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="companyPw" value="1234" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">예약 업체 로그인</button>
@@ -155,12 +155,12 @@
                       	<form action="http://3.38.82.69/58shop_c/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" placeholder="Enter ID">
+                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="cus1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" value="1234" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">쇼핑몰 고객 로그인</button>
@@ -185,12 +185,12 @@
                       	<form action="http://3.38.82.69/58shop_b/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" placeholder="Enter ID">
+                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="shop1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="companyPw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="companyPw" value="1234" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">쇼핑몰 업체 로그인</button>
@@ -215,12 +215,12 @@
                       	<form action="http://3.38.82.69/58ad/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" placeholder="Enter ID">
+                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="advertise1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" placeholder="Enter Password">
+                              <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" name="customerPw" value="1234" placeholder="Enter Password">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary radius-30">광고 고객 로그인</button>
