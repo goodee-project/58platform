@@ -126,7 +126,7 @@
                       	<form action="http://3.38.82.69/58booking_b/beforeLoin/loginCompany" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="com1" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="com1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
@@ -155,7 +155,7 @@
                       	<form action="http://3.38.82.69/58shop_c/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="cus1" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="cus1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
@@ -185,7 +185,7 @@
                       	<form action="http://3.38.82.69/58shop_b/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="shop1" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="shop1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
@@ -215,7 +215,7 @@
                       	<form action="http://3.38.82.69/58ad/login" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
-                              <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="advertise1" placeholder="Enter ID">
+                              <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="advertise1" placeholder="Enter ID">
                             </div>
                             <br>
                             <div class="ms-auto position-relative">
