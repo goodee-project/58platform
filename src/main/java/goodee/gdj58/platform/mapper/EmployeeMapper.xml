@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.EmployeeMapper">
 	
+	<!-- 직원 비밀번호 변경시 현재 비밀번호 틀림체크 -->
+	<select id="selectEmployeePwCkByUpdate" parameterType="java.util.Map" resultType="goodee.gdj58.platform.vo.Employee">
+		SELECT 
+			employee_id employeeId
+		FROM employee 
+		WHERE employee_id = #{employeeId} AND employee_pw = PASSWORD(#{oldPw})
+	</select>
+	
 	<!-- 비밀번호 변경 이력 3개 쌓이면 pk가 가장 작은것 삭제 -->
 	<delete id="deletePwHistory" parameterType="string">
 		DELETE FROM	pw_history 

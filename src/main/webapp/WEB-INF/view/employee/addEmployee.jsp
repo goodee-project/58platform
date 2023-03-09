@@ -49,7 +49,7 @@
 			        }
 			    });
 					
-				 // 비밀번호확인 보이기/숨기기
+				// 비밀번호확인 보이기/숨기기
 			    $('.pwck i').on('click',function(){
 			        $('#pwck').toggleClass('active');
 			        if($('#pwck').hasClass('active')){
@@ -61,7 +61,7 @@
 			        }
 			    });
 				
-				//한글입력 안되게 처리
+				// 아이디 한글입력 안되게 처리
 				$("input[name=id]").keyup(function(event){ 
 					if (!(event.keyCode >=37 && event.keyCode<=40)) {
 						var inputVal = $(this).val();
@@ -94,7 +94,6 @@
 				});
 				
 				// 유효성 검사
-				// pw가 빈칸이면
 				$('#pw').blur(function() {
 					if($('#pw').val() == '') {
 						$('#pwMsg').text('필수정보입니다.');
@@ -102,12 +101,13 @@
 						$('#pwMsg').text('');
 					}
 					
+					// pw 빈칸 or 6자리~20자리 or 영문,숫자,특수문자 조합인지 검사 
 					var password = $("#pw").val();
 					var num = password.search(/[0-9]/g);
 					var eng = password.search(/[a-z]/ig);
 					var spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
-					if(password.length < 6 || pw.length > 20) {
+					if(password.length < 6 || password.length > 20) {
 						$('#pwMsg').text('6자리 ~ 20자리 이내로 입력해주세요.');
 						return false;
 					} else if (password.search(/\s/) != -1) {
@@ -125,7 +125,7 @@
 				// pw와 pwck가 다르면
 				$('#pwck').blur(function() {
 					if($('#pw').val() != $('#pwck').val()) {
-						$('#pwckMsg').text('비밀번호를 확인해주세요.');
+						$('#pwckMsg').text('입력된 비밀번호와 일치하지 않습니다.');
 					} else if($('#pw').val() == $('#pwck').val()) {
 						$('#pwckMsg').text('');
 					}

@@ -67,7 +67,7 @@
 											  <label for="inputChoosePassword" class="form-label">Enter Password</label>
 											  <div class="ms-auto position-relative">
 											    <div class="position-absolute top-50 translate-middle-y search-icon px-3 password"><i class="bi bi-lock-fill"></i></div>
-											    <input type="password" name="employeePw" value="1234" class="form-control radius-30 ps-5" placeholder="비밀번호를 입력해주세요." id="pwck">
+											    <input type="password" name="employeePw" value="ftp123@" class="form-control radius-30 ps-5" placeholder="비밀번호를 입력해주세요." id="pwck">
 											    <span id="pwMsg"></span>
 											  </div>
 											</div>

@@ -13,7 +13,9 @@ import goodee.gdj58.platform.vo.TotalId;
 @Mapper
 public interface EmployeeMapper {
 	
-	// 비밀번호 변경 이력 3개 쌓이면 pk가 가장 작은것 삭제
+	// 직원 비밀번호 변경시 현재 비밀번호 틀림체크
+	Employee selectEmployeePwCkByUpdate(Map<String, Object> paramMap);
+	// 직원 비밀번호 변경 이력 3개 쌓이면 pk가 가장 작은것 삭제
 	int deletePwHistory(String id);
 	// 직원 비밀번호 변경이력 개수 조회
 	int selectPwHistoryCount(String id);
@@ -23,7 +25,7 @@ public interface EmployeeMapper {
 	int updateEmployeePw(Map<String, Object> paramMap);
 	// 직원 비밀번호 변경을 위한 조회
 	Employee selectEmployeePwByUpdate(String employeeId);
-	// 비밀번호 변경 이력 중복검사 null을 반환하면 사용가능한 비밀번호, 비밀번호를 반환하면 사용불가능한 비밀번호
+	// 직원 비밀번호 변경 이력 중복검사 null을 반환하면 사용가능한 비밀번호, 비밀번호를 반환하면 사용불가능한 비밀번호
 	public String selectPwHistoryCk(PwHistory pwHistory);
 	
 	// 직원 개인정보 변경

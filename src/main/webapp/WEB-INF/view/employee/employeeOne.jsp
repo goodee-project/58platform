@@ -59,6 +59,7 @@
 			<c:import url="/WEB-INF/inc/header.jsp"></c:import>
 			<!--start sidebar -->
 			<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
+			
 			<!--start content-->
 			<main class="page-content">
 				<!--breadcrumb-->
@@ -119,7 +120,6 @@
 					</div>
 				</div>
 			     <!--end row-->
-			
 			</main>
 			<!--end page main-->
 			

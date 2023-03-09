@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import goodee.gdj58.platform.mapper.EmployeeMapper;
 import goodee.gdj58.platform.vo.Employee;
@@ -15,12 +16,21 @@ import goodee.gdj58.platform.vo.PwHistory;
 import goodee.gdj58.platform.vo.TotalId;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class EmployeeService {
 	@Autowired 
 	private EmployeeMapper employeeMapper;
 	
+	// 직원 비밀번호 변경시 현재 비밀번호 틀림체크
+	public Employee getEmployeePwCkByModify(String employeeId, String oldPw) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("employeeId", employeeId);
+		paramMap.put("oldPw", oldPw);
+		return employeeMapper.selectEmployeePwCkByUpdate(paramMap);
+	}
+		
 	// 직원 비밀번호 변경
 	public int modifyEmployeePw(String newPw, String employeeId, String oldPw, String id, PwHistory pwHistory) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -33,6 +43,7 @@ public class EmployeeService {
 		if(count > 2) {
 			employeeMapper.deletePwHistory(id);
 		}
+		
 		return employeeMapper.insertPwHistoryByModifyEmployeePw(pwHistory);
 	}
 	

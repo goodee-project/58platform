@@ -28,7 +28,7 @@ public class EmployeeController {
 	
 	// 직원 비밀번호 변경 액션
 	@PostMapping("/employee/emp/modifyEmployeePw")
-	public String modifyEmployeePw(HttpSession session, PwHistory pwHistory
+	public String modifyEmployeePw(HttpSession session, PwHistory pwHistory, Model model
 									, @RequestParam(value="newPw") String newPw
 									, @RequestParam(value="oldPw") String oldPw) {
 		
@@ -40,9 +40,22 @@ public class EmployeeController {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
 		String employeeId = loginEmp.getEmployeeId();
 		String id = loginEmp.getEmployeeId();
+		
+		// 비밀번호 변경 디버깅
+		log.debug("\u001B[31m" + employeeId + "<-- employeeId 디버깅");
+		// 비밀번호 변경시 이력 테이블에 들어갈 id 디버깅
+		log.debug("\u001B[31m" + id + "<-- id 디버깅");
+		
 		// pwHistory vo 타입에 olePw, employeeId 저장
 		pwHistory.setPassword(newPw);
 		pwHistory.setId(employeeId);
+		
+		Employee emp = employeeService.getEmployeePwCkByModify(employeeId, oldPw);
+		if(emp == null) {
+			model.addAttribute("msg", "현재 비밀번호를 확인해주세요.");
+			return "employee/modifyEmployeePw";
+		}
+		log.debug("\u001B[31m" + emp + "<-- emp 디버깅");
 		
 		// 비밀번호 수정 메서드 호출
 		int row = employeeService.modifyEmployeePw(newPw, employeeId, oldPw, id, pwHistory);
