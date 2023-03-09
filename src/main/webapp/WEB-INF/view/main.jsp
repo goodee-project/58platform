@@ -60,15 +60,19 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							
-							<h5>구디아카데미 58기 파이널 팀 프로젝트</h5><hr>
+							<h5>
+								구디아카데미 58기 파이널 팀 프로젝트
+								<button type="button" class="btn btn-sm btn-warning" onclick="window.open('${pageContext.request.contextPath}/assets/iframe/FTP조 UI_UX 스토리보드.pdf')">UI/UX</button>&nbsp;
+								<button type="button" class="btn btn-sm btn-warning" onclick="window.open('${pageContext.request.contextPath}/assets/iframe/erd.png')">ERD</button>							
+							</h5><hr>
 							제목 : 통합플랫폼 (쇼핑몰,예약업체,광고업체)<br>
 							구성원(6명) : 김태환(팀장),곽효상,강지훈,김수곤,이호민,조건희<br>
 							개발내용 : SpringFramework 기반의 통합플랫폼 구현<br><hr>
 							
 							<h6>과정</h6>
 							1) 쇼핑몰 및 예약업체 팀들과 협업하여 통합된 요구사항 도출/분석/설계<br>
-							2) oven(ppt제작프로그램)을 활용한 UI/UX 사전제작 <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.open('${pageContext.request.contextPath}/assets/iframe/FTP조 UI_UX 스토리보드.pdf')">UI/UX</button><br>
-							3) 통합 DB 구성 <button type="button" class="btn btn-sm btn-secondary" onclick="window.open('${pageContext.request.contextPath}/assets/iframe/erd.png')">ERD</button><br>
+							2) oven(ppt제작프로그램)을 활용한 UI/UX 사전제작 (통합 : 이호민) &nbsp;<br>
+							3) 통합 DB 구성 (통합 : 김태환/김수곤/이득규/이동규) &nbsp;<br>
 							4) 각 팀별 코딩작업 착수<br>
 							<hr>
 							<h6>플랫폼 역할</h6>
@@ -129,31 +133,43 @@
 							 - 광고신청 배너위치 및 단가 확인<br>						 
 							<br>
 							
-							<h5 class="text-center">★★ 제작자 소개 ★★</h5>
+							<h5 class="text-center">★★ 제작자 소개 ★★</h5><br>
 							<div class="row">
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/kth_ace.jpg" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>김태환(팀장)
+									<a href="https://github.com/xoghksl96" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/kth_ace.jpg" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">김태환(팀장) &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/khs.png" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>곽효상
+									<a href="https://github.com/lagna8823" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/khs.png" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">곽효상 &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/kjh.png" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>강지훈
+									<a href="https://github.com/ansankjh" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/kjh.png" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">강지훈 &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/ksg.jpg" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>김수곤
+									<a href="https://github.com/KIMSOOGON" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/ksg.jpg" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">김수곤 &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/lhm.png" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>이호민
+									<a href="https://github.com/nomad-lee" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/lhm.png" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">이호민 &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 								<div class="col-2 text-center">
-									<img src="${pageContext.request.contextPath}/assets/iframe/jkh.jpg" style="width:120px; height:150px; margin-bottom:20px;">
-									<br>조건희
+									<a href="https://github.com/AndreaJo1201" target="_blank">
+										<img src="${pageContext.request.contextPath}/assets/iframe/jkh.jpg" style="width:120px; height:150px; margin-bottom:20px;">
+										<p style="font-size:20px; color:black">조건희 &nbsp;<i class="bi bi-github" style="font-size:25px;"></i></p>
+									</a>
 								</div>
 							</div>
 							
