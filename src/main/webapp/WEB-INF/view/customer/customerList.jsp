@@ -60,13 +60,10 @@
        <main class="page-content">
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Tables</div>
+					<div class="breadcrumb-title pe-3"><a href="javascript:;"><i class="bi bi-person-fill"></i></a>회원</div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
-								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
-									회원관리
-								</li>
 								<li class="breadcrumb-item active" aria-current="page">회원조회</li>
 							</ol>
 						</nav>

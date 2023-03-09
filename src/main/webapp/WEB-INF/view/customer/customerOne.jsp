@@ -31,38 +31,6 @@
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
   <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script>
-	  function calculateAge() {
-		  const birthDate = new Date(${c.customerBirth});
-
-		// 생일로부터 오늘까지의 시간 차이를 계산합니다.
-		const timeDiff = Date.now() - birthDate.getTime();
-
-		// 연도로 변환합니다.
-		const ageDate = new Date(timeDiff);
-
-		// 계산된 나이를 가져옵니다.
-		const calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-		// 나이를 보여줄 HTML 엘리먼트를 선택하여 텍스트를 변경합니다.
-		$('#customerBirth').text(calculatedAge);
-		
-		/* 
-		  var birthdate = document.getElementById("customerBirth").value;
-		  var today = new Date();
-		  var age = today.getFullYear() - new Date(birthdate).getFullYear() + 1;
-		  
-		  // 만 나이 계산
-		  var koreanAge = age;
-		  if (new Date(birthdate).getMonth() > today.getMonth()) {
-		    koreanAge -= 1;
-		  } else if (new Date(birthdate).getMonth() == today.getMonth() && new Date(birthdate).getDate() > today.getDate()) {
-		    koreanAge -= 1;
-		  }
-  		  ${'#customerBirth'}.text(koreanAge);
-		 */
-		}
-  </script>
   <title>고객 상세조회</title>
 </head>
 
@@ -79,24 +47,23 @@
 		<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
 		<!--end sidebar -->
 
-		<!--breadcrumb-->
-		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-			<div class="breadcrumb-title pe-3">Tables</div>
-			<div class="ps-3">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb mb-0 p-0">
-						<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-exclamation-triangle-fill"></i></a>
-							회원관리
-						</li>
-						<li class="breadcrumb-item active" aria-current="page">회원상세정보</li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-		<!--end breadcrumb-->
-		
        	<!--start content-->
-        <main class="page-content">            
+        <main class="page-content">
+			<!--breadcrumb-->
+			<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				<div class="breadcrumb-title pe-3"><a href="javascript:;"><i class="bi bi-person-fill"></i></a>회원</div>
+				<div class="ps-3">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb mb-0 p-0">
+							<li class="breadcrumb-item">회원조회</li>
+							<li class="breadcrumb-item active" aria-current="page">회원 상세조회</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<!--end breadcrumb-->
+			<hr/>
+			<br><br>
         	<div class="row">        		
 				<c:forEach var="c" items="${list}">
 					<div class="col-12 col-lg-4">
@@ -106,7 +73,7 @@
 									<img src="/58platform/assets/images/avatars/${c.customerImgSaveName}" class="rounded-circle shadow" width="120" height="120" alt="">
 								</div>
 								<div class="text-center mt-4">
-									<h4 class="mb-1">${c.customerName}, <span id="customerBirth"><input type="text" value="${c.customerBirth}">${c.customerBirth}</span>, ${c.customerGender}</h4>
+									<h4 class="mb-1">${c.customerName}, ${c.customerBirth}, ${c.customerGender}</h4>
 									<div class="mt-4"></div>
 								</div>
 								<hr>								
