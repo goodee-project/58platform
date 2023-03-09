@@ -123,7 +123,7 @@
                     		<a href="https://github.com/M1nsong-Kim" target="_blank"><span class="badge bg-dark">김민송</span></a>
                     	</div>
                     	<br>
-                      	<form action="http://3.38.82.69/58booking_b/beforeLoin/loginCompany" method="post">
+                      	<form action="http://3.38.82.69/58booking_b/beforeLogin/loginCompany" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
                               <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="companyId" value="com1" placeholder="Enter ID">
