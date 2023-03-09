@@ -76,7 +76,7 @@
 										<th style="width : 20%">상품명</th>
 										<th style="width : 15%">가격</th>
 										<th style="width : 10%">상태</th>
-										<th style="width : 15%">인원</th>
+										<th style="width : 15%">인원(최소/최대)</th>
 										<th style="width : 15%">등록일자</th>
 									</tr>
 								</thead>

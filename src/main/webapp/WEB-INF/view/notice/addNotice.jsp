@@ -48,11 +48,11 @@
 						, data : {noticeTitle:$('#noticeTitle').val()}
 						, success:function(model){ // model : 'YES' / 'NO'
 							if(model=='YES') {
-								// 사용가능한 아이디
+								// 사용가능한 제목
 								$('#noticeTitle').val($('#noticeTitle').val());
 								alert($('#noticeTitle').val()+'는 사용가능한 제목입니다.');
 							} else {
-								// 사용중인 아이디
+								// 사용중인 제목
 								alert($('#noticeTitle').val()+'는 사용중인 제목입니다.');
 								$('#noticeTitle').val("[${serviceName}]");
 							}
