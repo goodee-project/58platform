@@ -9,7 +9,8 @@
 		SELECT c.customer_id customerId, c.customer_name customerName, c.customer_rank customerRank
 			, ti.total_id_active totalIdActive, ti.createdate createdate
 		FROM customer c
-		INNER JOIN total_id ti ON c.customer_id = ti.id		
+		INNER JOIN total_id ti ON c.customer_id = ti.id
+		WHERE total_id_deactive_memo != "탈퇴" 
 	</select>
 	
 	<!-- 회원 상세조회 -->
