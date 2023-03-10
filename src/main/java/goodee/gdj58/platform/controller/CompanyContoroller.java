@@ -27,7 +27,13 @@ public class CompanyContoroller {
 		log.debug("\u001B[45m 기업 serviceName  : "+ serviceName);
 		log.debug("\u001B[45m 기업 companyName  : "+ companyName);
 		
-		List<Map<String, Object>> companySellList = companyService.getCompanySellList(companyName);
+		List<Map<String, Object>> companySellList = null;
+		if(serviceName.equals("예약")) {
+			companySellList = companyService.getBookingProductList(companyName);
+		} else if(serviceName.equals("쇼핑")) {
+			companySellList = companyService.getShoppingGoodsList(companyName);
+		}
+		
 		
 		log.debug("\u001B[45m 기업판매 List  : "+ companySellList);
 		

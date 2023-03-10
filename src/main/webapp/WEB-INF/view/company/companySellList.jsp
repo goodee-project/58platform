@@ -68,6 +68,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
+							<c:if test = "${serviceName eq '예약'}">
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
@@ -95,6 +96,36 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							</c:if>
+							<c:if test = "${serviceName eq '쇼핑'}">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th style="width : 5%">번호</th>
+										<th style="width : 20%">이미지</th>
+										<th style="width : 15%">카테고리</th>
+										<th style="width : 20%">상품명</th>
+										<th style="width : 15%">가격</th>
+										<th style="width : 10%">상태</th>
+										<th style="width : 15%">등록일자</th>
+									</tr>
+								</thead>
+							
+								<tbody>
+									<c:forEach var="s" items="${companySellList}">
+										<tr>
+											<td>${s.goodsNo}</td>
+											<td>${s.goodsImgSaveName}</td>
+											<td>${s.typeContent}</td>
+											<td>${s.goodsName}</td>
+											<td>${s.goodsPrice}</td>
+											<td>${s.goodsActive}</td>
+											<td>${s.createdate}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							</c:if>	
 						</div>
 					</div>
 				</div>
@@ -128,7 +159,7 @@
   <script>
      $(document).ready(function () {
            $('#example').DataTable({
-               order: [[5, 'desc']],
+               order: [[6, 'desc']],
            });
        });
   </script>

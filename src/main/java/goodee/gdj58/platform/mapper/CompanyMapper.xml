@@ -3,6 +3,52 @@
 <mapper namespace="goodee.gdj58.platform.mapper.CompanyMapper">
 	
 	<!-- 쇼핑몰 판매 상품 조회 --> 
+	<select id="selectShoppingGoodsList" 
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			shopping_company.company_id companyId
+			, shopping_company.company_id companyName
+			, shopping_company.company_ceo companyCeo
+			, shopping_goods.goods_no goodsNo
+			, shopping_goods.type_no typeNo
+			, shopping_goods.goods_name goodsName
+			, shopping_goods.goods_price goodsPrice
+			, shopping_goods.goods_active goodsActive
+			, shopping_goods.goods_level goodsLevel
+			, shopping_goods.updatedate updatedate
+			, shopping_goods.createdate createdate
+			, shopping_goods_option.goods_option_content goodsOptionContent
+			, shopping_goods_option.goods_option_quantity goodsOptionQuantity
+			, shopping_type.type_content typeContent
+			, shopping_goods_img.goods_img_no goodsImgNo
+			, shopping_goods_img.goods_img_origin_name goodsImgSaveName
+			, shopping_goods_img.goods_img_origin_name goodsImgOriginName
+			, shopping_goods_img.goods_img_level goodsImgLevel
+			, shopping_goods_img.createdate imgCreatedate
+		
+		FROM
+			shopping_company
+			INNER JOIN shopping_goods
+			ON shopping_company.company_id = shopping_goods.company_id
+			
+			INNER JOIN shopping_goods_option
+			ON shopping_goods.goods_no = shopping_goods_option.goods_no
+			
+			INNER JOIN shopping_type
+			ON shopping_goods.type_no = shopping_type.type_no
+			
+			INNER JOIN shopping_goods_img
+			ON shopping_goods.goods_no = shopping_goods_img.goods_no
+			
+		WHERE 
+			shopping_company.company_name = #{companyName}
+			ORDER BY createdate DESC;
+	
+	</select>
+	
+	<!-- 예약 판매 상품 조회 --> 
 	<select id="selectCompanySellList" 
 		resultType="java.util.Map"
 		parameterType="String">
