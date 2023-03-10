@@ -10,7 +10,7 @@
 			, ti.total_id_active totalIdActive, ti.createdate createdate
 		FROM customer c
 		INNER JOIN total_id ti ON c.customer_id = ti.id
-		WHERE total_id_deactive_memo != "탈퇴" 
+		WHERE total_id_deactive_memo != "탈퇴" or total_id_deactive_memo is null
 	</select>
 	
 	<!-- 회원 상세조회 -->
