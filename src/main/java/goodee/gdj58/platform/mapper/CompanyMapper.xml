@@ -49,7 +49,7 @@
 	</select>
 	
 	<!-- 예약 판매 상품 조회 --> 
-	<select id="selectCompanySellList" 
+	<select id="selectBookingProductList" 
 		resultType="java.util.Map"
 		parameterType="String">
 		
