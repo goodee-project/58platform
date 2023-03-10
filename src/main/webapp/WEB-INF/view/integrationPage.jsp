@@ -93,7 +93,7 @@
                     		<a href="https://github.com/eunseoa" target="_blank"><span class="badge bg-dark">최은서</span></a>
                     	</div>
                     	<br>
-                      	<form action="http://3.38.82.69/58booking_c/log/loginCustomer" method="post">
+                      	<form action="http://3.38.82.69/booking_c/customer/loginCustomer" method="post">
                             <div class="ms-auto position-relative">
                               <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
                               <input type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" name="customerId" value="cus1" placeholder="Enter ID">
