@@ -56,6 +56,14 @@
                          </div>
                        </a>
                     </li>
+                    <li>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/emp/logout/integrationPage">
+                         <div class="d-flex align-items-center">
+                           <div class=""><i class="bi bi-lock-fill"></i></div>
+                           <div class="ms-3"><span>통합페이지로 이동</span></div>
+                         </div>
+                       </a>
+                    </li>
                 </ul>
               </li>
               </ul>

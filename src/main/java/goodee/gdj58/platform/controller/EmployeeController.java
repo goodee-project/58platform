@@ -204,6 +204,16 @@ public class EmployeeController {
 		return "redirect:/login";
 	}
 	
+	@GetMapping("/employee/emp/logout/integrationPage")
+	public String logoutIntegrationPage(HttpSession session) {
+		
+		// 세션 삭제
+		session.invalidate();
+		
+		return "redirect:/integrationPage";
+	}
+	
+	
 	// 직원 로그인 폼
 	@GetMapping("/login")
 	public String login(Model model) {
