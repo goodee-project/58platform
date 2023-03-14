@@ -74,11 +74,11 @@
 									<tr>
 										<th style="width : 10%">예약번호</th>
 										<th style="width : 15%">고객ID</th>
+										<th style="width : 15%">금액(포인트)</th>
+										<th style="width : 15%">결제금액</th>
+										<th style="width : 15%">예약상태</th>
 										<th style="width : 15%">방문일</th>
 										<th style="width : 15%">예약일</th>
-										<th style="width : 15%">금액(포인트)</th>
-										<th style="width : 15%">총금액</th>
-										<th style="width : 15%">예약상태</th>
 									</tr>
 								</thead>
 							
@@ -87,11 +87,10 @@
 										<tr>
 											<td>${s.bookingNo}</td>
 											<td>${s.customerId}</td>
+											<td>${s.bookingTotalPrice}</td>
+											<td>${s.bookingState}</td>
 											<td>${s.bookingDate}</td>
 											<td>${s.bookingRequestDate}</td>
-											<td>${s.bookingPrice}-${s.bookingUsePoint}=${s.bookingTotalPrice}</td>
-											<td>${s.bookingState}</td>
-											<td>${s.createdate}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -101,25 +100,25 @@
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th style="width : 5%">번호</th>
-										<th style="width : 20%">이미지</th>
-										<th style="width : 15%">카테고리</th>
-										<th style="width : 20%">상품명</th>
-										<th style="width : 15%">가격</th>
-										<th style="width : 10%">상태</th>
-										<th style="width : 15%">등록일자</th>
+										<th style="width : 10%">주문번호</th>
+										<th style="width : 15%">운송장번호</th>
+										<th style="width : 15%">고객ID</th>
+										<th style="width : 15%">금액(포인트)</th>
+										<th style="width : 15%">결제금액</th>
+										<th style="width : 15%">주문상태</th>
+										<th style="width : 15%">주문일</th>
 									</tr>
 								</thead>
 							
 								<tbody>
-									<c:forEach var="s" items="${companySellList}">
+									<c:forEach var="s" items="${companyOrderList}">
 										<tr>
-											<td>${s.goodsNo}</td>
-											<td>${s.goodsImgSaveName}</td>
-											<td>${s.typeContent}</td>
-											<td>${s.goodsName}</td>
-											<td>${s.goodsPrice}</td>
-											<td>${s.goodsActive}</td>
+											<td>${s.orderSheetNo}</td>
+											<td>${s.orderSheetWaybill}</td>
+											<td>${s.customerId}</td>
+											<td>${s.usePoint}</td>
+											<td>${s.orderSheetPrice}</td>
+											<td>${s.orderSheetState}</td>
 											<td>${s.createdate}</td>
 										</tr>
 									</c:forEach>

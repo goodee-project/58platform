@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 @Mapper
 public interface CompanyMapper {
 	
+	// 쇼핑몰 주문서당 포인트 사용내역 조회  
+	int selectShoppingOrderTotalPoint(int orderSheetNo);
+	
 	// 쇼핑몰 주문 조회  
 	List<Map<String, Object>> selectShoppingOrderList(String companyName);
 	// 예약 주문 조회  
