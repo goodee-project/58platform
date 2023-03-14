@@ -58,7 +58,7 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-megaphone-fill"></i></a>
-									직원조회
+									직원조회${msg}
 								</li>
 							</ol>
 						</nav>
