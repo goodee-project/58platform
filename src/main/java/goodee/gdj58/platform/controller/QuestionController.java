@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.platform.service.QuestionService;
-import goodee.gdj58.platform.vo.Question;
+import goodee.gdj58.platform.vo.QuestionAnswer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,16 +19,67 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionController {
 	@Autowired QuestionService questionService;
 	
-	// 업체 문의사항에 답변달기
+	// FAQ 목록
+	@GetMapping("/employee/question/faqList")
+	public String faqList(Model model
+							, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
+		
+		List<Map<String, Object>> list = questionService.getFaqList(serviceName);
+		
+		model.addAttribute("list", list);		
+		model.addAttribute("serviceName", serviceName);
+		
+		return "question/faqList";
+	}
+	
+	// 업체 문의사항 답변수정 액션
+	@PostMapping("/employee/question/modifyCommentByCompany")
+	public String modifyCommentCompany(QuestionAnswer questionAnswer
+										, @RequestParam(value="questionNo") int questionNo) {
+		
+		log.debug("\u001B[31m" + questionNo + "<-- 답변수정 액션 questionNo 디버깅");
+		log.debug("\u001B[31m" + questionAnswer + "<-- 답변수정 액션 questionAnswer 디버깅");
+		
+		questionService.modifyCommentByCompany(questionAnswer);
+		
+		return "redirect:/employee/question/questionListByCompany";
+		
+	}
+	
+	// 업체 문의사항 답변작성 액션
+	@PostMapping("/employee/question/addCommentByCompany")
+	public String addCommentByCompany(QuestionAnswer questionAnswer
+										, @RequestParam(value="questionNo") int questionNo) {
+		
+		log.debug("\u001B[31m" + questionNo + "<-- 답변작성 액션 questionNo 디버깅");
+		
+		// 답변작성 메서드 호출
+		questionService.addCommentByCompany(questionAnswer);
+		
+		return "redirect:/employee/question/questionListByCompany";
+	}
+	
+	// 업체 문의사항에 답변작성 폼
 	@GetMapping("/employee/question/commentByCompany")
 	public String commentByCompany(Model model
-									, @RequestParam(value="questionNo") int questionNo) {
+									, @RequestParam(value="questionNo") int questionNo
+									, @RequestParam(value="serviceName") String serviceName) {
 		
 		log.debug("\u001B[31m" + questionNo + "<-- questionNo 디버깅");
+		log.debug("\u001B[31m" + serviceName + "<-- serviceName 디버깅");
 		
-		Question q = questionService.getQuestionByComment(questionNo);
+		Map<String, Object> map = null;
 		
-		model.addAttribute("q", q);
+		if(serviceName.equals("쇼핑")) {
+			map = questionService.getShoppingQuestionByComment(questionNo);
+		} else if(serviceName.equals("예약")) {
+			map = questionService.getBookingQuestionByComment(questionNo);
+		}
+		
+		
+		log.debug("\u001B[31m" + map + "<-- map 디버깅");
+		
+		model.addAttribute("m", map);
 		
 		return "question/commentByCompany";
 	}

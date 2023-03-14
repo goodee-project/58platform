@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>questionList</title>
+		<title>faqList</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" href="/58platform/assets/images/favicon-32x32.png" type="image/png" />
 		<!--plugins-->
@@ -51,13 +51,13 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bi bi-question-circle-fill"></i></a>
-									문의
+									FAQ
 								</li>
 								<c:if test="${serviceName == '쇼핑'}">
-									<li class="breadcrumb-item active" aria-current="page">문의조회(쇼핑)</li>
+									<li class="breadcrumb-item active" aria-current="page">FAQ(쇼핑)</li>
 								</c:if>
 								<c:if test="${serviceName == '예약'}">
-									<li class="breadcrumb-item active" aria-current="page">문의조회(예약)</li>
+									<li class="breadcrumb-item active" aria-current="page">FAQ(예약)</li>
 								</c:if>
 							</ol>
 						</nav>
@@ -67,14 +67,14 @@
 				<hr/>
 				<c:if test="${serviceName == '쇼핑'}">
 					<div class="btn-group">
-						<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/questionListByCompany?serviceName=쇼핑'">쇼핑몰</button>
-						<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/questionListByCompany?serviceName=예약'">예약</button>
+						<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/faqList?serviceName=쇼핑'">쇼핑몰</button>
+						<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/faqList?serviceName=예약'">예약</button>
 					</div>
 				</c:if>
 				<c:if test="${serviceName == '예약'}">
 					<div class="btn-group">
-						<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/questionListByCompany?serviceName=쇼핑'">쇼핑몰</button>
-						<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/questionListByCompany?serviceName=예약'">예약</button>
+						<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/faqList?serviceName=쇼핑'">쇼핑몰</button>
+						<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/faqList?serviceName=예약'">예약</button>
 					</div>
 				</c:if>
 				<br><br>
@@ -85,37 +85,36 @@
 								<thead>
 									<tr>
 										<th class="sorting" style="width : 10%">분류</th>
-										<th style="width : 15%">기업ID</th>
-										<th style="width : 15%">기업명</th>
-										<th style="width : 30%">문의제목</th>
-										<th style="width : 15%">문의일자</th>
-										<th style="width : 15%">답변일자</th>
+										<th style="width : 20%">질문</th>
+										<th style="width : 30%">답변</th>
+										<th style="width : 15%">생성일</th>
+										<th style="width : 15%">수정일</th>
+										<th style="width : 5%">수정</th>
+										<th style="width : 5%">삭제</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="l" items="${list}">
 										<tr>
 											<td>${l.serviceName}</td>
-											<td>${l.companyId}</td>
-											<td>${l.companyName}</td>
-											<td>
-												<a href="${pageContext.request.contextPath}/employee/question/commentByCompany?questionNo=${l.questionNo}&serviceName=${serviceName}">
-													${l.questionTitle}
-												</a>
-											</td>
+											<td>${l.faqQuestion}</td>
+											<td>${l.faqAnswer}</td>
 											<td>${l.createdate}</td>
+											<td>${l.updatedate}</td>
 											<td>
-												<c:if test="${l.questionComment eq null}">
-													미답변
-												</c:if>
-												<c:if test="${l.questionComment ne null}">
-													${l.qaCreatedate}
-												</c:if>
+												<a href="${pageContext.request.contextPath}/employee/question/modifyFaq?faqNo=${l.faqNo}">수정</a>
+											</td>
+											<td>
+												<a href="${pageContext.request.contextPath}/employee/question/removeFaq?faqNo=${l.faqNo}">삭제</a>
 											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
+							<!-- 직원등록 -->
+							<div>
+								<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/question/addFaq'">FAQ등록</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -133,8 +132,10 @@
 		
 		</div>
 		<!--end wrapper-->
-
-
+	
+	
+	
+	
 		<!-- Bootstrap bundle JS -->
 		<script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>
 		<!--plugins-->

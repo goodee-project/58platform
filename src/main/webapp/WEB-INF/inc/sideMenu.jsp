@@ -69,7 +69,7 @@
               <ul>
                 <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>1:1 채팅(고객)</a></li>
                 <li><a href="${pageContext.request.contextPath}/employee/question/questionListByCompany"><i class="bi bi-circle"></i>문의조회(기업)</a></li>
-                <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>FAQ(쇼핑)</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/question/faqList"><i class="bi bi-circle"></i>FAQ</a></li>
               </ul>
             </li>
             <li>

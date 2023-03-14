@@ -2,33 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.QuestionMapper">
 	
-	<!-- 답변페이지 문의내용 조회 폼 -->
-	<select id="selectQuestionByComment" parameterType="int" resultType="goodee.gdj58.platform.vo.Question">
+	<!-- FAQ 리스트 -->
+	<select id="selectFaqList" parameterType="string" resultType="java.util.Map">
 		SELECT
-			question_title
-			, question_memo
-			, service_name
-			, id
-		FROM question
-		WHERE question_no = #{questionNo}
+			faq_no faqNo
+			, service_name serviceName
+			, faq_question faqQuestion
+			, faq_answer faqAnswer
+			, createdate
+			, updatedate
+		FROM faq
+		WHERE service_name = #{serviceName}
 	</select>
 	
-	<!-- 쇼핑업체 문의사항 리스트 -->
-	<select id="selectShoppingQuestionList" resultType="java.util.Map">
+	<!-- 답변수정 -->
+	<update id="updateCommentByCompany" parameterType="goodee.gdj58.platform.vo.QuestionAnswer">
+		UPDATE question_answer SET question_comment = #{questionComment} WHERE question_no = #{questionNo}
+	</update>
+	
+	<!-- 답변등록 -->
+	<insert id="insertCommentByCompany" parameterType="goodee.gdj58.platform.vo.QuestionAnswer">
+		INSERT INTO question_answer (
+			question_no, question_comment, createdate
+		) VALUES (
+			#{questionNo}, #{questionComment}, NOW()
+		)
+	</insert>
+	
+	<!-- 답변페이지 문의내용 조회 폼(예약) -->
+	<select id="selectBookingQuestionByComment" parameterType="int" resultType="java.util.Map">
 		SELECT
 			q.question_no questionNo
 			, q.question_title questionTitle
+			, q.question_memo questionMemo
 			, q.service_name serviceName
-			, sc.company_id companyId
-			, sc.company_name companyName
 			, q.createdate createdate
+			, bc.booking_company_name companyName
 			, qa.question_comment questionComment
-			, qa.createdate qaCreatedate
-		FROM question q
+		FROM question q INNER JOIN booking_company bc
+		ON q.id = bc.booking_company_id
 		LEFT JOIN question_answer qa
 		ON q.question_no = qa.question_no
-		INNER JOIN shopping_company sc
+		WHERE q.question_no = #{questionNo}
+	</select>
+	
+	<!-- 답변페이지 문의내용 조회 폼(쇼핑) -->
+	<select id="selectShoppingQuestionByComment" parameterType="int" resultType="java.util.Map">
+		SELECT
+			q.question_no questionNo
+			, q.question_title questionTitle
+			, q.question_memo questionMemo
+			, q.service_name serviceName
+			, q.createdate createdate
+			, sc.company_name companyName
+			, qa.question_comment questionComment
+		FROM question q INNER JOIN shopping_company sc
 		ON q.id = sc.company_id
+		LEFT join question_answer qa
+		ON q.question_no = qa.question_no
+		WHERE q.question_no = #{questionNo}
 	</select>
 	
 	<!-- 예약업체 문의사항 리스트 -->
@@ -47,5 +79,23 @@
 		ON q.question_no = qa.question_no
 		INNER JOIN booking_company bc
 		ON q.id = bc.booking_company_id
+	</select>
+	
+	<!-- 쇼핑업체 문의사항 리스트 -->
+	<select id="selectShoppingQuestionList" resultType="java.util.Map">
+		SELECT
+			q.question_no questionNo
+			, q.question_title questionTitle
+			, q.service_name serviceName
+			, sc.company_id companyId
+			, sc.company_name companyName
+			, q.createdate createdate
+			, qa.question_comment questionComment
+			, qa.createdate qaCreatedate
+		FROM question q
+		LEFT JOIN question_answer qa
+		ON q.question_no = qa.question_no
+		INNER JOIN shopping_company sc
+		ON q.id = sc.company_id
 	</select>
 </mapper>
