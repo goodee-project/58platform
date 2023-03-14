@@ -88,6 +88,10 @@
 											</div>
 										</div>
 									</form>
+									<br>
+									<div class="d-grid">
+									    <a class="btn btn-primary radius-30" href="${pageContext.request.contextPath}/integrationPage">통합페이지로 이동</a>
+									</div>
 								</div>
 							</div>
 							</div>

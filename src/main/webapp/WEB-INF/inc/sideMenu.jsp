@@ -55,7 +55,7 @@
                 <div class="menu-title">배송</div>
               </a>
               <ul>
-                <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>배송접수</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/delivery/deliveryReceive"><i class="bi bi-circle"></i>배송접수</a></li>
               	<li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>배송관리</a></li>
                 <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>환불관리</a></li>
               </ul>
@@ -68,7 +68,7 @@
               </a>
               <ul>
                 <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>1:1 채팅(고객)</a></li>
-                <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>문의조회(기업)</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/question/questionListByCompany"><i class="bi bi-circle"></i>문의조회(기업)</a></li>
                 <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>FAQ(쇼핑)</a></li>
               </ul>
             </li>

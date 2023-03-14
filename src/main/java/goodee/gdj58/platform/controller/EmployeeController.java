@@ -1,10 +1,13 @@
 package goodee.gdj58.platform.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +139,15 @@ public class EmployeeController {
 	
 	// 직원등록 폼
 	@GetMapping("/employee/emp/addEmployee")
-	public String addEmployee() {
+	public String addEmployee(HttpSession session, Model model) {
+		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(!loginEmp.getEmployeeLevel().equals("총관리자")) {
+			model.addAttribute("msg", "사원은 접근불가");
+			model.addAttribute("url", "/58platform/employee/emp/employeeList");
+			return "alert";
+		}
 		
 		return "employee/addEmployee";
 	}
@@ -171,10 +182,12 @@ public class EmployeeController {
 	
 	// 직원 목록
 	@GetMapping("/employee/emp/employeeList")
-	public String employeeList(Model model
+	public String employeeList(Model model, HttpSession session
 								, @RequestParam(value="changeLevel", defaultValue = "") String changeLevel
 								, @RequestParam(value="id", defaultValue = "") String id) {
-		
+		// 세션정보 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		String employeeLevel = loginEmp.getEmployeeLevel();
 		log.debug("\u001B[31m" + changeLevel + "<-- changeLevel 디버깅");
 		log.debug("\u001B[31m" + id + "<-- id 디버깅");
 		
@@ -190,7 +203,7 @@ public class EmployeeController {
 		List<Map<String, Object>> list = employeeService.getEmployeeList();
 		
 		model.addAttribute("list", list);
-		
+		model.addAttribute("employeeLevel", employeeLevel);
 		return "employee/employeeList";
 	}
 	
