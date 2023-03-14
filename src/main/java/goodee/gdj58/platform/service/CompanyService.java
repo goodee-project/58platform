@@ -15,6 +15,22 @@ import goodee.gdj58.platform.mapper.CompanyMapper;
 public class CompanyService {
 	@Autowired CompanyMapper companyMapper; 
 	
+	// 쇼핑 기업 주문 조회 
+	public List<Map<String, Object>> getShoppingOrderList(String companyName){
+		
+		List<Map<String, Object>> companyOrderList = companyMapper.selectShoppingOrderList(companyName);
+		
+		return companyOrderList;	
+	}
+		
+	// 예약 기업 주문 조회 
+	public List<Map<String, Object>> getBookingOrderList(String companyName){
+		
+		List<Map<String, Object>> companyOrderList = companyMapper.selectBookingOrderList(companyName);
+		
+		return companyOrderList;	
+	}
+		
 	// 쇼핑 기업 판매 상품 조회 
 	public List<Map<String, Object>> getShoppingGoodsList(String companyName){
 		

@@ -169,7 +169,7 @@
 	                  	<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-top">
 		                	<a href="#"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;매출 통계&nbsp;&nbsp;</span></a>
 		                	<a href="${pageContext.request.contextPath}/employee/company/companySellList?companyName=${company.companyName}&serviceName=${serviceName}"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;판매 상품&nbsp;&nbsp;</span></a>
-		                	<a href="#"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;예약 정보&nbsp;&nbsp;</span></a>
+		                	<a href="${pageContext.request.contextPath}/employee/company/companyOrderList?companyName=${company.companyName}&serviceName=${serviceName}"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;주문 정보&nbsp;&nbsp;</span></a>
 	                  	</li>
 	                  </ul>   
 	                </div>
@@ -198,7 +198,7 @@
 		                  	<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-top">
 			                	<a href="#"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;매출 통계&nbsp;&nbsp;</span></a>
 			                	<a href="${pageContext.request.contextPath}/employee/company/companySellList?companyName=${company.companyName}&serviceName=${serviceName}"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;판매 상품&nbsp;&nbsp;</span></a>
-			                	<a href="#"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;주문 정보&nbsp;&nbsp;</span></a>
+			                	<a href="${pageContext.request.contextPath}/employee/company/companyOrderList?companyName=${company.companyName}&serviceName=${serviceName}"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;주문 정보&nbsp;&nbsp;</span></a>
 		                  	</li>
 		                  </ul> 
 	                  </div> 

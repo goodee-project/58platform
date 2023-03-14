@@ -12,6 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @Mapper
 public interface CompanyMapper {
 	
+	// 쇼핑몰 주문 조회  
+	List<Map<String, Object>> selectShoppingOrderList(String companyName);
+	// 예약 주문 조회  
+	List<Map<String, Object>> selectBookingOrderList(String companyName);
+		
 	// 쇼핑몰 판매 상품 조회  
 	List<Map<String, Object>> selectShoppingGoodsList(String companyName);
 	// 예약 판매 상품 조회  

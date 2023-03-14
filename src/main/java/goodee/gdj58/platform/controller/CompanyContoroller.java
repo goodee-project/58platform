@@ -18,6 +18,31 @@ import lombok.extern.slf4j.Slf4j;
 public class CompanyContoroller {
 	@Autowired CompanyService companyService;
 	
+	// 기업 주문정보 조회
+	@GetMapping("/employee/company/companyOrderList")
+	public String companyOrderList(Model model
+			, @RequestParam(value="serviceName", defaultValue = "예약") String serviceName
+			, @RequestParam(value="companyName", defaultValue = "예약") String companyName) {
+		
+		log.debug("\u001B[45m 기업 serviceName  : "+ serviceName);
+		log.debug("\u001B[45m 기업 companyName  : "+ companyName);
+		
+		List<Map<String, Object>> companyOrderList = null;
+		if(serviceName.equals("예약")) {
+			companyOrderList = companyService.getBookingOrderList(companyName);
+		} else if(serviceName.equals("쇼핑")) {
+			companyOrderList = companyService.getShoppingOrderList(companyName);
+		}
+		
+		
+		log.debug("\u001B[45m 기업주문 List  : "+ companyOrderList);
+		
+		model.addAttribute("companyOrderList", companyOrderList);
+		model.addAttribute("serviceName", serviceName);
+		
+		return "company/companyOrderList";
+	}
+		
 	// 기업 판매상품 조회
 	@GetMapping("/employee/company/companySellList")
 	public String companySellList(Model model

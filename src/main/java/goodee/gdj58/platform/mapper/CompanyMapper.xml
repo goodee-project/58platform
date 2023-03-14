@@ -2,6 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.CompanyMapper">
 	
+	
+	<!-- 예약 판매 상품 조회 --> 
+	<select id="selectBookingOrderList" 
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			booking_company.booking_company_id companyId
+			, booking_company.booking_company_name companyName
+			, booking_company.booking_company_ceo companyCeo
+			
+			, booking.booking_no bookingNo
+			, booking.customer_id customerId
+			, booking.booking_date bookingDate
+			, booking.booking_request_date bookingRequestDate
+			, booking.booking_price bookingPrice
+			, booking.booking_use_point bookingUsePoint
+			, booking.booking_rank_discount bookingRankDiscount
+			, booking.booking_total_price bookingTotalPrice
+			, booking.booking_state bookingState
+			, booking.booking_people bookingPeople
+			
+			, booking_cancel.cancel_memo cancelMemo
+			, booking_cancel.cancel_subject cancelSubject
+			
+			, booking_product.booking_product_name bookingProductName
+			, booking_product_option.booking_product_no bookingProductOptionNo
+			, booking_product_option.booking_product_option_memo bookingProductOptionMemo
+			, booking_product_option.booking_product_option_price bookingProductOptionPrice
+			 
+		FROM
+			booking_company
+			INNER JOIN booking
+			ON booking_company.booking_company_id = booking.booking_company_id
+			INNER JOIN booking_product
+			ON booking_company.booking_company_id = booking_product.booking_company_id
+			INNER JOIN booking_cancel
+			ON booking.booking_no = booking_cancel.booking_no
+			INNER JOIN booking_product_option
+			ON booking_product.booking_product_no = booking_product_option.booking_product_no
+			
+		WHERE 
+			booking_company.booking_company_name = #{companyName}
+			ORDER BY bookingRequestDate DESC;
+	
+	</select>
+	
+	
 	<!-- 쇼핑몰 판매 상품 조회 --> 
 	<select id="selectShoppingGoodsList" 
 		resultType="java.util.Map"
