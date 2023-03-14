@@ -132,20 +132,28 @@
   <!--end wrapper-->
 
 
-  <!-- Bootstrap bundle JS -->
-  <script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>
-  <!--plugins-->
-  <script src="/58platform/assets/js/jquery.min.js"></script>
-  <script src="/58platform/assets/plugins/simplebar/js/simplebar.min.js"></script>
-  <script src="/58platform/assets/plugins/metismenu/js/metisMenu.min.js"></script>
-  <script src="/58platform/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-  <script src="/58platform/assets/js/pace.min.js"></script>
-  <script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-  <script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-  <script src="/58platform/assets/js/table-datatable.js"></script>
+	<!-- Bootstrap bundle JS -->
+	<script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="/58platform/assets/js/jquery.min.js"></script>
+	<script src="/58platform/assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="/58platform/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="/58platform/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="/58platform/assets/js/pace.min.js"></script>
+	<script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/58platform/assets/js/table-datatable.js"></script>
 	
-  <!--app-->
-  <script src="/58platform/assets/js/app.js"></script>
+	<!--app-->
+	<script src="/58platform/assets/js/app.js"></script>
   
+  	<!-- 초기화 : 날짜기준 DESC정렬 -->
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable({
+				order: [[0, 'desc']],
+			});
+		});
+	</script>
 </body>
 </html>
