@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.platform.service.QuestionService;
+import goodee.gdj58.platform.vo.Faq;
 import goodee.gdj58.platform.vo.QuestionAnswer;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,10 +20,39 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionController {
 	@Autowired QuestionService questionService;
 	
+	// FAQ 수정 폼
+	@GetMapping("/employee/question/modifyFaq")
+	public String modifyFaq(Model model
+								, @RequestParam(value="faqNo") int faqNo) {
+		
+		log.debug("\u001B[31m" + faqNo + "<-- faqNo 디버깅");
+		
+		model.addAttribute("faqNo", faqNo);
+		
+		return "question/modifyFaq";
+	}
+	
+	// FAQ 등록 액션
+	@PostMapping("/employee/question/addFaq")
+	public String addFaq(Faq faq) {
+
+		log.debug("\u001B[31m" + faq + "<-- faq 디버깅");
+		
+		return "redirect:/employee/question/faqList";
+	}
+	
+	// FAQ 등록 폼
+	@GetMapping("/employee/question/addFaq")
+	public String addFaq() {
+		return "question/addFaq";
+	}
+	
 	// FAQ 목록
 	@GetMapping("/employee/question/faqList")
 	public String faqList(Model model
 							, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName) {
+		
+		log.debug("\u001B[31m" + serviceName + "<-- serviceName 디버깅");
 		
 		List<Map<String, Object>> list = questionService.getFaqList(serviceName);
 		

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.platform.mapper.QuestionMapper;
+import goodee.gdj58.platform.vo.Faq;
 import goodee.gdj58.platform.vo.QuestionAnswer;
 
 @Service
@@ -15,6 +16,11 @@ import goodee.gdj58.platform.vo.QuestionAnswer;
 public class QuestionService {
 	@Autowired 
 	private QuestionMapper questionMapper;
+	
+	// FAQ 등록
+	public int addFaq(Faq faq) {
+		return questionMapper.insertFaq(faq);
+	}
 	
 	// FAQ 리스트
 	public List<Map<String, Object>> getFaqList(String serviceName) {

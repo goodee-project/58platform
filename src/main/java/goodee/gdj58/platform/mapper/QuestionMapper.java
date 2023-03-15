@@ -5,11 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import goodee.gdj58.platform.vo.Faq;
 import goodee.gdj58.platform.vo.QuestionAnswer;
 
 
 @Mapper
 public interface QuestionMapper {
+	
+	// FAQ 등록
+	int insertFaq(Faq faq);
 	
 	// FAQ 리스트
 	List<Map<String, Object>> selectFaqList(String serviceName);
