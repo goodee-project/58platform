@@ -56,8 +56,8 @@
               </a>
               <ul>
                 <li><a href="${pageContext.request.contextPath}/employee/delivery/deliveryReceive"><i class="bi bi-circle"></i>배송접수</a></li>
-              	<li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>배송관리</a></li>
-                <li><a href="#" onclick="alert('구현중입니다.');return false;"><i class="bi bi-circle"></i>환불관리</a></li>
+              	<li><a href="${pageContext.request.contextPath}/employee/delivery/deliveryStatus"><i class="bi bi-circle"></i>배송관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/delivery/deliveryRefund"><i class="bi bi-circle"></i>환불관리</a></li>
               </ul>
             </li>
             <li>

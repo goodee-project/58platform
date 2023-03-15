@@ -2,6 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.DeliveryMapper">
 
+	<!-- 배송완료 (배송중 -> 배송완료) -->
+	<select id="updateDeliveryStateComplete"
+		parameterType="int">
+		UPDATE shopping_goods_order
+		SET goods_order_state = '배송완료'
+		WHERE goods_order_no = #{orderNo} AND goods_order_state = '배송중'
+	</select>
+	
+	<!-- 배송현황리스트 (배송중/배송완료) -->
+	<select id="selectDeliveryStatusList"
+		resultType="java.util.Map">
+		SELECT
+			gds.goods_name as goodsName
+			, img.goods_img_save_name as goodsImg
+			, com.company_name as companyName
+			, com.company_phone AS companyPhone
+			, odr.goods_order_no AS orderNo
+			, odr.goods_order_price AS orderPrice
+			, odr.goods_order_quantity AS orderQuantity
+			, odr.goods_order_state AS orderState
+			, osh.customer_id AS customerId
+			, cus.customer_name AS customerName
+			, cus.customer_phone AS customerPhone
+			, adr.customer_address AS customerAddress
+			, adr.customer_address_name AS addressName
+			, odr.createdate AS orderDate
+		FROM shopping_goods_order odr
+		INNER JOIN shopping_goods_option opt
+		ON odr.goods_option_no = opt.goods_option_no
+		INNER JOIN shopping_goods gds
+		ON opt.goods_no = gds.goods_no
+		INNER JOIN shopping_goods_img img
+		ON gds.goods_no = img.goods_no
+		INNER JOIN shopping_company com
+		ON gds.company_id = com.company_id
+		INNER JOIN shopping_order_sheet osh
+		ON odr.order_sheet_no = osh.order_sheet_no
+		INNER JOIN shopping_customer_address adr
+		ON osh.customer_address_no = adr.customer_address_no
+		INNER JOIN customer cus
+		ON osh.customer_id = cus.customer_id
+		WHERE odr.goods_order_state = '배송중' or odr.goods_order_state = '배송완료'
+	</select>
+
 	<!-- 배송시작(배송준비 -> 배송중으로 변경) -->
 	<select id="updateDeliveryStateBegin"
 		parameterType="int">
@@ -10,7 +54,7 @@
 		WHERE goods_order_no = #{orderNo} AND goods_order_state = '배송준비'
 	</select>
 	
-	<!-- 배송요청 -->
+	<!-- 배송요청리스트 (Delivery Receive) -->
 	<select id="selectDeliveryReceiveList"
 		resultType="java.util.Map">
 		SELECT

@@ -34,9 +34,9 @@
 			    var checked = $('#AllCk').is(':checked');
 			    
 			    if(checked) {
-			    	$('input:checkbox').prop('checked',true);
+			    	$('.orderNo').prop('checked',true);
 			    } else {
-			    	$('input:checkbox').prop('checked',false);
+			    	$('.orderNo').prop('checked',false);
 			    }
 			});
 			
@@ -55,8 +55,8 @@
 </head>
 <body>
 	<!--start wrapper-->
-  <div class="wrapper">
-       	<!--start header -->
+	<div class="wrapper">
+		<!--start header -->
 		<c:import url="/WEB-INF/inc/header.jsp"></c:import>
 		<!--end header -->
 		
@@ -64,8 +64,8 @@
 		<c:import url="/WEB-INF/inc/sideMenu.jsp"></c:import>
 		<!--end sidebar -->
 		
-       <!--start content-->
-       <main class="page-content">
+		<!--start content-->
+		<main class="page-content">
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
 					<div class="breadcrumb-title pe-3">배송</div>
@@ -80,12 +80,12 @@
 					</div>
 				</div>
 				<!--end breadcrumb-->
-				<h6 class="mb-0 text-uppercase">배송접수현황 (요청)</h6>
+				<h6 class="mb-0 text-uppercase">배송상태목록</h6>
 				<hr/>
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
-							<form id="modifyForm" method="post" action="${pageContext.request.contextPath}/employee/delivery/deliveryBegin">						
+							<form id="modifyForm" method="post" action="${pageContext.request.contextPath}/employee/delivery/deliveryComplete">						
 								<table id="example" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 										<tr>
@@ -106,7 +106,12 @@
 										<c:forEach var="d" items="${list}">
 											<tr>
 												<td style="width:30px;">
-													<input type="checkbox" class="orderNo" name="orderNo" value="${d.orderNo}">
+													<c:if test="${d.orderState == '배송중'}">
+														<input type="checkbox" class="orderNo" name="orderNo" value="${d.orderNo}">
+													</c:if>
+													<c:if test="${d.orderState == '배송완료'}">
+														<input type="checkbox" disabled="disabled">
+													</c:if>
 												</td>
 												<td>
 													<img src="${pageContext.request.contextPath}/img/${d.goodsImg}" style="width:150px;">
@@ -124,9 +129,13 @@
 												</td>
 												<td>${d.orderQuantity}</td>
 												<td>
-													<span class="rounded p-1" style="background-color:#CEF279;">
-														${d.orderState}
-													</span>
+													<c:if test="${d.orderState == '배송중'}">
+														<span class="rounded p-1" style="background-color:#B2CCFF;">
+													</c:if>
+													<c:if test="${d.orderState == '배송완료'}">
+														<span class="rounded p-1" style="background-color:#FFB2D9;">
+													</c:if>
+													${d.orderState}</span>
 												</td>
 												<td style="width:200px;">
 													<a style="color:#2900C9;" href="${pageContext.request.contextPath}/employee/customer/customerOne?customerId=${d.customerId}">
@@ -148,41 +157,47 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger">배송시작</button>
+								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger mb-3">배송완료</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</main>
-       <!--end page main-->
+		<!--end page main-->
 
 
-       <!--start overlay-->
-        <div class="overlay nav-toggle-icon"></div>
-       <!--end overlay-->
+		<!--start overlay-->
+		<div class="overlay nav-toggle-icon"></div>
+		<!--end overlay-->
 
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
 
-  </div>
-  <!--end wrapper-->
+	</div>
+	<!--end wrapper-->
 
 
-  <!-- Bootstrap bundle JS -->
-  <script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>
-  <!--plugins-->
-  <script src="/58platform/assets/js/jquery.min.js"></script>
-  <script src="/58platform/assets/plugins/simplebar/js/simplebar.min.js"></script>
-  <script src="/58platform/assets/plugins/metismenu/js/metisMenu.min.js"></script>
-  <script src="/58platform/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-  <script src="/58platform/assets/js/pace.min.js"></script>
-  <script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-  <script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-  <script src="/58platform/assets/js/table-datatable.js"></script>
+	<!-- Bootstrap bundle JS -->
+	<script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="/58platform/assets/js/jquery.min.js"></script>
+	<script src="/58platform/assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="/58platform/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="/58platform/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="/58platform/assets/js/pace.min.js"></script>
+	<script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/58platform/assets/js/table-datatable.js"></script>
 	
-  <!--app-->
-  <script src="/58platform/assets/js/app.js"></script>
+	<!--app-->
+	<script src="/58platform/assets/js/app.js"></script>
   
+	<!-- 초기화 : 배송상태 ASC 및 날짜기준 DESC정렬 -->
+	<script>
+		$(document).ready(function () {
+			$('#example').DataTable().order([[5, 'asc'], [7, 'desc']]).draw();			
+		});
+	</script>
 </body>
 </html>

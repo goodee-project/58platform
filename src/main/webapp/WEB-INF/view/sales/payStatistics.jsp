@@ -30,7 +30,7 @@
 </head>
 <body>
 	<!--start wrapper-->
-  <div class="wrapper">
+	<div class="wrapper">
        	<!--start header -->
 		<c:import url="/WEB-INF/inc/header.jsp"></c:import>
 		<!--end header -->
@@ -67,14 +67,14 @@
 							</div>
 							
 							<!-- 일/월/연별 조회하기 -->
-							<div>
+							<div class="text-end">
 								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=d&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">일별</a>
 								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=m&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">월별</a>
 								<a href="${pageContext.request.contextPath}/employee/sales/payStatistics?ymd=y&startDate=${startDate}&endDate=${endDate}" class="btn btn-sm btn-secondary">연별</a>
 							</div>
 							
 							<!-- 기간설정 -->
-							<div>
+							<div class="mb-2">
 								<form action="${pageContext.request.contextPath}/employee/sales/payStatistics">
 									조회 기간
 									<input type="date" name="startDate" value="${startDate}">
@@ -128,8 +128,8 @@
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
         <!--End Back To Top Button-->
 
-  </div>
-  <!--end wrapper-->
+	</div>
+	<!--end wrapper-->
 
 
 	<!-- Bootstrap bundle JS -->

@@ -18,6 +18,33 @@ import lombok.extern.slf4j.Slf4j;
 public class DeliveryController {
 	@Autowired DeliveryService deliveryService;
 	
+	// 배송완료 변경 (배송중 -> 배송완료)
+	@PostMapping("/employee/delivery/deliveryComplete")
+	public String modifyDeliveryStateComplete(@RequestParam(value="orderNo") int[] orderNo) {
+		log.debug("\u001B[46m"+"완료할 배송건수 : "+orderNo.length);
+		log.debug("\u001B[46m"+"orderNo[0] : "+orderNo[0]);
+		// log.debug("\u001B[46m"+"orderNo[1] : "+orderNo[1]);
+		
+		// check된 주문건에 대해서 배송상태 변경 (배송준비 -> 배송중)
+		for(int i=0; i<orderNo.length; i++) {
+			Integer modifyDeliveryComplete = deliveryService.modifyDeliveryStateComplete(orderNo[i]);
+			if(modifyDeliveryComplete == null) {
+				log.debug("\u001B[46m"+orderNo[i]+"번 주문 배송완료");
+			} 
+		}
+		
+		return "redirect:/employee/delivery/deliveryStatus";
+	}
+	
+	// 배송요청 리스트 출력
+	@GetMapping("/employee/delivery/deliveryStatus")
+	public String getDeliveryStatusList(Model model) {
+		List<Map<String,Object>> list = deliveryService.getDeliveryStatusList();
+		
+		model.addAttribute("list",list);
+		return "delivery/deliveryStatus";
+	}
+	
 	// 배송시작 변경 (배송준비 -> 배송중)
 	@PostMapping("/employee/delivery/deliveryBegin")
 	public String modifyDeliveryStateBegin(@RequestParam(value="orderNo") int[] orderNo) {
