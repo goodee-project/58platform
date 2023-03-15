@@ -85,11 +85,12 @@
 								<thead>
 									<tr>
 										<th class="sorting" style="width : 10%">분류</th>
-										<th style="width : 15%">기업ID</th>
+										<th style="width : 10%">기업ID</th>
 										<th style="width : 15%">기업명</th>
 										<th style="width : 30%">문의제목</th>
-										<th style="width : 15%">문의일자</th>
-										<th style="width : 15%">답변일자</th>
+										<th style="width : 10%">문의일자</th>
+										<th style="width : 10%">답변일자</th>
+										<th style="width : 10%">답변수정일자</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -112,6 +113,7 @@
 													${l.qaCreatedate}
 												</c:if>
 											</td>
+											<td>${l.updatedate}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -149,7 +151,7 @@
 		<script>
 		   $(document).ready(function () {
 		         $('#example').DataTable({
-		             order: [[3, 'desc']],
+		             order: [[4, 'desc']],
 		         });
 		     });
 		</script>

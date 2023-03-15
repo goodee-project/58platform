@@ -84,11 +84,11 @@
 							<table id="example" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th class="sorting" style="width : 10%">분류</th>
-										<th style="width : 20%">질문</th>
-										<th style="width : 30%">답변</th>
-										<th style="width : 15%">생성일</th>
-										<th style="width : 15%">수정일</th>
+										<th class="sorting" style="width : 5%">분류</th>
+										<th style="width : 30%">질문</th>
+										<th style="width : 45%">답변</th>
+										<th style="width : 5%">생성일</th>
+										<th style="width : 5%">수정일</th>
 										<th style="width : 5%">수정</th>
 										<th style="width : 5%">삭제</th>
 									</tr>

@@ -12,6 +12,14 @@ import goodee.gdj58.platform.vo.QuestionAnswer;
 @Mapper
 public interface QuestionMapper {
 	
+	// FAQ 삭제
+	int deleteFaq(int faqNo);
+	
+	// FAQ 수정
+	int updateFaq(Faq faq);
+	// FAQ 수정폼 조회
+	Faq selectFaq(int faqNo);
+	
 	// FAQ 등록
 	int insertFaq(Faq faq);
 	

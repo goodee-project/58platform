@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.platform.mapper.QuestionMapper">
 	
+	<!-- FAQ 삭제 -->
+	<delete id="deleteFaq" parameterType="int">
+		DELETE FROM faq WHERE faq_no = #{faqNo}
+	</delete>
+	
+	<!-- FAQ 수정 -->
+	<update id="updateFaq" parameterType="goodee.gdj58.platform.vo.Faq">
+		UPDATE faq SET faq_question = #{faqQuestion}, faq_answer = #{faqAnswer}, updatedate = CURDATE() WHERE faq_no = #{faqNo}
+	</update>
+	
+	<!-- FAQ 수정폼 조회 -->
+	<select id="selectFaq" parameterType="int" resultType="goodee.gdj58.platform.vo.Faq">
+		SELECT
+			faq_no faqNo
+			, service_name serviceName
+			, faq_question faqQuestion
+			, faq_answer faqAnswer
+		FROM faq
+		WHERE faq_no = #{faqNo}
+	</select>
+	
 	<!-- FAQ등록 -->
 	<insert id="insertFaq" parameterType="goodee.gdj58.platform.vo.Faq">
 		INSERT INTO faq (
@@ -26,15 +47,15 @@
 	
 	<!-- 답변수정 -->
 	<update id="updateCommentByCompany" parameterType="goodee.gdj58.platform.vo.QuestionAnswer">
-		UPDATE question_answer SET question_comment = #{questionComment} WHERE question_no = #{questionNo}
+		UPDATE question_answer SET question_comment = #{questionComment}, updatedate = NOW() WHERE question_no = #{questionNo}
 	</update>
 	
 	<!-- 답변등록 -->
 	<insert id="insertCommentByCompany" parameterType="goodee.gdj58.platform.vo.QuestionAnswer">
 		INSERT INTO question_answer (
-			question_no, question_comment, createdate
+			question_no, question_comment, updatedate, createdate
 		) VALUES (
-			#{questionNo}, #{questionComment}, NOW()
+			#{questionNo}, #{questionComment}, NOW(), NOW()
 		)
 	</insert>
 	
@@ -83,6 +104,7 @@
 			, q.createdate createdate
 			, qa.question_comment questionComment
 			, qa.createdate qaCreatedate
+			, qa.updatedate updatedate
 		FROM question q 
 		LEFT JOIN question_answer qa
 		ON q.question_no = qa.question_no
@@ -101,6 +123,7 @@
 			, q.createdate createdate
 			, qa.question_comment questionComment
 			, qa.createdate qaCreatedate
+			, qa.updatedate updatedate
 		FROM question q
 		LEFT JOIN question_answer qa
 		ON q.question_no = qa.question_no

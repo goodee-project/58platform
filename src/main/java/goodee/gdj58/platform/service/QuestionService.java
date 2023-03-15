@@ -17,6 +17,21 @@ public class QuestionService {
 	@Autowired 
 	private QuestionMapper questionMapper;
 	
+	// FAQ 삭제
+	public int removeFaq(int faqNo) {
+		return questionMapper.deleteFaq(faqNo);
+	}
+	
+	// FAQ 수정
+	public int modifyFaq(Faq faq) {
+		return questionMapper.updateFaq(faq);
+	}
+	
+	// FAQ 수정폼 조회
+	public Faq getFaq(int faqNo) {
+		return questionMapper.selectFaq(faqNo);
+	}
+	
 	// FAQ 등록
 	public int addFaq(Faq faq) {
 		return questionMapper.insertFaq(faq);

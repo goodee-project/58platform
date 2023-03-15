@@ -11,8 +11,10 @@
 		<c:choose>
 			<c:when test="${m.questionComment eq null}">
 				<h1>답변작성</h1>
+				${msg}
 				<form action="${pageContext.request.contextPath}/employee/question/addCommentByCompany" method="post">
 					<input type="hidden" name="questionNo" value="${m.questionNo}">
+					<input type="hidden" name="serviceName" value="${m.serviceName}">
 					<table border="1">
 						<tr>
 							<td>분류</td>
@@ -52,8 +54,10 @@
 			</c:when>
 			<c:when test="${m.questionComment ne null}">
 				<h1>답변수정</h1>
+				${msg}
 				<form action="${pageContext.request.contextPath}/employee/question/modifyCommentByCompany" method="post">
 					<input type="hidden" name="questionNo" value="${m.questionNo}">
+					<input type="hidden" name="serviceName" value="${m.serviceName}">
 					<table border="1">
 						<tr>
 							<td>분류</td>

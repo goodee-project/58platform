@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<h1>FAQ 등록</h1>
+		${msg}
 		<form action="${pageContext.request.contextPath}/employee/question/addFaq" method="post">
 			<table border="1">
 				<tr>
