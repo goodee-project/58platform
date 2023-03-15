@@ -32,6 +32,7 @@ public class CompanyContoroller {
 			companyOrderList = companyService.getBookingOrderList(companyName);
 		} else if(serviceName.equals("쇼핑")) {
 			companyOrderList = companyService.getShoppingOrderList(companyName);
+			companyOrderList = companyService.getShoppingOrderList(companyName);
 		}
 		
 		

@@ -1,5 +1,6 @@
 package goodee.gdj58.platform.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,13 @@ public class CompanyService {
 			discountRate = 0.03;
 		}
 		
+		// 주문서의 상품 외 갯수 ( 쿼리에서 상품조회할것인가 서비스에서 하나더 만들것인가)
+		String [] arr = companyOrderList.get(0).get("goodsName").toString().split(",");
+		log.debug("\u001B[45m 주문리스트 arr[]  : "+ arr);
+		int goodsNameETC = arr.length-1; 
+		String goodsNameTitle = arr[0];
+		
+		
 		for(Map<String,Object> keyMap : companyOrderList) {
 			String key1 = keyMap.get("orderSheetNo").toString();
 			String key2 = keyMap.get("orderSheetPrice").toString();
@@ -61,6 +69,8 @@ public class CompanyService {
 			keyMap.put("usePoint", usePoint);
 			keyMap.put("rankDiscount", rankDiscount);
 			keyMap.put("pay", pay);
+			keyMap.put("goodsNameETC", goodsNameETC);
+			keyMap.put("goodsNameTitle", goodsNameTitle);
 			
 		}
 		

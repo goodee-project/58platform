@@ -73,9 +73,15 @@
 								<thead>
 									<tr>
 										<th style="width : 10%">예약번호</th>
-										<th style="width : 15%">고객ID</th>
-										<th style="width : 30%">결제금액(전체금액-랭크할인-포인트=실결제금액)</th>
-										<th style="width : 15%">예약상태</th>
+										<th style="width : 10%">고객ID</th>
+										<th style="width : 15%">예약상품</th>
+										<th style="width : 15%">
+											<span>결제금액( 전체금액-</span>
+											<span style="color:blue";>랭크할인</span> -
+											<span style="color:red";>포인트</span> )
+										</th>
+										<th style="width : 10%">실 결제금액</th>
+										<th style="width : 10%">예약상태</th>
 										<th style="width : 15%">방문일</th>
 										<th style="width : 15%">예약일</th>
 									</tr>
@@ -87,9 +93,59 @@
 											<td>${s.bookingNo}</td>
 											<td>${s.customerId}</td>
 											<td>
+												<!-- Button trigger modal -->
+												<a type="button" class="primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">${s.bookingProductName}</a>
+												<!-- Modal -->
+												<div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
+													<div class="modal-dialog modal-lg">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Modal title</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<table id="example" class="table table-striped table-bordered" style="width:100%">
+																	<thead>
+																		<tr>
+																			<th style="width : 10%">주문번호</th>
+																			<th style="width : 15%">운송장번호</th>
+																			<th style="width : 15%">고객ID</th>
+																			<th style="width : 20%">
+																				<span>결제금액( 전체금액-</span>
+																				<span style="color:blue";>랭크할인</span> -
+																				<span style="color:red";>포인트</span> )
+																			</th>
+																			<th style="width : 10%">실 결제금액</th>
+																			<th style="width : 15%">주문상태</th>
+																			<th style="width : 15%">주문일</th>
+																		</tr>
+																	</thead>
+																	
+																	<tbody>
+																		<tr>
+																			<td>a</td>
+																			<td>b</td>
+																			<td>c</td>
+																			<td>d</td>
+																			<td>e</td>
+																			<td>f</td>
+																			<td>g</td>
+																		</tr>
+																		
+																	</tbody>
+																</table>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</td>
+											<td>
 												${s.bookingTotalPrice}
-												- ${s.rankDiscount}
-												- ${s.bookingUsePoint}
+												- <span style="color:blue";>${s.rankDiscount}</span>
+												- <span style="color:red";>${s.bookingUsePoint}</span>
 											</td>
 											<td>${s.pay}</td>
 											<td>${s.bookingState}</td>
@@ -106,10 +162,15 @@
 									<tr>
 										<th style="width : 10%">주문번호</th>
 										<th style="width : 15%">운송장번호</th>
-										<th style="width : 15%">고객ID</th>
-										<th style="width : 20%">결제금액(전체금액-랭크할인-포인트)</th>
+										<th style="width : 10%">고객ID</th>
+										<th style="width : 15%">주문상품</th>
+										<th style="width : 15%">
+											<span>결제금액( 전체금액-</span>
+											<span style="color:blue";>랭크할인</span> -
+											<span style="color:red";>포인트</span> )
+										</th>
 										<th style="width : 10%">실 결제금액</th>
-										<th style="width : 15%">주문상태</th>
+										<th style="width : 10%">주문상태</th>
 										<th style="width : 15%">주문일</th>
 									</tr>
 								</thead>
@@ -121,9 +182,61 @@
 											<td>${s.orderSheetWaybill}</td>
 											<td>${s.customerId}</td>
 											<td>
+												<!-- Button trigger modal -->
+												<a type="button" class="primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">
+													${s.goodsNameTitle} 외 ${s.goodsNameETC} 종
+												</a>
+												<!-- Modal -->
+												<div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
+													<div class="modal-dialog modal-lg">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">Modal title</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<table id="example" class="table table-striped table-bordered" style="width:100%">
+																	<thead>
+																		<tr>
+																			<th style="width : 10%">주문번호</th>
+																			<th style="width : 15%">운송장번호</th>
+																			<th style="width : 15%">고객ID</th>
+																			<th style="width : 20%">
+																				<span>결제금액( 전체금액-</span>
+																				<span style="color:blue";>랭크할인</span> -
+																				<span style="color:red";>포인트</span> )
+																			</th>
+																			<th style="width : 10%">실 결제금액</th>
+																			<th style="width : 15%">주문상태</th>
+																			<th style="width : 15%">주문일</th>
+																		</tr>
+																	</thead>
+																	
+																	<tbody>
+																		<tr>
+																			<td>a</td>
+																			<td>b</td>
+																			<td>c</td>
+																			<td>d</td>
+																			<td>e</td>
+																			<td>f</td>
+																			<td>g</td>
+																		</tr>
+																		
+																	</tbody>
+																</table>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</td>
+											<td>
 												${s.orderSheetPrice}
-												- ${s.rankDiscount}
-												- ${s.usePoint}
+												- <span style="color:blue";>${s.rankDiscount}</span>
+												- <span style="color:red";>${s.usePoint}</span>
 											</td>
 											<td>${s.pay}</td>
 											<td>${s.orderSheetState}</td>
@@ -166,7 +279,7 @@
   <script>
      $(document).ready(function () {
            $('#example').DataTable({
-               order: [[6, 'desc']],
+               order: [[7, 'desc']],
            });
        });
   </script>

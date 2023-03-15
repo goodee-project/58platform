@@ -20,6 +20,7 @@ public interface CompanyMapper {
 	
 	// 쇼핑몰 주문 조회  
 	List<Map<String, Object>> selectShoppingOrderList(String companyName);
+	
 	// 예약 주문 조회  
 	List<Map<String, Object>> selectBookingOrderList(String companyName);
 		

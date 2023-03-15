@@ -53,11 +53,16 @@
 			, shopping_order_sheet.order_sheet_waybill orderSheetWaybill
 			, shopping_order_sheet.order_sheet_price orderSheetPrice
 			, shopping_order_sheet.createdate
+			
+			, shopping_goods.goods_name goodsName
 		
 		FROM
 			shopping_company
 			INNER JOIN shopping_order_sheet
 			ON shopping_company.company_id = shopping_order_sheet.company_id
+			
+			INNER JOIN shopping_goods
+			ON shopping_company.company_id = shopping_goods.company_id
 			
 		WHERE 
 			shopping_company.company_name = #{companyName}
