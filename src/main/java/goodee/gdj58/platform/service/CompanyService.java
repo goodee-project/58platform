@@ -24,10 +24,10 @@ public class CompanyService {
 		List<Map<String, Object>> companyOrderList = companyMapper.selectShoppingOrderList(companyName);
 		log.debug("\u001B[45m 주문리스트 companyOrderList  : "+ companyOrderList);
 		
-		int orderSheetNo = 0;
-		int orderSheetPrice = 0;
-		double  discountRate = 0;
-		
+		int orderSheetNo = 0; // 주문서 하나의 번호
+		int orderSheetPrice = 0; // 주문서 하나의 총 금액
+		double  discountRate = 0; // 등급별 할인율
+ 		
 		String customerId = companyOrderList.get(0).get("customerId").toString();
 		log.debug("\u001B[45m 주문리스트 customerId  : "+ customerId);
 		
@@ -76,12 +76,13 @@ public class CompanyService {
 		
 		List<Map<String, Object>> companyOrderList = companyMapper.selectBookingOrderList(companyName);
 		
-		int bookingTotalPrice = 0;
-		double  discountRate = 0;
-		int bookingUsePoint =0;
+		int bookingTotalPrice = 0; // 총 예약금액
+		double  discountRate = 0; // 등급별 할인율
+		int bookingUsePoint =0; // 예약에 사용된 포인트
 		
 		String customerId = companyOrderList.get(0).get("customerId").toString();
-		String UsePoint = companyOrderList.get(0).get("bookingUsePoint").toString();
+		String usePoint = companyOrderList.get(0).get("bookingUsePoint").toString();
+		bookingUsePoint = Integer.parseInt(usePoint);
 		
 		log.debug("\u001B[45m 주문리스트 customerId  : "+ customerId);
 		
@@ -102,12 +103,11 @@ public class CompanyService {
 			String key1 = keyMap.get("bookingTotalPrice").toString();
 			
 			bookingTotalPrice = Integer.parseInt(key1);
-			bookingUsePoint = Integer.UsePoint(UsePoint);
 			
 			int rankDiscount = (int)((int)bookingTotalPrice*(double)discountRate);
 			log.debug("\u001B[45m 주문리스트 rankDiscount  : "+ rankDiscount);
 			
-			int pay = bookingTotalPrice-rankDiscount-usePoint;
+			int pay = bookingTotalPrice-rankDiscount-bookingUsePoint;
 			
 			keyMap.put("rankDiscount", rankDiscount);
 			keyMap.put("pay", pay);
