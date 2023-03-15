@@ -87,6 +87,10 @@
 										<tr>
 											<td>${s.bookingNo}</td>
 											<td>${s.customerId}</td>
+											<td>
+												${s.bookingPrice}
+												(<span style="color:red;">${s.bookingUsePoint}</span>)
+											</td>
 											<td>${s.bookingTotalPrice}</td>
 											<td>${s.bookingState}</td>
 											<td>${s.bookingDate}</td>
@@ -116,8 +120,10 @@
 											<td>${s.orderSheetNo}</td>
 											<td>${s.orderSheetWaybill}</td>
 											<td>${s.customerId}</td>
-											<td>${s.usePoint}</td>
-											<td>${s.orderSheetPrice}</td>
+											<td>${s.orderSheetPrice}
+												(<span style="color:red;">${s.usePoint}</span>)
+											</td>
+											<td>${s.pay}</td>
 											<td>${s.orderSheetState}</td>
 											<td>${s.createdate}</td>
 										</tr>

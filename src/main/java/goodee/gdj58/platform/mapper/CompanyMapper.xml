@@ -15,7 +15,8 @@
 			shopping_goods_order
 			
 		WHERE 
-			shopping_goods_order.order_sheet_no = #{orderSheetNo}
+			order_sheet_no = #{orderSheetNo} 
+			AND NOT goods_order_state IN ('취소','환불신청','환불완료')
 	
 	</select>
 	

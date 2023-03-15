@@ -25,11 +25,18 @@ public class CompanyService {
 		
 		log.debug("\u001B[45m 주문리스트 companyOrderList  : "+ companyOrderList);
 		int orderSheetNo = 0;
+		int orderSheetPrice = 0;
 		for(Map<String,Object> keyMap : companyOrderList) {
 			String key1 = keyMap.get("orderSheetNo").toString();
+			String key2 = keyMap.get("orderSheetPrice").toString();
+			
 			orderSheetNo = Integer.parseInt(key1);
+			orderSheetPrice = Integer.parseInt(key2);
+			
 			int usePoint = companyMapper.selectShoppingOrderTotalPoint(orderSheetNo);
+			int pay =orderSheetPrice-usePoint;
 			keyMap.put("usePoint", usePoint);
+			keyMap.put("pay", pay);
 			
 		}
 		
