@@ -3,6 +3,23 @@
 <mapper namespace="goodee.gdj58.platform.mapper.CompanyMapper">
 	
 	
+	<!-- 고객 랭크 조회 --> 
+	<select id="selectCustomerRank" 
+		resultType="String"
+		parameterType="String">
+		
+		SELECT
+			customer.customer_rank customerRank
+		
+		FROM
+			customer
+			
+		WHERE 
+			customer_id = #{customerId} 
+	
+	</select>
+	
+	
 	<!-- 쇼핑몰 주문서당 포인트 사용내역 조회 --> 
 	<select id="selectShoppingOrderTotalPoint" 
 		resultType="int"

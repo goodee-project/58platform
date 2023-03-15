@@ -74,8 +74,7 @@
 									<tr>
 										<th style="width : 10%">예약번호</th>
 										<th style="width : 15%">고객ID</th>
-										<th style="width : 15%">금액(포인트)</th>
-										<th style="width : 15%">결제금액</th>
+										<th style="width : 30%">결제금액(전체금액-랭크할인-포인트=실결제금액)</th>
 										<th style="width : 15%">예약상태</th>
 										<th style="width : 15%">방문일</th>
 										<th style="width : 15%">예약일</th>
@@ -88,10 +87,11 @@
 											<td>${s.bookingNo}</td>
 											<td>${s.customerId}</td>
 											<td>
-												${s.bookingPrice}
-												(<span style="color:red;">${s.bookingUsePoint}</span>)
+												${s.bookingTotalPrice}
+												- ${s.rankDiscount}
+												- ${s.bookingUsePoint}
 											</td>
-											<td>${s.bookingTotalPrice}</td>
+											<td>${s.pay}</td>
 											<td>${s.bookingState}</td>
 											<td>${s.bookingDate}</td>
 											<td>${s.bookingRequestDate}</td>
@@ -107,8 +107,8 @@
 										<th style="width : 10%">주문번호</th>
 										<th style="width : 15%">운송장번호</th>
 										<th style="width : 15%">고객ID</th>
-										<th style="width : 15%">금액(포인트)</th>
-										<th style="width : 15%">결제금액</th>
+										<th style="width : 20%">결제금액(전체금액-랭크할인-포인트)</th>
+										<th style="width : 10%">실 결제금액</th>
 										<th style="width : 15%">주문상태</th>
 										<th style="width : 15%">주문일</th>
 									</tr>
@@ -120,8 +120,10 @@
 											<td>${s.orderSheetNo}</td>
 											<td>${s.orderSheetWaybill}</td>
 											<td>${s.customerId}</td>
-											<td>${s.orderSheetPrice}
-												(<span style="color:red;">${s.usePoint}</span>)
+											<td>
+												${s.orderSheetPrice}
+												- ${s.rankDiscount}
+												- ${s.usePoint}
 											</td>
 											<td>${s.pay}</td>
 											<td>${s.orderSheetState}</td>

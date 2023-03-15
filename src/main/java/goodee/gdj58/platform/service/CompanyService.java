@@ -18,14 +18,32 @@ import lombok.extern.slf4j.Slf4j;
 public class CompanyService {
 	@Autowired CompanyMapper companyMapper; 
 	
-	// 쇼핑 기업 주문 조회 (포인트 사용내역 포함)
+	// 쇼핑 기업 주문 조회 (랭크할인 및 포인트 사용내역 포함)
 	public List<Map<String, Object>> getShoppingOrderList(String companyName){
 		
 		List<Map<String, Object>> companyOrderList = companyMapper.selectShoppingOrderList(companyName);
-		
 		log.debug("\u001B[45m 주문리스트 companyOrderList  : "+ companyOrderList);
+		
 		int orderSheetNo = 0;
 		int orderSheetPrice = 0;
+		double  discountRate = 0;
+		
+		String customerId = companyOrderList.get(0).get("customerId").toString();
+		log.debug("\u001B[45m 주문리스트 customerId  : "+ customerId);
+		
+		// 랭크 조회 및 랭크별 할인율
+		String customerRank = companyMapper.selectCustomerRank(customerId);
+		
+		if(customerRank.equals("일반")) {
+			discountRate = 0;
+		} else if(customerRank.equals("브론즈")) {
+			discountRate = 0.01;
+		} else if(customerRank.equals("실버")) {
+			discountRate = 0.02;
+		} else if(customerRank.equals("골드")) {
+			discountRate = 0.03;
+		}
+		
 		for(Map<String,Object> keyMap : companyOrderList) {
 			String key1 = keyMap.get("orderSheetNo").toString();
 			String key2 = keyMap.get("orderSheetPrice").toString();
@@ -33,9 +51,15 @@ public class CompanyService {
 			orderSheetNo = Integer.parseInt(key1);
 			orderSheetPrice = Integer.parseInt(key2);
 			
+			int rankDiscount = (int)((int)orderSheetPrice*(double)discountRate);
+			log.debug("\u001B[45m 주문리스트 rankDiscount  : "+ rankDiscount);
+			
 			int usePoint = companyMapper.selectShoppingOrderTotalPoint(orderSheetNo);
-			int pay =orderSheetPrice-usePoint;
+			
+			int pay =orderSheetPrice-rankDiscount-usePoint;
+			
 			keyMap.put("usePoint", usePoint);
+			keyMap.put("rankDiscount", rankDiscount);
 			keyMap.put("pay", pay);
 			
 		}
@@ -47,10 +71,48 @@ public class CompanyService {
 		return companyOrderList;	
 	}
 		
-	// 예약 기업 주문 조회 
+	// 예약 기업 주문 조회 (랭크할인 및 포인트 사용내역 포함)
 	public List<Map<String, Object>> getBookingOrderList(String companyName){
 		
 		List<Map<String, Object>> companyOrderList = companyMapper.selectBookingOrderList(companyName);
+		
+		int bookingTotalPrice = 0;
+		double  discountRate = 0;
+		int bookingUsePoint =0;
+		
+		String customerId = companyOrderList.get(0).get("customerId").toString();
+		String UsePoint = companyOrderList.get(0).get("bookingUsePoint").toString();
+		
+		log.debug("\u001B[45m 주문리스트 customerId  : "+ customerId);
+		
+		// 랭크 조회 및 랭크별 할인율
+		String customerRank = companyMapper.selectCustomerRank(customerId);
+		
+		if(customerRank.equals("일반")) {
+			discountRate = 0;
+		} else if(customerRank.equals("브론즈")) {
+			discountRate = 0.01;
+		} else if(customerRank.equals("실버")) {
+			discountRate = 0.02;
+		} else if(customerRank.equals("골드")) {
+			discountRate = 0.03;
+		}
+		
+		for(Map<String,Object> keyMap : companyOrderList) {
+			String key1 = keyMap.get("bookingTotalPrice").toString();
+			
+			bookingTotalPrice = Integer.parseInt(key1);
+			bookingUsePoint = Integer.UsePoint(UsePoint);
+			
+			int rankDiscount = (int)((int)bookingTotalPrice*(double)discountRate);
+			log.debug("\u001B[45m 주문리스트 rankDiscount  : "+ rankDiscount);
+			
+			int pay = bookingTotalPrice-rankDiscount-usePoint;
+			
+			keyMap.put("rankDiscount", rankDiscount);
+			keyMap.put("pay", pay);
+			
+		}
 		
 		return companyOrderList;	
 	}
