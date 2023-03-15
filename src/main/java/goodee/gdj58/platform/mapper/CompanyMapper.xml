@@ -223,7 +223,7 @@
 			, booking_company.booking_company_account companyAccount
 			, booking_company.booking_company_number companyNumber
 			, booking_company.booking_company_info_agree companyAgree
-			, booking_company_detail.booking_company_type_content companyTypeContent
+			, booking_company_type.booking_company_type_content companyTypeContent
 			, booking_company_detail.booking_company_opentime companyOpenTime
 			, booking_company_detail.booking_company_closetime companyCloseTime
 			, booking_company_detail.booking_company_addition_service companyAddtionService
@@ -244,8 +244,10 @@
 			ON booking_company.booking_company_id = booking_company_detail.booking_company_id
 			INNER JOIN total_id
 			ON total_id.id = booking_company.booking_company_id
+			INNER JOIN booking_company_type
+			ON booking_company_detail.booking_company_type_no = booking_company_type.booking_company_type_no
 		WHERE 
-			booking_company.booking_company_name = #{companyName}
+			booking_company.booking_company_name = #{companyName};
 	
 	</select>
 	<!-- 예약기업 수(페이징용)(수정 필요) -->
@@ -295,7 +297,7 @@
 			, shopping_company.company_account companyAccount
 			, shopping_company.company_registration_number companyNumber
 			, shopping_company.company_email_marketing companyAgree
-			, shopping_company.type_content companyTypeContent
+			, shopping_type.type_content companyTypeContent
 			, total_id.total_id_active active
 			, total_id.createdate createdate
 			, (SELECT
@@ -312,6 +314,8 @@
 			shopping_company
 			INNER JOIN total_id
 			ON shopping_company.company_id = total_id.id
+			INNER JOIN shopping_type
+			ON shopping_company.type_no = shopping_type.type_no
 		WHERE shopping_company.company_name = #{companyName}
 	</select>
 	<!-- 쇼핑기업 수(페이징용)(수정 필요) -->
