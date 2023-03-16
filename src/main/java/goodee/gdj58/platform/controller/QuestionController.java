@@ -38,7 +38,7 @@ public class QuestionController {
 		
 		log.debug("\u001B[31m" + faq + "<-- faq 컨트롤러 디버깅");
 		
-		String msg = "FAQ등록실패";
+		String msg = "FAQ수정실패";
 		
 		redirectAttributes.addAttribute("faqNo", faq.getFaqNo());
 		redirectAttributes.addAttribute("msg", msg);
@@ -58,13 +58,17 @@ public class QuestionController {
 	// FAQ 수정 폼
 	@GetMapping("/employee/question/modifyFaq")
 	public String modifyFaq(Model model
-								, @RequestParam(value="faqNo") int faqNo) {
+								, @RequestParam(value="faqNo") int faqNo
+								, @RequestParam(value="serviceName") String serviceName
+								, @RequestParam(value="msg", required = false) String msg) {
 		
 		log.debug("\u001B[31m" + faqNo + "<-- faqNo 컨트롤러 디버깅");
+		log.debug("\u001B[31m" + serviceName + "<-- serviceName faq 수정 폼 컨트롤러 디버깅");
 		
 		Faq faq = questionService.getFaq(faqNo);
 
 		model.addAttribute("f", faq);
+		model.addAttribute("serviceName", serviceName);
 		model.addAttribute("msg", msg);
 		
 		return "question/modifyFaq";
@@ -95,9 +99,13 @@ public class QuestionController {
 	// FAQ 등록 폼
 	@GetMapping("/employee/question/addFaq")
 	public String addFaq(Model model
-							, @RequestParam(value="msg", required = false) String msg) {
+							, @RequestParam(value="msg", required = false) String msg
+							, @RequestParam(value="serviceName") String serviceName) {
+		
+		log.debug("\u001B[31m" + serviceName + "<-- serviceName FAQ 등록 폼 컨트롤러 디버깅");
 		
 		model.addAttribute("msg", msg);
+		model.addAttribute("serviceName", serviceName);
 		
 		return "question/addFaq";
 	}
@@ -139,7 +147,7 @@ public class QuestionController {
 		log.debug("\u001B[31m" + questionNo + "<-- 답변수정 액션 questionNo 컨트롤러 디버깅");
 		log.debug("\u001B[31m" + questionAnswer + "<-- 답변수정 액션 questionAnswer 컨트롤러 디버깅");
 		
-		String msg = "수정실패";
+		String msg = "답변이 입력되지 않았습니다.";
 		
 		// redirect시 보낼 파라미터
 		redirectAttributes.addAttribute("questionNo", questionNo);
@@ -171,12 +179,13 @@ public class QuestionController {
 		log.debug("\u001B[31m" + serviceName + "<-- 답변작성 액션 serviceName 컨트롤러 디버깅");
 		log.debug("\u001B[31m" + questionAnswer.getQuestionComment() + "<-- 답변작성 액션 questionAnswer.getQuestionComment() 컨트롤러 디버깅");
 		
-		String msg = "등록실패";
+		String msg = "답변이 입력되지 않았습니다.";
 		
 		// redirect시 보낼 파라미터
 		redirectAttributes.addAttribute("questionNo", questionNo);
 		redirectAttributes.addAttribute("serviceName", serviceName);
 		redirectAttributes.addAttribute("msg", msg);
+		
 		// 답변이 null이나 공백으로 넘어올시 답변 입력창으로 redirect
 		if(questionAnswer.getQuestionComment() == null 
 				|| questionAnswer.getQuestionComment().equals("")) {
@@ -209,11 +218,9 @@ public class QuestionController {
 			map = questionService.getBookingQuestionByComment(questionNo);
 		}
 		
-		
-		log.debug("\u001B[31m" + map + "<-- map 컨트롤러 디버깅");
-		
 		model.addAttribute("m", map);
 		model.addAttribute("msg", msg);
+		model.addAttribute("serviceName", serviceName);
 		
 		return "question/commentByCompany";
 	}

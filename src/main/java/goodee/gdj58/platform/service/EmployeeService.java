@@ -89,10 +89,10 @@ public class EmployeeService {
 	}
 	
 	// 직원등록
-	public int addEmployee(Employee employee, EmployeeInfo employeeInfo, TotalId totalId, PwHistory pwHistory) {
+	public int addEmployee( TotalId totalId, Employee employee, EmployeeInfo employeeInfo, PwHistory pwHistory) {
+		employeeMapper.insertTotalId(totalId);
 		employeeMapper.insertEmployee(employee);
 		employeeMapper.insertEmployeeInfo(employeeInfo);
-		employeeMapper.insertTotalId(totalId);
 		return employeeMapper.insertPwHistory(pwHistory);
 	}
 	

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goodee.gdj58.platform.service.EmployeeService;
 import goodee.gdj58.platform.vo.Employee;
@@ -139,7 +140,8 @@ public class EmployeeController {
 	
 	// 직원등록 폼
 	@GetMapping("/employee/emp/addEmployee")
-	public String addEmployee(HttpSession session, Model model) {
+	public String addEmployee(HttpSession session, Model model
+								, @RequestParam(value="msg", required = false) String msg) {
 		
 		// 세션정보 불러오기
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
@@ -149,12 +151,19 @@ public class EmployeeController {
 			return "alert";
 		}
 		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", "/58platform/employee/emp/addEmployee");
+			return "alert";
+		}
+		
+		
 		return "employee/addEmployee";
 	}
 	
 	// 직원등록 액션
 	@PostMapping("/employee/emp/addEmployee")
-	public String addEmployee(ServletRequest request
+	public String addEmployee(ServletRequest request, RedirectAttributes redirectAttributes
 								, Employee employee
 								, EmployeeInfo employeeInfo
 								, TotalId totalId
@@ -163,8 +172,20 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + employee + "<-- employee 디버깅");
 		log.debug("\u001B[31m" + employeeInfo + "<-- employeeInfo 디버깅");
 		
-		// utf-8 인코딩
-		request.setCharacterEncoding("utf-8");
+		String msg = "필수정보를 전부 입력해주세요.";
+		
+		// redirect시 보낼 파라미터
+		redirectAttributes.addAttribute("msg", msg);
+		
+		// null, 공백 체크
+		if(employee.getEmployeeId() == null || employee.getEmployeeId().equals("")
+				|| employee.getEmployeeName() == null || employee.getEmployeeName().equals("")
+				|| employee.getEmployeePw() == null || employee.getEmployeePw().equals("")
+				|| employeeInfo.getEmployeeEmail() == null || employeeInfo.getEmployeeEmail().equals("")
+				|| employeeInfo.getEmployeePhone() == null || employeeInfo.getEmployeePhone().equals("")
+				|| totalId.getId() == null || totalId.getId().equals("")) {
+			return "redirect:/employee/emp/addEmployee";
+		}
 		
 		// 직원 아이디 통합아이디에 저장
 		String id = employee.getEmployeeId();
@@ -175,7 +196,7 @@ public class EmployeeController {
 		pwHistory.setPassword(employee.getEmployeePw());
 		
 		// 직원등록 메서드 호출
-		employeeService.addEmployee(employee, employeeInfo, totalId, pwHistory);
+		employeeService.addEmployee(totalId, employee, employeeInfo, pwHistory);
 		
 		return "redirect:/employee/emp/employeeList";
 	}
@@ -217,6 +238,7 @@ public class EmployeeController {
 		return "redirect:/login";
 	}
 	
+	// 통합페이지
 	@GetMapping("/employee/emp/logout/integrationPage")
 	public String logoutIntegrationPage(HttpSession session) {
 		
@@ -229,20 +251,39 @@ public class EmployeeController {
 	
 	// 직원 로그인 폼
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(Model model
+							, @RequestParam(value="msg", required = false) String msg) {
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", "/58platform/login");
+			return "alert";
+		}
 		
 		return "login";
 	}
 	
 	// 직원 로그인 액션
 	@PostMapping("/login")
-	public String login(HttpSession session, Employee employee, Model model) {
+	public String login(HttpSession session, Employee employee, Model model, RedirectAttributes redirectAttributes) {
 		
 		log.debug("\u001B[31m" + employee + "<-- employee 로그인 할때 디버깅");
+		
+		String msg = "필수정보를 입력해주세요.";
+		
+		// redirect시 보낼 파라미터
+		redirectAttributes.addAttribute("msg", msg);
+		
+		// null, 공백체크
+		if(employee.getEmployeeId() == null || employee.getEmployeeId().equals("")
+				|| employee.getEmployeePw() == null || employee.getEmployeePw().equals("")) {
+			return "redirect:/login";
+		}
 		
 		// 로그인 정보 불러오는 메서드 호출
 		Employee loginEmp = employeeService.login(employee);
 		
+		// 로그인 실패시 메시지와 함께 redirect
 		if(loginEmp == null) {
 			model.addAttribute("msg", "존재하지않는 아이디거나 패스워드가 일치하지않습니다.");
 			return "login";
