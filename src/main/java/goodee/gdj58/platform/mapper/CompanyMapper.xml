@@ -37,6 +37,55 @@
 	
 	</select>
 	
+	<!-- 기업 상태 변경 -->
+	<select id="updateCompanyActive"
+		parameterType="java.lang.String">
+				
+		UPDATE total_id 
+		SET total_id_active = #{active}, total_id_deactive_memo = #{deactiveMemo}
+		WHERE id = #{companyId};
+	</select>
+	
+	<!-- 신규등록 쇼핑몰 조회 -->
+	<select id="selectNewShoppingCompanyList"
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			total_id.id companyId
+			, shopping_company.company_name companyName
+			, shopping_company.company_ceo companyCeo
+			, shopping_company.company_phone companyPhone
+			, total_id.total_id_active active
+			, total_id.createdate createdate
+		FROM
+			total_id
+			INNER JOIN shopping_company
+			ON total_id.id = shopping_company.company_id
+		WHERE
+			total_id.total_id_active = '비활성화' AND total_id.total_id_deactive_memo = '신규'
+	</select>
+	
+	<!-- 신규등록 예약 조회 -->
+	<select id="selectNewBookingCompanyList"
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			total_id.id companyId
+			, booking_company.booking_company_name companyName
+			, booking_company.booking_company_ceo companyCeo
+			, booking_company.booking_company_phone companyPhone
+			, total_id.total_id_active active
+			, total_id.createdate createdate
+		FROM
+			total_id
+			INNER JOIN booking_company
+			ON total_id.id = booking_company.booking_company_id
+		WHERE
+			total_id.total_id_active = '비활성화' AND total_id.total_id_deactive_memo = '신규'	
+	</select>
+	
 	<!-- 쇼핑몰 주문 조회 --> 
 	<select id="selectShoppingOrderList" 
 		resultType="java.util.Map"
@@ -210,6 +259,8 @@
 			booking_company
 			INNER JOIN total_id
 			ON booking_company.booking_company_id = total_id.id
+		WHERE
+			total_id.total_id_deactive_memo != '신규' OR total_id.total_id_deactive_memo IS NULL
 		ORDER BY total_id.createdate
 	</select>
 	<!-- 예약기업 상세(수정 필요) -->
@@ -284,6 +335,8 @@
 			shopping_company
 			INNER JOIN total_id 
 			ON shopping_company.company_id = total_id.id
+		WHERE
+			total_id.total_id_deactive_memo != '신규' OR total_id.total_id_deactive_memo IS NULL
 		ORDER BY total_id.createdate
 	</select>
 	<!-- 쇼핑기업 상세(수정 필요) -->

@@ -142,6 +142,22 @@ public class CompanyService {
 		
 		return companySellList;	
 	}
+	// 기업 상태 변경
+	public void modifyCompanyActive(String companyId, String active, String deactiveMemo) {
+		companyMapper.updateCompanyActive(companyId, active, deactiveMemo);
+	}
+	
+	// 신규등록 쇼핑몰 조회
+	public List<Map<String, Object>> getNewShoppingCompanyList(){
+		List<Map<String, Object>> newCompanyList = companyMapper.selectNewShoppingCompanyList();
+		return newCompanyList;
+	}
+	
+	// 신규등록 예약 조회
+	public List<Map<String, Object>> getNewBookingCompanyList(){
+		List<Map<String, Object>> newCompanyList = companyMapper.selectNewBookingCompanyList();
+		return newCompanyList;
+	}
 	
 	// 예약 기업 조회
 	public List<Map<String, Object>> getBookingCompanyList(){

@@ -193,8 +193,7 @@
 	                        <p class="mb-0 text-secondary">누적 판매금액</p>
 	                        <div class="mt-4"></div>
 	                      </div>
-	                      <hr>
-	                      <ul class="list-group list-group-flush">	
+	                      <ul class="list-group list-group-flush">
 		                  	<li class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-top">
 			                	<a href="#"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;매출 통계&nbsp;&nbsp;</span></a>
 			                	<a href="${pageContext.request.contextPath}/employee/company/companySellList?companyName=${company.companyName}&serviceName=${serviceName}"><span class="badge bg-primary" style="width:auto%;font-size:20px">&nbsp;&nbsp;판매 상품&nbsp;&nbsp;</span></a>
@@ -205,6 +204,21 @@
 	                </div>
 	              </div>
               </c:if>
+              <div class="col-12 col-lg-12">
+	                <div class="card shadow-sm border-0 overflow-hidden">
+	                  <div class="card-body">
+	                      <div>
+	                      	누적 신고내역
+	                      </div>
+	                      
+	                      <div>
+	                      	<c:forEach var="r" items="reportList">
+	                      	
+	                      	</c:forEach>
+	                      </div>
+	                  </div> 
+	                </div>
+	              </div>
             </div><!--end row-->
 
           </main>

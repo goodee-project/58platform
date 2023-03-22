@@ -18,6 +18,15 @@ public interface CompanyMapper {
 	// 쇼핑몰 주문서당 포인트 사용내역 조회  
 	int selectShoppingOrderTotalPoint(int orderSheetNo);
 	
+	// 기업 상태 변경
+	void updateCompanyActive(String companyId, String active, String deactiveMemo);
+	
+	// 신규등록 쇼핑몰 조회
+	List<Map<String, Object>> selectNewShoppingCompanyList();
+	
+	// 신규등록 예약 조회
+	List<Map<String, Object>> selectNewBookingCompanyList();
+	
 	// 쇼핑몰 주문 조회  
 	List<Map<String, Object>> selectShoppingOrderList(String companyName);
 	

@@ -33,7 +33,7 @@
               </a>
               <ul>
                 <li><a href="${pageContext.request.contextPath}/employee/company/companyList"><i class="bi bi-circle"></i>기업조회</a></li>
-                <li><a href="${pageContext.request.contextPath}/employee/company/companySignUpCheck"><i class="bi bi-circle"></i>기업 활성화 승인</a></li>
+                <li><a href="${pageContext.request.contextPath}/employee/company/newCompanyList"><i class="bi bi-circle"></i>신규등록 기업 승인</a></li>
                 <li><a href="${pageContext.request.contextPath}/employee/company/deleteCompanyList"><i class="bi bi-circle"></i>탈퇴 기업목록 조회</a></li>
               </ul>
             </li>

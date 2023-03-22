@@ -31,7 +31,7 @@
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
   <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>기업조회</title>
+  <title>신규등록 기업 조회</title>
 </head>
 
 <body>
@@ -59,10 +59,10 @@
 									기업
 								</li>
 								<c:if test="${serviceName == '쇼핑'}">
-									<li class="breadcrumb-item active" aria-current="page">기업 조회(쇼핑)</li>
+									<li class="breadcrumb-item active" aria-current="page">신규등록 기업 승인(쇼핑)</li>
 								</c:if>
 								<c:if test="${serviceName == '예약'}">
-									<li class="breadcrumb-item active" aria-current="page">기업 조회(예약)</li>
+									<li class="breadcrumb-item active" aria-current="page">신규등록 기업 승인(예약)</li>
 								</c:if>
 							</ol>
 						</nav>
@@ -72,14 +72,14 @@
 				<hr/>
 				<c:if test="${serviceName == '쇼핑'}">
 				<div class="btn-group">
-					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=쇼핑'">쇼핑몰</button>
-					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=예약'">예약</button>
+					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/newCompanyList?serviceName=쇼핑'">쇼핑몰</button>
+					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/newCompanyList?serviceName=예약'">예약</button>
 				</div>
 				</c:if>
 				<c:if test="${serviceName == '예약'}">
 				<div class="btn-group">
-					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=쇼핑'">쇼핑몰</button>
-					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/companyList?serviceName=예약'">예약</button>
+					<button class="btn btn-outline-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/newCompanyList?serviceName=쇼핑'">쇼핑몰</button>
+					<button class="btn btn-primary" onClick="location.href='${pageContext.request.contextPath}/employee/company/newCompanyList?serviceName=예약'">예약</button>
 				</div>
 				</c:if>
 				<br><br>
@@ -99,17 +99,31 @@
 								</thead>
 							
 								<tbody>
-									<c:forEach var="l" items="${companyList}">
+									<c:forEach var="l" items="${newCompanyList}">
 										<tr>
 											<td>${l.companyId}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/employee/company/companyOne?serviceName=${serviceName}&companyName=${l.companyName}&companyId=${companyId}">
+												<a href="${pageContext.request.contextPath}/employee/company/companyOne?serviceName=${serviceName}&companyName=${l.companyName}">
 													${l.companyName}
 												</a>
 											</td>
 											<td>${l.companyCeo}</td>
 											<td>${l.companyPhone}</td>
-											<td>${l.active}</td>
+											<td>				
+												<form action="${pageContext.request.contextPath}/employee/company/newCompanyList?serviceName=${serviceName}" method="get" id="changeForm">
+													<input type="hidden" name="companyId" value="${l.companyId}">
+													<select name="active" class="active">
+														<c:if test="${l.active eq '활성화'}">
+															<option value="활성화" selected="selected">활성화</option>
+															<option value="비활성화">비활성화</option>
+														</c:if>
+														<c:if test="${l.active eq '비활성화'}">
+															<option value="활성화">활성화</option>
+															<option value="비활성화" selected="selected">비활성화</option>
+														</c:if>
+													</select>
+												</form>
+											</td>
 											<td>${l.createdate}</td>
 										</tr>
 									</c:forEach>
@@ -150,6 +164,11 @@
            $('#example').DataTable({
                order: [[5, 'desc']],
            });
+           
+           $('.active').change(function() {
+   			$(this.form).submit();
+   			alert('신규 기업 활성화!!')
+   		});
        });
   </script>
   <!--app-->

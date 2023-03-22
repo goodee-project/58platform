@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ReportMapper {
 	// 신고리스트 조회
-	List<Map<String, Object>> selectReport(String reportCategory);
+	List<Map<String, Object>> selectReportList(String reportCategory);
+	
 	// 특정 기업 신고리스트 조회
+	List<Map<String, Object>> selectReportListForCompanyOne(String reportCategory, String companyId);
 }

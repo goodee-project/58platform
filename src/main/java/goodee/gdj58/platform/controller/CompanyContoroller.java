@@ -10,13 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.gdj58.platform.mapper.CompanyMapper;
 import goodee.gdj58.platform.service.CompanyService;
+import goodee.gdj58.platform.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class CompanyContoroller {
 	@Autowired CompanyService companyService;
+	@Autowired ReportService reportService;
 	
 	// 기업 주문정보 조회
 	@GetMapping("/employee/company/companyOrderList")
@@ -69,6 +72,35 @@ public class CompanyContoroller {
 		return "company/companySellList";
 	}
 	
+	// 신규등록 기업 조회
+	@GetMapping("/employee/company/newCompanyList")
+	public String newCompanyList(Model model
+		, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName
+		, @RequestParam(value="active", defaultValue = "") String active
+        , @RequestParam(value="companyId", defaultValue = "") String companyId
+        , @RequestParam(value="deactiveMemo", defaultValue = "") String deactiveMemo) {
+		
+		// 활성화, 비활성화 변경용
+        log.debug("\u001B[43m" + active + "<-- active 디버깅");
+        log.debug("\u001B[43m" + companyId + "<-- customerId customerList디버깅");
+
+        if(active != null) {
+        	companyService.modifyCompanyActive(companyId, active, deactiveMemo);
+        }
+        
+		List<Map<String, Object>> newCompanyList = null;
+		if(serviceName.equals("예약")) { // 예약 기업
+			newCompanyList = companyService.getNewBookingCompanyList();
+		} else if(serviceName.equals("쇼핑")) { // 쇼핑 기업
+			newCompanyList = companyService.getNewShoppingCompanyList();
+		}
+		
+		model.addAttribute("newCompanyList",newCompanyList);
+		model.addAttribute("serviceName",serviceName);
+		
+		return "company/newCompanyList";	
+	}
+	
 	// 기업 조회
 	@GetMapping("/employee/company/companyList")
 	public String companyList(Model model
@@ -81,6 +113,7 @@ public class CompanyContoroller {
 			companyList = companyService.getShoppingCompanyList();
 		}
 		
+		
 		model.addAttribute("companyList", companyList);
 		model.addAttribute("serviceName", serviceName);
 		
@@ -92,7 +125,8 @@ public class CompanyContoroller {
 	@GetMapping("/employee/company/companyOne")
 	public String companyOne(Model model
 			, @RequestParam(value="serviceName", defaultValue = "쇼핑") String serviceName
-			, @RequestParam(value="companyName", defaultValue = "쇼핑") String companyName) {
+			, @RequestParam(value="companyId", defaultValue = "") String companyId
+			, @RequestParam(value="companyName", defaultValue = "") String companyName) {
 		Map<String, Object> company = null;
 		
 		if(serviceName.equals("예약")) {
@@ -106,11 +140,15 @@ public class CompanyContoroller {
 				log.debug("\u001B[31m 서비스 종류 : "+companyAddtionServiceList.get(i));
 			}
 			
+			
 			model.addAttribute("companyAddtionServiceList", companyAddtionServiceList);
 		} else if(serviceName.equals("쇼핑")) {
 			company = companyService.getShoppingCompanyOne(companyName);
 		}
 		
+		List<Map<String, Object>> reportList = reportService.getReportListForCompanyOne(serviceName, companyId);
+		
+		model.addAttribute("reportList", reportList);
 		model.addAttribute("company", company);
 		model.addAttribute("serviceName", serviceName);
 		return "company/companyOne";

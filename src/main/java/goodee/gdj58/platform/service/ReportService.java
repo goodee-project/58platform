@@ -16,11 +16,15 @@ public class ReportService {
 	
 	// 모든 신고 내역 조회 (쇼핑 / 예약)
 	public List<Map<String, Object>> getReport(String reportCategory){
-		List<Map<String, Object>> reportList = reportMapper.selectReport(reportCategory);
+		List<Map<String, Object>> reportList = reportMapper.selectReportList(reportCategory);
 		
 		return reportList;
 	}
 	
 	// 특정 기업 신고 내역 조회
+	public List<Map<String, Object>> getReportListForCompanyOne(String reportCategory, String companyId){
+		List<Map<String, Object>> reportList = reportMapper.selectReportListForCompanyOne(reportCategory, companyId);
+		return reportList;
+	}
 	
 }
