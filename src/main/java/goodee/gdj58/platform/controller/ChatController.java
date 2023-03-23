@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ChatController {
 	@Autowired
-	private final ChatService chatservice;
+	private final ChatService chatService;
 	
 	@GetMapping("/test/login")
 	public String login() {
@@ -42,7 +42,7 @@ public class ChatController {
 		log.debug("\u001B[44m" + "모든 채팅방 보여주기");
 		ModelAndView mv = new ModelAndView("/question/rooms");
 		
-		mv.addObject("list", chatservice.findAllRooms());
+		mv.addObject("list", chatService.findAllRooms());
 		
 		return mv;
 	}
@@ -50,7 +50,7 @@ public class ChatController {
 	// 채팅방 개설
     @PostMapping("/question/rooms")
     public String create(){
-    	chatservice.addChattingRoom();
+    	chatService.addChattingRoom();
         return "redirect:/question/rooms";
     }
 	
@@ -60,11 +60,10 @@ public class ChatController {
     	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 입장");
     	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 정보");
 
-		System.out.println(chatservice.getChattingList(chattingRoomNo) + "ddddddddddddd" + chattingRoomNo + ".NO");
-        model.addAttribute("chatList", chatservice.getChattingList(chattingRoomNo));
+		System.out.println(chatService.getChattingList(chattingRoomNo) + "ddddddddddddd" + chattingRoomNo + ".NO");
+        model.addAttribute("chatList", chatService.getChattingList(chattingRoomNo));
         model.addAttribute("chattingRoomNo", chattingRoomNo);
-        
-        
+                
         return "chat";
     }	
 }

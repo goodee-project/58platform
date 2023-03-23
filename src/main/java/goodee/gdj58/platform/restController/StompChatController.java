@@ -1,5 +1,8 @@
 package goodee.gdj58.platform.restController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -16,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StompChatController {
 	@Autowired
 	private final SimpMessagingTemplate template; // 특정 브로커로 메시지 전달
-	private final ChatService chatservice;
+	private final ChatService chatService;
 	
 	// Cliet가 send할 수 있는 경로
 	// stompConfig에서 설정한 applicationDestinationPrefixeds와 @MessageMapping 경로 병합
@@ -38,12 +41,17 @@ public class StompChatController {
 	
 	@MessageMapping(value="/chat/message")
 	public void message(Chatting message) {
-		log.debug("\u001B[44m" + "일반 메시지");;
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		log.debug("\u001B[44m" + "일반 메시지");
+		message.setCreatedate((dateTime.format(formatter)));
 		template.convertAndSend("/sub/chat?chattingRoomNo=" + message.getChattingRoomNo(), message);
-		log.debug("\u001B[44m" + "message: " + message);;
+		log.debug("\u001B[44m" + "message: " + message);
+		System.out.println(dateTime.format(formatter) + "dateTime");	
 		
 		//db에 저장
-		chatservice.addChattingMsg(message);
+		chatService.addChattingMsg(message);
 		
 	}
 }
