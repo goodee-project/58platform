@@ -22,7 +22,7 @@
 			chatting_room_no chattingRoomNo
 			, chatting_no chattingNo
 			, chatting_memo chattingMemo
-			, createdate
+			, DATE_FORMAT(createdate,'%Y-%m-%d %H:%i') createdate
 			, from_id fromId
 		FROM chatting
 		WHERE chatting_room_no = #{chattingRoomNo}
@@ -42,12 +42,19 @@
 	
 	<!-- 채팅방 리스트 -->
 	<select id="selectChattingRoomList" resultType="java.util.Map">
-		SELECT
-			chatting_room_no chattingRoomNo
-			, updatedate
-		FROM
-			chatting_room
-		ORDER BY
-			chatting_room_no desc
+		SELECT c.chatting_room_no chattingRoomNo
+			, c.chatting_memo chattingMemo
+			, c.from_id fromId
+			, cr.updatedate updatedate
+		FROM chatting c
+		INNER JOIN chatting_room cr ON cr.chatting_room_no = c.chatting_room_no
+		WHERE (c.chatting_room_no, c.createdate)
+		IN(
+			SELECT chatting_room_no, MAX(createdate) createdate
+			FROM chatting
+			GROUP BY chatting_room_no
+		)
+			ORDER BY
+				c.chatting_room_no desc
 	</select>
 </mapper>

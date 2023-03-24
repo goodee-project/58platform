@@ -96,30 +96,20 @@
 									</div>
 									<div class="chat-list">
 										<div class="list-group list-group-flush">
-											<a href="javascript:;" class="list-group-item">
-												<div class="d-flex">
-													<div class="chat-user-online">
-														<img src="/58platform/assets/images/avatars/avatar-2.png" width="42" height="42" class="rounded-circle" alt="" />
+            								<c:forEach var="rl" items="${roomList}">
+												<a href="javascript:;" class="list-group-item">
+													<div class="d-flex">
+														<div class="chat-user-online">
+															<img src="/58platform/assets/images/avatars/avatar-2.png" width="42" height="42" class="rounded-circle" alt="" />
+														</div>
+														<div class="flex-grow-1 ms-2">
+															<h6 class="mb-0 chat-title">{rl.fromId}</h6>
+															<p class="mb-0 chat-msg">{rl.chattingMemo}</p>
+														</div>
+														<div class="chat-time">{rl.updatedate}</div>
 													</div>
-													<div class="flex-grow-1 ms-2">
-														<h6 class="mb-0 chat-title">Louis Litt</h6>
-														<p class="mb-0 chat-msg">You just got LITT up, Mike.</p>
-													</div>
-													<div class="chat-time">9:51 AM</div>
-												</div>
-											</a>
-											<a href="javascript:;" class="list-group-item active">
-												<div class="d-flex">
-													<div class="chat-user-online">
-														<img src="/58platform/assets/images/avatars/avatar-3.png" width="42" height="42" class="rounded-circle" alt="" />
-													</div>
-													<div class="flex-grow-1 ms-2">
-														<h6 class="mb-0 chat-title">Harvey Specter</h6>
-														<p class="mb-0 chat-msg">Wrong. You take the gun....</p>
-													</div>
-													<div class="chat-time">4:32 PM</div>
-												</div>
-											</a>
+												</a>										
+											</c:forEach>
 										</div>
 									</div>
 								</div>
@@ -197,6 +187,147 @@
 	
   <script>
 	$(document).ready(function(){
+		
+		"use strict";
+		
+		// $(".chat-sidebar-list-wrapper ul li").on("click", function () {
+		// 동적으로 추가된 요소에 이벤트가 동작하지 않으므로
+		// 아래처럼 조건을 바꾸어 이벤트를 선택자가 아니라 document에 위임
+		$(document).on("click",".chat-sidebar-list-wrapper ul li",function(){
+			// console.log('$(".chat-sidebar-list-wrapper ul li").on("click",');
+			// 메시지 출력 부분의 하위 요소와 메시지 입력창 초기화
+			$("#msgArea").empty();
+			$("#msg").val(null);
+			
+			if ($(".chat-sidebar-list-wrapper ul li").hasClass("active")) {
+				$(".chat-sidebar-list-wrapper ul li").removeClass("active");
+			}
+			
+			$(this).addClass("active");
+			
+			// 채팅방이 선택된 경우
+			if ($(".chat-sidebar-list-wrapper ul li").hasClass("active")) {
+				// 클래스 값 변경
+				chatStart.addClass("d-none");
+				chatArea.removeClass("d-none");
+			} else {
+				chatStart.removeClass("d-none");
+				chatArea.addClass("d-none");
+			}
+		});
+		
+		// 채팅 유저 리스트에 active 클래스를 주고 AJAX로 정보 받아오기
+		$(document).on("click","#chat-list li", function(){
+		// $("#chat-list li").on("click", function () {
+			console.log("chatlist selected");
+			
+			let login = $("#login").val();
+			let workMemberName = $("#workMemberName").val(); //?
+			// 자식요소 중 class 이름이 chatRoomNo인 요소를 찾는다.
+			let chatRoomNo = $(this).find('.chatRoomNo').val();
+			
+			let sockJs = null;
+			let stomp = null;
+			
+			/*
+			console.log("chatRoomName: " + chatRoomName);
+			console.log("login: " + login);
+			console.log("workMemberName: " + workMemberName);
+			
+			console.log("===================================");
+			console.log("chatRoomNo: " + $(this).find('.chatRoomNo').val());
+			console.log("===================================");
+			*/
+				
+			// ajax로 방 정보와 기존 채팅 메시지 목록 받아오기
+			function chatRoomInfo(){
+				return new Promise(function(resolve, reject){
+					$.ajax({
+						type : 'get',
+						url : '/member/chat/' + chatRoomNo,
+						// 채팅 방 번호와 자기 자신의 workMemberNo를 전송
+						data: { chatRoomNo : chatRoomNo},
+						success: function(json){
+							// console.log(json);
+							resolve(json);
+						}
+					}); // end for ajax
+				})
+			}
+			
+			// return 받은 json을 메시지 영역에 append
+			function append(json){
+				return new Promise(function(resolve, reject){
+					// console.log("APPEND");
+					let chatMemberNo;
+					
+					$(json).each(function(index, item){
+						// $("#chatRoomName").text(item.chatRoomName);
+						$('.chat-container').scrollTop(0);
+						chatMemberNo = item.chatMemberNo;
+						/*
+						console.log("===================================");
+						console.log("chatMemberNo: " + chatMemberNo);
+						console.log("===================================");
+						*/
+						
+						for(let i = 0; i < item.msgList.length; i++){
+						
+							let str = "";
+							let msgTime = timeForToday(item.msgList[i].createDate);
+							// console.log(msgTime);
+							
+							// 접속자의 이름과 메시지 보낸 이의 이름이 같은 경우
+							if(workMemberName === item.msgList[i].workMemberName){
+								// console.log("나: " + item.msgList[i].chatMsg);
+								
+			                    str = '<div class="chat">'
+			                    str += '<div class="chat-avatar">'
+			                    	str += '<div class="avatar avatar-busy m-0 mr-50 bg-info">'
+										str += '<span class="fa fa-user"></span>'
+									str += '</div>' // end for avatar
+			                        // str += '<img src="${pageContext.request.contextPath}/resources/app-assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="36" width="36"/>'
+			                    	str += '<p>' + item.msgList[i].workMemberName + '<p>'
+			                    str += '</div>' // end for chat-avatar
+			                    	str += '<div class="chat-body">'
+			                    		str += '<div class="chat-message">'
+			                        		str += '<p>' + item.msgList[i].chatMsg + '</p>'
+			                        		str += '<span class="chat-time">' + msgTime + '</span>'
+			                    		str += '</div>' // end for chat-message
+			                		str += '</div>' // end for chat-message
+			            		str += '</div>'; // end for chat
+			                } else {
+			                    str = '<div class="chat chat-left">'
+			                    str += '<div class="chat-avatar">'
+			                        str += '<div class="avatar avatar-busy m-0 mr-50 bg-info">'
+										str += '<span class="fa fa-user"></span>'
+									str += '</div>'
+			                        // str += '<img src="${pageContext.request.contextPath}/resources/app-assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="36" width="36"/>'
+			                    	str += '<p>' + item.msgList[i].workMemberName + '<p>'
+			                    str += '</div>'
+			                    	str += '<div class="chat-body">'
+			                    		str += '<div class="chat-message">'
+			                       str += '<p>' + item.msgList[i].chatMsg + '</p>'
+			                        str += '<span class="chat-time">' + msgTime + '</span>'
+			                    str += '</div>'
+			                	str += '</div>'
+			            		str += '</div>';
+			                }
+							
+							$("#msgArea").append(str);
+						} // end for 반복문
+					}) // end for json 함수
+					
+					// 자동 스크롤
+					chatContainer.animate({
+						scrollTop: chatContainer[0].scrollHeight
+					}, 400)				
+					
+					resolve(chatMemberNo);
+				})
+			}
+		
+		
 		const chattingRoomNo = $("#chattingRoomNo").val();
 		const username = $("#login").val();
 		
@@ -257,15 +388,22 @@
                 }                
                 
                 $("#msgArea").append(str);
-		}); 
-		
-        $("#button-send").on("click", function(e){
+			}); 
+			
+	        $("#button-send").on("click", function(e){
                 var msg =  $("#msg").val();
                 console.log(username + ":" + msg);
                 
                 stomp.send('/pub/chat/message', JSON.stringify({chattingRoomNo: chattingRoomNo, chattingMemo: msg, fromId: username}));
                 $("#msg").val('');
-            });
+            });	        
+	     	// 엔터키를 누르면 submit 버튼이 눌리도록
+	        $("#msg").keyup(function(event) {
+				if (event.which === 13) {
+					// console.log("enter key pressed!");
+    				$("#button-send").click();
+				}
+			});
         });
 	});
   </script>

@@ -42,7 +42,7 @@ public class StompChatController {
 	@MessageMapping(value="/chat/message")
 	public void message(Chatting message) {
 		LocalDateTime dateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		
 		log.debug("\u001B[44m" + "일반 메시지");
 		message.setCreatedate((dateTime.format(formatter)));

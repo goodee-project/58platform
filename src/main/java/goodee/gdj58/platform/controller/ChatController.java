@@ -37,12 +37,13 @@ public class ChatController {
 	}
 	
 	// 채팅방 목록 조회
-	@GetMapping("/question/rooms")
+	@GetMapping("/chat")
 	public ModelAndView rooms() {
 		log.debug("\u001B[44m" + "모든 채팅방 보여주기");
-		ModelAndView mv = new ModelAndView("/question/rooms");
+		ModelAndView mv = new ModelAndView("/chat");
 		
-		mv.addObject("list", chatService.findAllRooms());
+		mv.addObject("roomList", chatService.findAllRooms());
+		log.debug("\u001B[44m" + chatService.findAllRooms() + "room");
 		
 		return mv;
 	}
@@ -55,7 +56,7 @@ public class ChatController {
     }
 	
 	// 채팅방 조회
-    @GetMapping("/chat")
+    @GetMapping("/chat/{chattingRoomNo}")
     public String getChat(@RequestParam int chattingRoomNo, Model model){
     	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 입장");
     	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 정보");
