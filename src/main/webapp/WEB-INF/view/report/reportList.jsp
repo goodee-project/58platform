@@ -100,14 +100,54 @@
 								</thead>
 							
 								<tbody>
-									<c:forEach var="l" items="${reportList}">
+									<c:forEach var="l" varStatus="vs" items="${reportList}">
 										<tr>
 											<td>${l.reportNo}</td>
 											<td>${l.reportCategory}</td>
 											<td>${l.companyName}</td>
 											<td>${l.customerId}</td>
-											<td><a href="Page.html" 
-	onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">${l.reportContent}</a></td>
+											<td><a href="${pageContext.request.contextPath}/employee/company/getOrderOne?reportCategory=${reportCategory}&content=${l.reportContent}" 
+	onclick="window.open(this.href, '_blank', 'width=1000, height=400'); return false;">${l.reportContent}</a></td>
+											<td>
+												<div class="col">
+													<!-- Button trigger modal -->
+													<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleExtraLargeModal">Extra large</button>
+													<!-- Modal -->
+													<div class="modal fade" id="exampleExtraLargeModal" tabindex="-1" aria-hidden="true">
+														<div class="modal-dialog modal-xl">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">Modal title</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<table id="modal-table">
+																		<thead>
+																			<tr>
+																	 			<th>주문번호</th>
+																				<th>기업명</th>
+																				<th>고객ID</th>
+																				<th>상품명</th>
+																				<th>주문수량</th>
+																				<th>가격</th>
+																				<th>주문상태</th>
+																				<th>주문일</th>
+																	    	</tr>
+																		</thead>
+																		<tbody>
+																		
+																		</tbody>
+																	</table>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary">Save changes</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</td>
 											<td>${l.reportMemo}</td>
 											<td>${l.createdate}</td>
 										</tr>
@@ -147,5 +187,47 @@
 	
   <!--app-->
   <script src="/58platform/assets/js/app.js"></script>
+  <script>
+	$(document).ready(function() {
+		$('.btn').click(function(){
+			
+			// 클릭한 버튼이 속한 행의 ID를 가져옴
+		    var content = $(this).closest("tr").attr("id");
+			
+			// ID를 이용하여 해당 행의 데이터를 가져옴
+		    var contentData = $("#example").find("tr#" + content).children("td").map(function() {
+		      return $(this).text();
+		    }).get();
+			
+		    console.log(contentData);
+		    
+			var	reportCategory = "<c:out value='${reportCategory}'/>";
+			
+			console.log(reportCategory);
+			console.log(content);
+			
+			$.ajax({
+				url:'${pageContext.request.contextPath}/getOrderOne'
+				, method:'get'
+				, dataType: 'json'
+				, data : reportCategory, content
+				, success:function(outputData){ // model : 'YES' / 'NO'
+					var tbody = $("#modal-table tbody");
+					for (var i = 0; i < outputData.length; i++) {
+						var row = $('#modal-table tr').appendTo(tbody);
+						$("<td>").text(outputData[i].orderSheetNo).appendTo(row);
+						$("<td>").text(outputData[i].companyName).appendTo(row);
+						$("<td>").text(outputData[i].customerId).appendTo(row);
+						$("<td>").text(outputData[i].goodsName).appendTo(row);
+						$("<td>").text(outputData[i].goodsOrderQuantity).appendTo(row);
+						$("<td>").text(outputData[i].orderSheetState).appendTo(row);
+						$("<td>").text((outputData[i].goodsOrderPrice-outputData[i].goodsOrderUsePoint)+"("+outputData[i].goodsOrderPrice+" - "+outputData[i].goodsOrderUsePoint+")").appendTo(row);
+						$("<td>").text(outputData[i].createdate).appendTo(row);
+					}					
+				}
+			});
+		});
+	});
+  </script>
 </body>
 </html>

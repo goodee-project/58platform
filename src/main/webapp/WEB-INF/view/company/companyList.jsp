@@ -103,7 +103,7 @@
 										<tr>
 											<td>${l.companyId}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/employee/company/companyOne?serviceName=${serviceName}&companyName=${l.companyName}&companyId=${companyId}">
+												<a href="${pageContext.request.contextPath}/employee/company/companyOne?serviceName=${serviceName}&companyName=${l.companyName}&companyId=${l.companyId}">
 													${l.companyName}
 												</a>
 											</td>

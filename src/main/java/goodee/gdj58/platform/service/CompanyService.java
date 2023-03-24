@@ -19,6 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 public class CompanyService {
 	@Autowired CompanyMapper companyMapper; 
 	
+	// 주문 번호를 사용하여 쇼핑몰주문 내역 조회
+	public List<Map<String, Object>> getShoppingOrderListOne(String content){
+		List<Map<String, Object>> shoppingOrderListOne = companyMapper.selectShoppingOrderListOne(content);
+		return shoppingOrderListOne;	
+	}
+	
+	// 예약 번호를 사용하여 예약주문 내역 조회
+	public List<Map<String, Object>> getBookingOrderListOne(String content){
+		List<Map<String, Object>> bookingOrderListOne = companyMapper.selectBookingOrderListOne(content);
+		return bookingOrderListOne;
+	}
+	
 	// 쇼핑 기업 주문 조회 (랭크할인 및 포인트 사용내역 포함)
 	public List<Map<String, Object>> getShoppingOrderList(String companyName){
 		

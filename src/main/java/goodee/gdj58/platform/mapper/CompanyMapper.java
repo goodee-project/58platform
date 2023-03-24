@@ -27,6 +27,12 @@ public interface CompanyMapper {
 	// 신규등록 예약 조회
 	List<Map<String, Object>> selectNewBookingCompanyList();
 	
+	// 주문 번호로 쇼핑몰주문 조회
+	List<Map<String, Object>> selectShoppingOrderListOne(String content);
+	
+	// 예약 번호로 예약주문 조회
+	List<Map<String, Object>> selectBookingOrderListOne(String content);
+	
 	// 쇼핑몰 주문 조회  
 	List<Map<String, Object>> selectShoppingOrderList(String companyName);
 	

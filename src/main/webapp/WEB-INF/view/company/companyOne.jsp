@@ -211,11 +211,35 @@
 	                      	누적 신고내역
 	                      </div>
 	                      
-	                      <div>
-	                      	<c:forEach var="r" items="reportList">
-	                      	
-	                      	</c:forEach>
-	                      </div>
+	                      <div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th style="width : 10%">신고 번호</th>
+										<th style="width : 10%">서비스 종류</th>
+										<th style="width : 15%">신고 기업</th>
+										<th style="width : 10%">고객 ID</th>
+										<th style="width : 10%">주문/예약 번호</th>
+										<th style="width : 35%">신고 사유</th>
+										<th style="width : 10%">신고일</th>
+									</tr>
+								</thead>
+							
+								<tbody>
+									<c:forEach var="r" items="${reportList}">
+										<tr>
+											<td>${r.reportNo}</td>
+											<td>${r.reportCategory}</td>
+											<td>${r.companyName}</td>
+											<td>${r.customerId}</td>
+											<td><a href="Page.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">${r.reportContent}</a></td>
+											<td>${r.reportMemo}</td>
+											<td>${r.createdate}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 	                  </div> 
 	                </div>
 	              </div>

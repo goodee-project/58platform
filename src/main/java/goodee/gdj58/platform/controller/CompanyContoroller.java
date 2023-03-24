@@ -21,6 +21,24 @@ public class CompanyContoroller {
 	@Autowired CompanyService companyService;
 	@Autowired ReportService reportService;
 	
+	// 주문/예약번호로 주문/예약 정보 조회
+	@GetMapping("/employee/company/getOrderOne")
+	public String getOrderOne(Model model
+		, @RequestParam(value = "reportCategory", defaultValue="쇼핑") String reportCategory
+		, @RequestParam(value = "content", defaultValue="1") String content) {
+		
+		List<Map<String, Object>> list = null;
+		
+		if(reportCategory.equals("쇼핑")) {
+			list = companyService.getShoppingOrderListOne(content);
+		} else {
+			list = companyService.getBookingOrderListOne(content);
+		}
+		model.addAttribute("list", list);
+		
+		return "orderOne";	
+	}
+	
 	// 기업 주문정보 조회
 	@GetMapping("/employee/company/companyOrderList")
 	public String companyOrderList(Model model
@@ -147,7 +165,7 @@ public class CompanyContoroller {
 		}
 		
 		List<Map<String, Object>> reportList = reportService.getReportListForCompanyOne(serviceName, companyId);
-		
+		log.debug("\u001B[31m 기업ID : " + companyId);
 		model.addAttribute("reportList", reportList);
 		model.addAttribute("company", company);
 		model.addAttribute("serviceName", serviceName);

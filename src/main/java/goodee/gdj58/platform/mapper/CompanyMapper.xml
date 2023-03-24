@@ -86,6 +86,99 @@
 			total_id.total_id_active = '비활성화' AND total_id.total_id_deactive_memo = '신규'	
 	</select>
 	
+	<!-- 특정 쇼핑몰 주문 조회 -->
+	<select id="selectShoppingOrderListOne" 
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			shopping_company.company_id companyId
+			, shopping_company.company_name companyName
+			, shopping_company.company_ceo companyCeo
+			
+			, shopping_order_sheet.order_sheet_no orderSheetNo
+			, shopping_order_sheet.customer_id customerId
+			, shopping_order_sheet.order_sheet_state orderSheetState
+			, shopping_order_sheet.order_sheet_waybill orderSheetWaybill
+			, shopping_order_sheet.order_sheet_price orderSheetPrice
+			, shopping_order_sheet.createdate
+			
+			, shopping_goods_order.goods_order_price goodsOrderPrice
+			, shopping_goods_order.goods_order_use_point goodsOrderUsePoint
+			, shopping_goods_order.goods_order_quantity goodsOrderQuantity
+			
+			, shopping_goods.goods_name goodsName
+			
+			, shopping_goods_img.goods_img_origin_name goodsImgOriginName
+			
+			, rank.reward reward
+		FROM
+			shopping_order_sheet
+			INNER JOIN shopping_goods_order
+			ON shopping_goods_order.order_sheet_no = shopping_order_sheet.order_sheet_no
+			INNER JOIN shopping_goods_option
+			ON shopping_goods_option.goods_option_no = shopping_goods_order.goods_option_no
+			INNER JOIN shopping_goods
+			ON shopping_goods.goods_no = shopping_goods_option.goods_no
+			INNER JOIN shopping_goods_img
+			ON shopping_goods.goods_no = shopping_goods_img.goods_no
+			INNER JOIN shopping_company
+			ON shopping_goods.company_id = shopping_company.company_id
+			INNER JOIN customer
+			ON shopping_order_sheet.customer_id = customer.customer_id
+			INNER JOIN rank
+			ON customer.customer_rank = rank.customer_rank
+		WHERE
+			shopping_order_sheet.order_sheet_no = #{content}
+	
+	</select>
+	
+	<!-- 특정 예약 주문 조회 -->
+	<select id="selectBookingOrderListOne" 
+		resultType="java.util.Map"
+		parameterType="String">
+		
+		SELECT
+			booking_company.booking_company_id companyId
+			, booking_company.booking_company_name companyName
+			, booking_company.booking_company_ceo companyCeo
+			
+			, booking.booking_no bookingNo
+			, booking.customer_id customerId
+			, booking.booking_date bookingDate
+			, booking.booking_request_date bookingRequestDate
+			, booking.booking_price bookingPrice
+			, booking.booking_use_point bookingUsePoint
+			, booking.booking_rank_discount bookingRankDiscount
+			, booking.booking_total_price bookingTotalPrice
+			, booking.booking_state bookingState
+			, booking.booking_people bookingPeople
+			
+			, booking_cancel.cancel_memo cancelMemo
+			, booking_cancel.cancel_subject cancelSubject
+			
+			, booking_product.booking_product_name bookingProductName
+			, booking_product_option.booking_product_no bookingProductOptionNo
+			, booking_product_option.booking_product_option_memo bookingProductOptionMemo
+			, booking_product_option.booking_product_option_price bookingProductOptionPrice
+			 
+		FROM
+			booking_company
+			INNER JOIN booking
+			ON booking_company.booking_company_id = booking.booking_company_id
+			INNER JOIN booking_product
+			ON booking_company.booking_company_id = booking_product.booking_company_id
+			INNER JOIN booking_cancel
+			ON booking.booking_no = booking_cancel.booking_no
+			INNER JOIN booking_product_option
+			ON booking_product.booking_product_no = booking_product_option.booking_product_no
+			
+		WHERE 
+			booking_company.booking_company_name = #{companyName}
+			ORDER BY bookingRequestDate DESC;
+	
+	</select>
+	
 	<!-- 쇼핑몰 주문 조회 --> 
 	<select id="selectShoppingOrderList" 
 		resultType="java.util.Map"
