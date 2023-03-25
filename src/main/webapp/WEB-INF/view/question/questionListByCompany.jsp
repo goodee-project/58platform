@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en" class="semi-dark">
@@ -101,9 +102,16 @@
 											<td>${l.companyId}</td>
 											<td>${l.companyName}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/employee/question/commentByCompany?questionNo=${l.questionNo}&serviceName=${serviceName}">
-													${l.questionTitle}
-												</a>
+												<c:if test="${fn:length(l.questionTitle) > 20}">
+													<a href="${pageContext.request.contextPath}/employee/question/commentByCompany?questionNo=${l.questionNo}&serviceName=${serviceName}">
+													${fn:substring(l.questionTitle,0,15)}.....
+													</a>
+												</c:if>
+												<c:if test="${fn:length(l.questionTitle) < 20}">
+													<a href="${pageContext.request.contextPath}/employee/question/commentByCompany?questionNo=${l.questionNo}&serviceName=${serviceName}">
+														${l.questionTitle}
+													</a>
+												</c:if>
 											</td>
 											<td>${l.createdate}</td>
 											<td>

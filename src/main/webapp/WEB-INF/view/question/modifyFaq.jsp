@@ -31,10 +31,58 @@
 		<link href="/58platform/assets/css/light-theme.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
 		<link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				$('#shopBtn').click(function() {
+					// 질문or답변 공백 체크
+					if($('#shopFaq').val() == "" || $('#shopAnswer').val() == "") {
+						alert('정보가 입력되지 않았습니다.');
+					} else {
+						$('#shopForm').submit();
+					}
+					
+				});
+				
+				$('#bookingBtn').click(function() {
+					// 질문or답변 공백 체크
+					if($('#bookingFaq').val() == "" || $('#bookingAnswer').val() == "") {
+						alert('정보가 입력되지 않았습니다.');
+					} else {
+						$('#bookingForm').submit();
+					}
+					
+				});
+				
+				
+				// 취소버튼 클릭시 확인/취소 버튼(쇼핑)
+				$('#shopCancelBtn').click(function() {
+					var result = confirm('입력하신 내용이 저장되지 않습니다.');
+					
+					if(result == true) {
+		    			$(location).attr("href", "${pageContext.request.contextPath}/employee/question/faqList?serviceName=${serviceName}");	
+		    		} else {
+		    			return false;
+		    		}
+				});
+				
+				// 취소버튼 클릭시 확인/취소 버튼(예약)
+				$('#bookingCancelBtn').click(function() {
+					var result = confirm('입력하신 내용이 저장되지 않습니다.');
+					
+					if(result == true) {
+		    			$(location).attr("href", "${pageContext.request.contextPath}/employee/question/faqList?serviceName=${serviceName}");	
+		    		} else {
+		    			return false;
+		    		}
+				});
+			});
+		</script>
 		<style>
 			.po {
 				position : relative;
-				top : 300px;
+				top : 30px;
 			}
 		</style>
 	</head>
@@ -85,21 +133,22 @@
 									</div>
 									<div class="card-body">
 										<div class="border p-3 rounded">
-											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/addFaq" method="post" id="shopForm">
+											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/modifyFaq" method="post" id="shopForm">
+												<input type="hidden" name="faqNo" value="${f.faqNo}">
 												<div class="col-12">
 													<label class="form-label">분류</label>
 													<input type="text" class="form-control" value="${serviceName}" name="serviceName" readonly="readonly">
 												</div>   
 												<div class="col-12">
 													<label class="form-label">자주 묻는 질문</label>
-													<textarea class="form-control" name="faqQuestion" placeholder="질문을 입력해주세요." rows="6" cols="4" id="shopFaq"></textarea>
+													<textarea class="form-control" name="faqQuestion" placeholder="질문을 입력해주세요." rows="6" cols="4" id="shopFaq">${f.faqQuestion}</textarea>
 												</div>
 												<div class="col-12">
 													<label class="form-label">답변</label>
-													<textarea class="form-control" name="faqAnswer" placeholder="답변을 입력해주세요." rows="6" cols="4" id="shopAnswer"></textarea>
+													<textarea class="form-control" name="faqAnswer" placeholder="답변을 입력해주세요." rows="6" cols="4" id="shopAnswer">${f.faqAnswer}</textarea>
 												</div>
 												<div class="col-12">
-													<button class="btn btn-primary px-4" type="button" id="shopBtn">등록</button>
+													<button class="btn btn-primary px-4" type="button" id="shopBtn">수정</button>
 													<a id="shopCancelBtn" class="btn btn-primary px-4">취소</a>
 												</div>
 											</form>
@@ -120,21 +169,22 @@
 									</div>
 									<div class="card-body">
 										<div class="border p-3 rounded">
-											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/addFaq" method="post">
+											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/modifyFaq" method="post" id="bookingForm">
+												<input type="hidden" name="faqNo" value="${f.faqNo}">
 												<div class="col-12">
 													<label class="form-label">분류</label>
 													<input type="text" class="form-control" name="serviceName" value="${serviceName}" readonly="readonly">
 												</div>   
 												<div class="col-12">
 													<label class="form-label">자주 묻는 질문</label>
-													<textarea class="form-control" name="faqQuestion" placeholder="질문을 입력해주세요." rows="6" cols="4" id="bookingFaq"></textarea>
+													<textarea class="form-control" name="faqQuestion" placeholder="질문을 입력해주세요." rows="6" cols="4" id="bookingFaq">${f.faqQuestion}</textarea>
 												</div>
 												<div class="col-12">
 													<label class="form-label">답변</label>
-													<textarea class="form-control" name="faqAnswer" placeholder="답변을 입력해주세요." rows="6" cols="4" id="bookingAnswer"></textarea>
+													<textarea class="form-control" name="faqAnswer" placeholder="답변을 입력해주세요." rows="6" cols="4" id="bookingAnswer">${f.faqAnswer}</textarea>
 												</div>
 												<div class="col-12">
-													<button class="btn btn-primary px-4" type="button" id="bookingBtn">등록</button>
+													<button class="btn btn-primary px-4" type="button" id="bookingBtn">수정</button>
 													<a id="bookingCancelBtn" class="btn btn-primary px-4">취소</a>
 												</div>
 											</form>
@@ -223,36 +273,6 @@
 				</div>
 			</div>
 			<!--end switcher-->
-		</div>
-		<div class="po" align="center">
-			<h1>FAQ 수정</h1>
-			${msg}
-			<form action="${pageContext.request.contextPath}/employee/question/modifyFaq" method="post">
-				<input type="hidden" name="faqNo" value="${f.faqNo}">
-				<table border="1">
-					<tr>
-						<td>분류</td>
-						<td>
-							${f.serviceName}
-						</td>
-					</tr>
-					<tr>
-						<td>질문</td>
-						<td>
-							<textarea rows="10" cols="30" name="faqQuestion">${f.faqQuestion}</textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>답변</td>
-						<td>
-							<textarea rows="10" cols="30" name="faqAnswer">${f.faqAnswer}</textarea>
-						</td>
-					</tr>
-				</table>
-				<div>
-					<button type="submit">수정</button>
-				</div>
-			</form>
 		</div>
 	</body>
 </html>

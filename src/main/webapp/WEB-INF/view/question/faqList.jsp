@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en" class="semi-dark">
@@ -34,7 +35,7 @@
 		<script>
 			$(document).ready(function() {
 				// 삭제 버튼 클릭시 confirm창
-				$('#removeBtn').click(function() {
+				$('.removeBtn').click(function() {
 					var result = confirm('삭제하시겠습니까?');
 					
 					if(result == true) {
@@ -45,6 +46,11 @@
 				});
 			});
 		</script>
+		<style>
+			p {
+				white-space: normal;
+			}
+		</style>
 	</head>
 	<body>
 		<!--start wrapper-->
@@ -113,15 +119,46 @@
 									<c:forEach var="l" items="${list}">
 										<tr>
 											<td>${l.serviceName}</td>
-											<td>${l.faqQuestion}</td>
-											<td>${l.faqAnswer}</td>
+											<td>
+												<!-- 글자수가 20글자가 넘어가면 모달창으로 나머지 내용 확인가능 -->
+												<c:if test="${fn:length(l.faqQuestion) > 20}">
+													<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">${fn:substring(l.faqQuestion,0,15)}.....</a>
+													<!-- Modal -->
+													<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<p>질문 : ${l.faqQuestion}</p>
+																	<br>
+																	<p>답변 : ${l.faqAnswer}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:if>
+												<c:if test="${fn:length(l.faqQuestion) < 20}">
+													${l.faqQuestion}
+												</c:if>
+											</td>
+											<td>
+												<c:if test="${fn:length(l.faqAnswer) > 40}">
+													${fn:substring(l.faqAnswer,0,35)}.....
+												</c:if>
+												<c:if test="${fn:length(l.faqAnswer) < 40}">
+													${l.faqAnswer}
+												</c:if>
+											</td>
 											<td>${l.createdate}</td>
 											<td>${l.updatedate}</td>
 											<td>
 												<a href="${pageContext.request.contextPath}/employee/question/modifyFaq?faqNo=${l.faqNo}&serviceName=${serviceName}">수정</a>
 											</td>
 											<td>
-												<a id="removeBtn" href="${pageContext.request.contextPath}/employee/question/removeFaq?faqNo=${l.faqNo}">삭제</a>
+												<a class="removeBtn" href="${pageContext.request.contextPath}/employee/question/removeFaq?faqNo=${l.faqNo}&serviceName=${serviceName}">삭제</a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -211,9 +248,6 @@
 			
 		</div>
 		<!--end wrapper-->
-	
-	
-	
 	
 		<!-- Bootstrap bundle JS -->
 		<script src="/58platform/assets/js/bootstrap.bundle.min.js"></script>

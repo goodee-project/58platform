@@ -1,13 +1,12 @@
 package goodee.gdj58.platform.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,10 +171,7 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + employee + "<-- employee 디버깅");
 		log.debug("\u001B[31m" + employeeInfo + "<-- employeeInfo 디버깅");
 		
-		String msg = "필수정보를 전부 입력해주세요.";
 		
-		// redirect시 보낼 파라미터
-		redirectAttributes.addAttribute("msg", msg);
 		
 		// null, 공백 체크
 		if(employee.getEmployeeId() == null || employee.getEmployeeId().equals("")
@@ -184,6 +180,11 @@ public class EmployeeController {
 				|| employeeInfo.getEmployeeEmail() == null || employeeInfo.getEmployeeEmail().equals("")
 				|| employeeInfo.getEmployeePhone() == null || employeeInfo.getEmployeePhone().equals("")
 				|| totalId.getId() == null || totalId.getId().equals("")) {
+			
+			String msg = "필수정보를 전부 입력해주세요.";
+			
+			// redirect시 보낼 파라미터
+			redirectAttributes.addAttribute("msg", msg);
 			return "redirect:/employee/emp/addEmployee";
 		}
 		
@@ -269,14 +270,16 @@ public class EmployeeController {
 		
 		log.debug("\u001B[31m" + employee + "<-- employee 로그인 할때 디버깅");
 		
-		String msg = "필수정보를 입력해주세요.";
 		
-		// redirect시 보낼 파라미터
-		redirectAttributes.addAttribute("msg", msg);
 		
 		// null, 공백체크
 		if(employee.getEmployeeId() == null || employee.getEmployeeId().equals("")
 				|| employee.getEmployeePw() == null || employee.getEmployeePw().equals("")) {
+			
+			String msg = "필수정보를 입력해주세요.";
+			
+			// redirect시 보낼 파라미터
+			redirectAttributes.addAttribute("msg", msg);
 			return "redirect:/login";
 		}
 		

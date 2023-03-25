@@ -23,11 +23,16 @@ public class QuestionController {
 	
 	// FAQ 삭제 액션
 	@GetMapping("/employee/question/removeFaq")
-	public String removeFaq(int faqNo) {
+	public String removeFaq(int faqNo
+								, @RequestParam(value="serviceName") String serviceName
+								, RedirectAttributes redirectAttributes) {
 	
 		log.debug("\u001B[31m" + faqNo + "<-- faqNo 컨트롤러 삭제번호 디버깅");
+		log.debug("\u001B[31m" + serviceName + "<-- serviceName 컨트롤러 삭제번호 디버깅");
 		
 		questionService.removeFaq(faqNo);
+		
+		redirectAttributes.addAttribute("serviceName", serviceName);
 		
 		return "redirect:/employee/question/faqList";
 	}
@@ -38,19 +43,24 @@ public class QuestionController {
 		
 		log.debug("\u001B[31m" + faq + "<-- faq 컨트롤러 디버깅");
 		
-		String msg = "FAQ수정실패";
-		
-		redirectAttributes.addAttribute("faqNo", faq.getFaqNo());
-		redirectAttributes.addAttribute("msg", msg);
+	
 		
 		// null이나 공백 넘어오면 addFaq로 redirect및 메시지 출력
 		if(faq.getServiceName() == null || faq.getServiceName().equals("")
 				|| faq.getFaqQuestion() == null || faq.getFaqQuestion().equals("")
 				|| faq.getFaqAnswer() == null || faq.getFaqAnswer().equals("")) {
+			
+			String msg = "FAQ수정실패";
+			
+			redirectAttributes.addAttribute("faqNo", faq.getFaqNo());
+			redirectAttributes.addAttribute("msg", msg);
+			
 			return "redirect:/employee/question/modifyFaq";
 		}
 		
 		questionService.modifyFaq(faq);
+		
+		redirectAttributes.addAttribute("serviceName", faq.getServiceName());
 		
 		return "redirect:/employee/question/faqList";
 	}
@@ -65,6 +75,7 @@ public class QuestionController {
 		log.debug("\u001B[31m" + faqNo + "<-- faqNo 컨트롤러 디버깅");
 		log.debug("\u001B[31m" + serviceName + "<-- serviceName faq 수정 폼 컨트롤러 디버깅");
 		
+		// FAQ 조회 메서드 호출
 		Faq faq = questionService.getFaq(faqNo);
 
 		model.addAttribute("f", faq);
@@ -80,19 +91,23 @@ public class QuestionController {
 
 		log.debug("\u001B[31m" + faq + "<-- faq 컨트롤러 디버깅");
 		
-		String msg = "FAQ등록실패";
 		
-		redirectAttributes.addAttribute("msg", msg);
 		
 		// null이나 공백 넘어오면 addFaq로 redirect및 메시지 출력
 		if(faq.getServiceName() == null || faq.getServiceName().equals("")
 				|| faq.getFaqQuestion() == null || faq.getFaqQuestion().equals("")
 				|| faq.getFaqAnswer() == null || faq.getFaqAnswer().equals("")) {
+			
+			String msg = "FAQ등록실패";
+			
+			redirectAttributes.addAttribute("msg", msg);
 			return "redirect:/employee/question/addFaq";
 		}
 		// FAQ등록 메서드 호출
 		questionService.addFaq(faq); 
 		 
+		redirectAttributes.addAttribute("serviceName", faq.getServiceName());
+		
 		return "redirect:/employee/question/faqList";
 	}
 	
@@ -147,17 +162,19 @@ public class QuestionController {
 		log.debug("\u001B[31m" + questionNo + "<-- 답변수정 액션 questionNo 컨트롤러 디버깅");
 		log.debug("\u001B[31m" + questionAnswer + "<-- 답변수정 액션 questionAnswer 컨트롤러 디버깅");
 		
-		String msg = "답변이 입력되지 않았습니다.";
 		
-		// redirect시 보낼 파라미터
-		redirectAttributes.addAttribute("questionNo", questionNo);
-		redirectAttributes.addAttribute("serviceName", serviceName);
-		redirectAttributes.addAttribute("msg", msg);
 		
 		
 		// 답변이 공백으로 넘어올 시 답변 수정 창으로 redirect
 		if(questionAnswer.getQuestionComment() == null 
 				|| questionAnswer.getQuestionComment().equals("")) {
+			
+			String msg = "답변이 입력되지 않았습니다.";
+			
+			// redirect시 보낼 파라미터
+			redirectAttributes.addAttribute("questionNo", questionNo);
+			redirectAttributes.addAttribute("serviceName", serviceName);
+			redirectAttributes.addAttribute("msg", msg);
 			return "redirect:/employee/question/commentByCompany";
 		}
 		
@@ -179,16 +196,18 @@ public class QuestionController {
 		log.debug("\u001B[31m" + serviceName + "<-- 답변작성 액션 serviceName 컨트롤러 디버깅");
 		log.debug("\u001B[31m" + questionAnswer.getQuestionComment() + "<-- 답변작성 액션 questionAnswer.getQuestionComment() 컨트롤러 디버깅");
 		
-		String msg = "답변이 입력되지 않았습니다.";
 		
-		// redirect시 보낼 파라미터
-		redirectAttributes.addAttribute("questionNo", questionNo);
-		redirectAttributes.addAttribute("serviceName", serviceName);
-		redirectAttributes.addAttribute("msg", msg);
+		
+		
 		
 		// 답변이 null이나 공백으로 넘어올시 답변 입력창으로 redirect
 		if(questionAnswer.getQuestionComment() == null 
 				|| questionAnswer.getQuestionComment().equals("")) {
+			String msg = "답변이 입력되지 않았습니다.";
+			// redirect시 보낼 파라미터
+			redirectAttributes.addAttribute("questionNo", questionNo);
+			redirectAttributes.addAttribute("serviceName", serviceName);
+			redirectAttributes.addAttribute("msg", msg);
 			return "redirect:/employee/question/commentByCompany";
 		}
 		

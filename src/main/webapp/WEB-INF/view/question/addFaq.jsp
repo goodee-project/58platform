@@ -167,7 +167,7 @@
 									</div>
 									<div class="card-body">
 										<div class="border p-3 rounded">
-											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/addFaq" method="post">
+											<form class="row g-3" action="${pageContext.request.contextPath}/employee/question/addFaq" method="post" id="bookingForm">
 												<div class="col-12">
 													<label class="form-label">분류</label>
 													<input type="text" class="form-control" name="serviceName" value="${serviceName}" readonly="readonly">
