@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import goodee.gdj58.platform.service.ChatService;
+import goodee.gdj58.platform.vo.Employee;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,52 +20,34 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ChatController {
 	@Autowired
-	private final ChatService chatService;
-	
-	@GetMapping("/test/login")
-	public String login() {
-		log.debug("\u001B[44m" + "@GetMapping 로그인");
-		
-		return "login2";
-	}
-	
-	@PostMapping("/test/login")
-	public String login(@RequestParam String name, HttpSession session) {
-		log.debug("\u001B[44m" + name + " 로그인");
-		session.setAttribute("login", name);
-		
-		return "redirect:/question/rooms";
-	}
+	private final ChatService chatService;	
 	
 	// 채팅방 목록 조회
-	@GetMapping("/chat")
-	public ModelAndView rooms() {
+	@GetMapping("/employee/question/chat")
+	public ModelAndView rooms(HttpSession session
+					, @RequestParam(value="chattingRoomNo", defaultValue = "0") int chattingRoomNo) {
 		log.debug("\u001B[44m" + "모든 채팅방 보여주기");
-		ModelAndView mv = new ModelAndView("/chat");
+		ModelAndView mv = new ModelAndView("question/chat");
+		Employee name = (Employee) session.getAttribute("loginEmp");
 		
+		
+		log.debug("\u001B[44m" + name.getEmployeeId() + "loginEmp");
+		
+
+		session.setAttribute("login", name.getEmployeeId());
+		mv.addObject("chattingRoomNo", chattingRoomNo);
 		mv.addObject("roomList", chatService.findAllRooms());
-		log.debug("\u001B[44m" + chatService.findAllRooms() + "room");
+		mv.addObject("chatList", chatService.getChattingList(chattingRoomNo));
+		log.debug("\u001B[44m" + chatService.findAllRooms() + "roomList");
+		log.debug("\u001B[44m" + chatService.getChattingList(chattingRoomNo) + "chatList");
 		
 		return mv;
 	}
 	
 	// 채팅방 개설
-    @PostMapping("/question/rooms")
+    @PostMapping("/employee/question/chat")
     public String create(){
     	chatService.addChattingRoom();
-        return "redirect:/question/rooms";
+        return "redirect:/employee/question/chat";
     }
-	
-	// 채팅방 조회
-    @GetMapping("/chat/{chattingRoomNo}")
-    public String getChat(@RequestParam int chattingRoomNo, Model model){
-    	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 입장");
-    	log.debug("\u001B[44m" + chattingRoomNo + "번 채팅방 정보");
-
-		System.out.println(chatService.getChattingList(chattingRoomNo) + "ddddddddddddd" + chattingRoomNo + ".NO");
-        model.addAttribute("chatList", chatService.getChattingList(chattingRoomNo));
-        model.addAttribute("chattingRoomNo", chattingRoomNo);
-                
-        return "chat";
-    }	
 }
