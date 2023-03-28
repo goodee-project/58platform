@@ -25,7 +25,7 @@ public class ChatController {
 	// 채팅방 목록 조회
 	@GetMapping("/employee/question/chat")
 	public ModelAndView rooms(HttpSession session
-					, @RequestParam(value="chattingRoomNo", defaultValue = "0") int chattingRoomNo) {
+					, @RequestParam(value="chattingRoomName", defaultValue = "") String chattingRoomName) {
 		log.debug("\u001B[44m" + "모든 채팅방 보여주기");
 		ModelAndView mv = new ModelAndView("question/chat");
 		Employee name = (Employee) session.getAttribute("loginEmp");
@@ -35,11 +35,11 @@ public class ChatController {
 		
 
 		session.setAttribute("login", name.getEmployeeId());
-		mv.addObject("chattingRoomNo", chattingRoomNo);
+		mv.addObject("chattingRoomName", chattingRoomName);
 		mv.addObject("roomList", chatService.findAllRooms());
-		mv.addObject("chatList", chatService.getChattingList(chattingRoomNo));
+		mv.addObject("chatList", chatService.getChattingList(chattingRoomName));
 		log.debug("\u001B[44m" + chatService.findAllRooms() + "roomList");
-		log.debug("\u001B[44m" + chatService.getChattingList(chattingRoomNo) + "chatList");
+		log.debug("\u001B[44m" + chatService.getChattingList(chattingRoomName) + "chatList");
 		
 		return mv;
 	}

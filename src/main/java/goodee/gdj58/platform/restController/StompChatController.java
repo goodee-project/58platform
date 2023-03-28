@@ -34,7 +34,7 @@ public class StompChatController {
 		log.debug("\u001B[44m" + "환영 인사!!!");
 		
 		message.setChattingMemo(message.getFromId() + "님이 입장하였습니다.");
-		template.convertAndSend("/sub/chat?chattingRoomNo=" + message.getChattingRoomNo(), message);
+		template.convertAndSend("/sub/chat?chattingRoomName=" + message.getChattingRoomName(), message);
 		log.debug("\u001B[44m" + "message: " + message);
 		
 	}
@@ -46,7 +46,7 @@ public class StompChatController {
 		
 		log.debug("\u001B[44m" + "일반 메시지");
 		message.setCreatedate((dateTime.format(formatter)));
-		template.convertAndSend("/sub/chat?chattingRoomNo=" + message.getChattingRoomNo(), message);
+		template.convertAndSend("/sub/chat?chattingRoomName=" + message.getChattingRoomName(), message);
 		log.debug("\u001B[44m" + "message: " + message);
 		System.out.println(dateTime.format(formatter) + "dateTime");	
 		

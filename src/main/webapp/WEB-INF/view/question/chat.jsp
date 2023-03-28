@@ -80,13 +80,13 @@
 										<ul class="list-group list-group-flush" id="chat-list">
             								<c:forEach var="rl" items="${roomList}">
             									<li>
-													<a href="${pageContext.request.contextPath}/employee/question/chat?chattingRoomNo=${rl.chattingRoomNo}" class="list-group-item">
+													<a href="${pageContext.request.contextPath}/employee/question/chat?chattingRoomName=${rl.chattingRoomName}" class="list-group-item">
 														<div class="d-flex">
 															<div class="chat-user-online">
 																<img src="/58platform/assets/images/avatars/avatar-2.png" width="42" height="42" class="rounded-circle" alt="" />
 															</div>
 															<div class="flex-grow-1 ms-2">
-																<h6 class="mb-0 chat-title">${rl.chattingRoomNo} : ${rl.fromId}</h6>
+																<h6 class="mb-0 chat-title">${rl.chattingRoomName} : ${rl.fromId}</h6>
 																<p class="mb-0 chat-msg">${rl.chattingMemo}</p>
 															</div>
 															<div class="chat-time">${rl.updatedate}</div>
@@ -104,7 +104,7 @@
 						<div class="chat-toggle-btn"><i class='bx bx-menu-alt-left'></i>
 						</div>
 						<div>
-							<h4 class="mb-1 font-weight-bold">${chattingRoomNo}</h4>
+							<h4 class="mb-1 font-weight-bold">${chattingRoomName}</h4>
 						</div>
 						<div class="chat-top-header-menu ms-auto">
 							<a href="javascript:;"><i class='bx bx-user-plus'></i></a>
@@ -113,7 +113,7 @@
 					
 					
 					<!-- chat -->					
-					<input type="hidden" value="${chattingRoomNo}" id="chattingRoomNo">
+					<input type="hidden" value="${chattingRoomName}" id="chattingRoomName">
 					<input type="hidden" value="${sessionScope.login}" id="login">
 					<div class="chat-content" id="msgArea">						
             			<c:forEach var="cl" items="${chatList}">
@@ -171,10 +171,10 @@
 	
   <script>
 	$(document).ready(function(){		
-		const chattingRoomNo = $("#chattingRoomNo").val();
+		const chattingRoomName = $("#chattingRoomName").val();
 		const username = $("#login").val();
 		
-		console.log("chattingRoomNo: " + chattingRoomNo);
+		console.log("chattingRoomName: " + chattingRoomName);
 		console.log("username: " + username);
 		
 		/* const websocket = new WebSocket("ws://localhost:8080/ws/chat");
@@ -195,10 +195,10 @@
 		stomp.connect({}, function(){
 			console.log("STOMP connected!");
 			//3. send(path, header, chattingMemo)로 메세지를 보낼 수 있음
-            stomp.send('/pub/chat/enter', JSON.stringify({chattingRoomNo: chattingRoomNo, fromId: username}));
+            stomp.send('/pub/chat/enter', JSON.stringify({chattingRoomName: chattingRoomName, fromId: username}));
 			
 			//4. subscribe(path, callback)으로 메세지를 받을 수 있음
-            stomp.subscribe("/sub/chat?chattingRoomNo=" + chattingRoomNo, function (chat) {
+            stomp.subscribe("/sub/chat?chattingRoomName=" + chattingRoomName, function (chat) {
             	console.log("subscribe!!!");
             	console.log("chat");
             	console.log(chat.body);
@@ -237,7 +237,7 @@
                 var msg =  $("#msg").val();
                 console.log(username + ":" + msg);
                 
-                stomp.send('/pub/chat/message', JSON.stringify({chattingRoomNo: chattingRoomNo, chattingMemo: msg, fromId: username}));
+                stomp.send('/pub/chat/message', JSON.stringify({chattingRoomName: chattingRoomName, chattingMemo: msg, fromId: username}));
                 $("#msg").val('');
             });	        
 	     	// 엔터키를 누르면 submit 버튼이 눌리도록

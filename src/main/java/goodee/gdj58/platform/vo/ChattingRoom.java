@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ChattingRoom {
-	private int chattingRoomNo;
+	private String chattingRoomName;
 	private String createdate;
 	private String updatedate;
 }

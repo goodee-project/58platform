@@ -19,6 +19,6 @@ public interface ChatMapper {
 	int insertChattingMsg(Chatting message);
 	
 	// 메세지 불러오기
-	List<Map<String, Object>> selectChattingList(int chattingRoomNo);
+	List<Map<String, Object>> selectChattingList(String chattingRoomName);
 
 }

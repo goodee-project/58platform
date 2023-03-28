@@ -42,8 +42,8 @@ public class ChatService {
 	}
 	
 	// 메세지 불러오기
-	public List<Map<String, Object>> getChattingList(int chattingRoomNo) {
-		List<Map<String, Object>> messages = chatMapper.selectChattingList(chattingRoomNo);
+	public List<Map<String, Object>> getChattingList(String chattingRoomName) {
+		List<Map<String, Object>> messages = chatMapper.selectChattingList(chattingRoomName);
 		
 		return messages;
 	}
