@@ -34,6 +34,8 @@ public class CompanyContoroller {
 		} else {
 			list = companyService.getBookingOrderListOne(content);
 		}
+		
+		model.addAttribute("reportCategory", reportCategory);
 		model.addAttribute("list", list);
 		
 		return "orderOne";	

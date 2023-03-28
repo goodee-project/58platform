@@ -109,7 +109,7 @@
 			
 			, shopping_goods.goods_name goodsName
 			
-			, shopping_goods_img.goods_img_origin_name goodsImgOriginName
+			, shopping_goods_img.goods_img_save_name goodsImgSaveName
 			
 			, rank.reward reward
 		FROM
@@ -139,9 +139,7 @@
 		parameterType="String">
 		
 		SELECT
-			booking_company.booking_company_id companyId
-			, booking_company.booking_company_name companyName
-			, booking_company.booking_company_ceo companyCeo
+			booking_company.booking_company_name companyName
 			
 			, booking.booking_no bookingNo
 			, booking.customer_id customerId
@@ -154,28 +152,25 @@
 			, booking.booking_state bookingState
 			, booking.booking_people bookingPeople
 			
-			, booking_cancel.cancel_memo cancelMemo
-			, booking_cancel.cancel_subject cancelSubject
-			
 			, booking_product.booking_product_name bookingProductName
 			, booking_product_option.booking_product_no bookingProductOptionNo
 			, booking_product_option.booking_product_option_memo bookingProductOptionMemo
 			, booking_product_option.booking_product_option_price bookingProductOptionPrice
 			 
-		FROM
-			booking_company
-			INNER JOIN booking
-			ON booking_company.booking_company_id = booking.booking_company_id
-			INNER JOIN booking_product
-			ON booking_company.booking_company_id = booking_product.booking_company_id
-			INNER JOIN booking_cancel
-			ON booking.booking_no = booking_cancel.booking_no
-			INNER JOIN booking_product_option
-			ON booking_product.booking_product_no = booking_product_option.booking_product_no
-			
+		FROM booking
+		INNER JOIN booking_company
+		ON booking.booking_company_id = booking_company.booking_company_id
+		INNER JOIN booking_company_detail
+		ON booking_company.booking_company_id = booking_company_detail.booking_company_id
+		INNER JOIN booking_company_type
+		ON booking_company_detail.booking_company_type_no = booking_company_type.booking_company_type_no
+		INNER JOIN booking_product
+		ON booking.product_no = booking_product.booking_product_no
+		INNER JOIN booking_product_option
+		ON booking_product.booking_product_no = booking_product_option.booking_product_no
+		
 		WHERE 
-			booking_company.booking_company_name = #{companyName}
-			ORDER BY bookingRequestDate DESC;
+			booking.booking_no = #{content}
 	
 	</select>
 	
