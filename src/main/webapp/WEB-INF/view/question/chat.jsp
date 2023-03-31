@@ -70,10 +70,6 @@
 												<a class="dropdown-item" href="#">Sort by Unread</a>
 												<div class="dropdown-divider"></div>	<a class="dropdown-item" href="#">Show Favorites</a>
 											</div>
-												<form action="${pageContext.request.contextPath}/employee/question/chat" method="post">
-											            <input class="btn btn-white btn-sm radius-30" style="float:right;" type="submit" value="New Chat">
-<!-- 											<a href="#" class="btn btn-white btn-sm radius-30" style="float:right;"><i class='bx bxs-edit me-2'></i>New Chat</a> -->
-											    </form>
 										</div>
 									</div>
 									<div class="chat-list" id="chat-sidebar-list-wrapper">
@@ -83,10 +79,10 @@
 													<a href="${pageContext.request.contextPath}/employee/question/chat?chattingRoomName=${rl.chattingRoomName}" class="list-group-item">
 														<div class="d-flex">
 															<div class="chat-user-online">
-																<img src="/58platform/assets/images/avatars/avatar-2.png" width="42" height="42" class="rounded-circle" alt="" />
+																<img src="/58platform/assets/images/avatars/avatar-2.png" width="42" height="42" class="rounded-circle"/>
 															</div>
 															<div class="flex-grow-1 ms-2">
-																<h6 class="mb-0 chat-title">${rl.chattingRoomName} : ${rl.fromId}</h6>
+																<h6 class="mb-0 chat-title">${rl.chattingRoomName}</h6>
 																<p class="mb-0 chat-msg">${rl.chattingMemo}</p>
 															</div>
 															<div class="chat-time">${rl.updatedate}</div>
@@ -109,36 +105,36 @@
 						<div class="chat-top-header-menu ms-auto">
 							<a href="javascript:;"><i class='bx bx-user-plus'></i></a>
 						</div>
-					</div>
-					
-					
-					<!-- chat -->					
+					</div>					
+					<!-- chat -->		
 					<input type="hidden" value="${chattingRoomName}" id="chattingRoomName">
-					<input type="hidden" value="${sessionScope.login}" id="login">
-					<div class="chat-content" id="msgArea">						
-            			<c:forEach var="cl" items="${chatList}">
-							<c:if test="${sessionScope.login != cl.fromId}">						
-								<div class="chat-content-leftside">
-									<div class="d-flex">
-										<img src="/58platform/assets/images/avatars/avatar-3.png" width="48" height="48" class="rounded-circle" alt="" />
-										<div class="flex-grow-1 ms-2">
-											<p class="mb-0 chat-time">${cl.fromId}, ${cl.createdate}</p>
-											<p class="chat-left-msg">${cl.chattingMemo}</p>
+					<input type="hidden" value="${sessionScope.login}" id="login">					
+					<div class="chat-content">
+						<div id="msgArea">
+	            			<c:forEach var="cl" items="${chatList}">
+								<c:if test="${sessionScope.login != cl.fromId}">						
+									<div class="chat-content-leftside">
+										<div class="d-flex">
+											<img src="/58platform/assets/images/avatars/avatar-3.png" width="48" height="48" class="rounded-circle" alt="" />
+											<div class="flex-grow-1 ms-2">
+												<p class="mb-0 chat-time">${cl.fromId}, ${cl.createdate}</p>
+												<p class="chat-left-msg">${cl.chattingMemo}</p>
+											</div>
 										</div>
 									</div>
-								</div>
-							</c:if>
-							<c:if test="${sessionScope.login == cl.fromId}">						
-								<div class="chat-content-rightside">
-									<div class="d-flex ms-auto">
-										<div class="flex-grow-1 me-2">
-											<p class="mb-0 chat-time text-end">${cl.fromId}, ${cl.createdate}</p>
-											<p class="chat-right-msg">${cl.chattingMemo}</p>
+								</c:if>
+								<c:if test="${sessionScope.login == cl.fromId}">						
+									<div class="chat-content-rightside">
+										<div class="d-flex ms-auto">
+											<div class="flex-grow-1 me-2">
+												<p class="mb-0 chat-time text-end">${cl.fromId}, ${cl.createdate}</p>
+												<p class="chat-right-msg" style="float:right">${cl.chattingMemo}</p>
+											</div>
 										</div>
 									</div>
-								</div>
-							</c:if>
-						</c:forEach>
+								</c:if>
+							</c:forEach>
+						</div>
 					</div>
 					<div class="chat-footer d-flex align-items-center">
 						<div class="flex-grow-1 pe-2">
@@ -162,14 +158,10 @@
        <!--start overlay-->
         <div class="overlay nav-toggle-icon"></div>
        <!--end overlay-->
-
-        <!--Start Back To Top Button-->
-        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
   </div>
   <!--end wrapper-->
 	
-  <script>
+	<script>
 	$(document).ready(function(){		
 		const chattingRoomName = $("#chattingRoomName").val();
 		const username = $("#login").val();
@@ -190,6 +182,45 @@
 		var stomp = webstomp.over(sockJs);
 		console.log(stomp);
 		
+		// ajax 채팅
+		setInterval(ajaxChat, 5000);
+		//setTimeout(ajaxChat, 1000);
+		function ajaxChat(){
+				var msgArea = $('#msgArea');
+				$.ajax({
+					type : 'get', 
+					url : '/58platform/employee/question/chat?chattingRoomName=' + chattingRoomName,
+					data: { chattingRoomName : chattingRoomName},
+					success: function () {
+			            console.log("성공");            
+			        },
+			        error: function (request, status, error) {
+			            console.log("에러");
+			        },
+			        complete: function() {
+			            $('#msgArea').load(location.href+' #msgArea');
+			        }
+				}); // end for ajax
+		}
+		// ajax 채팅 리스트
+		setInterval(ajaxChatList, 5000);
+		//setTimeout(ajaxChat, 1000);
+		function ajaxChatList(){
+				$.ajax({
+					type : 'get', 
+					url : '/58platform/employee/question/chat',
+					data: { chattingRoomName : chattingRoomName},
+					success: function () {
+			            console.log("성공");            
+			        },
+			        error: function (request, status, error) {
+			            console.log("에러");
+			        },
+			        complete: function() {
+			            $('#chat-list').load(location.href+' #chat-list');
+			        }
+				}); // end for ajax
+		}
 		
 		// 2. connection이 이루어지면 실행할 콜백함수
 		stomp.connect({}, function(){
@@ -239,6 +270,7 @@
                 
                 stomp.send('/pub/chat/message', JSON.stringify({chattingRoomName: chattingRoomName, chattingMemo: msg, fromId: username}));
                 $("#msg").val('');
+                ajaxChatList();
             });	        
 	     	// 엔터키를 누르면 submit 버튼이 눌리도록
 	        $("#msg").keyup(function(event) {
