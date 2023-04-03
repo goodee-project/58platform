@@ -21,6 +21,7 @@ public class StompChatController {
 	private final SimpMessagingTemplate template; // 특정 브로커로 메시지 전달
 	private final ChatService chatService;
 	
+	/*
 	// Cliet가 send할 수 있는 경로
 	// stompConfig에서 설정한 applicationDestinationPrefixeds와 @MessageMapping 경로 병합
 	// /pub/chat/enter
@@ -38,6 +39,7 @@ public class StompChatController {
 		log.debug("\u001B[44m" + "message: " + message);
 		
 	}
+	*/
 	
 	@MessageMapping(value="/chat/message")
 	public void message(Chatting message) {

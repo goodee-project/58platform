@@ -16,6 +16,14 @@
 		)
 	</insert>
 	
+	<!-- 메세지 입력 후 채팅방 리스트 업데이트 -->
+	<update id="updateChattingRoomListTime" parameterType="String">
+		UPDATE
+			chatting_room
+		SET updatedate = NOW()
+		WHERE chatting_room_name = #{chattingRoomName}
+	</update>
+	
 	<!-- 채팅 메시지 리스트 -->
 	<select id="selectChattingList" parameterType="String" resultType="java.util.Map">
 		SELECT
@@ -28,24 +36,12 @@
 		WHERE chatting_room_name = #{chattingRoomName}
 	</select>
 	
-	<!-- 채팅방 생성하기 -->
-	<insert id="insertChattingRoom">
-		INSERT INTO
-			chatting_room (
-			createdate
-			, updatedate
-		) VALUES (
-			NOW()
-			, NOW()
-		)
-	</insert>
-	
 	<!-- 채팅방 리스트 -->
 	<select id="selectChattingRoomList" resultType="java.util.Map">
 		SELECT c.chatting_room_name chattingRoomName
 			, c.chatting_memo chattingMemo
 			, c.from_id fromId
-			, cr.updatedate updatedate
+			, DATE_FORMAT(cr.updatedate,'%Y-%m-%d %H:%i') updatedate
 		FROM chatting c
 		INNER JOIN chatting_room cr ON cr.chatting_room_name = c.chatting_room_name
 		WHERE (c.chatting_room_name, c.createdate)

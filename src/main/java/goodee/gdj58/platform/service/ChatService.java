@@ -28,7 +28,6 @@ public class ChatService {
 		//List<ChattingRoom> result = new ArrayList<>(chattingRoomMap.values());
 		
 		List<Map<String, Object>> ChattingRooms = chatMapper.selectChattingRoomList();
-		System.out.println(ChattingRooms + "모든 채팅방 보여주기");
 		log.debug("\u001B[44m" + ChattingRooms + "모든 채팅방 보여주기");
 		//Collections.reverse(result); // create_date DESC
 		
@@ -37,7 +36,8 @@ public class ChatService {
 	
 	// 메세지 보내기
 	public int addChattingMsg(Chatting message) {
-		System.out.println(message + "넘어오나");
+		chatMapper.updateChattingRoomListTime(message.getChattingRoomName());
+		log.debug("\u001B[44m" + message.getChattingRoomName() + "시간 확인");
 		return chatMapper.insertChattingMsg(message);
 	}
 	

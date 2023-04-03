@@ -31,7 +31,7 @@
   <link href="/58platform/assets/css/semi-dark.css" rel="stylesheet" />
   <link href="/58platform/assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>chat</title>
+  <title>채팅</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="/58platform/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
   <script src="/58platform/webjars/webstomp-client/1.2.6/dist/webstomp.min.js"></script>
@@ -115,7 +115,6 @@
 								<c:if test="${sessionScope.login != cl.fromId}">						
 									<div class="chat-content-leftside">
 										<div class="d-flex">
-											<img src="/58platform/assets/images/avatars/avatar-3.png" width="48" height="48" class="rounded-circle" alt="" />
 											<div class="flex-grow-1 ms-2">
 												<p class="mb-0 chat-time">${cl.fromId}, ${cl.createdate}</p>
 												<p class="chat-left-msg">${cl.chattingMemo}</p>
