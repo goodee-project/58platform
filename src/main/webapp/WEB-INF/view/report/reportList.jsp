@@ -144,7 +144,7 @@
   <script src="/58platform/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
   <script src="/58platform/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
   <script src="/58platform/assets/js/table-datatable.js"></script>
-	
+
   <!--app-->
   <script src="/58platform/assets/js/app.js"></script>
   <script>

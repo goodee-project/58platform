@@ -232,7 +232,7 @@
 											<td>${r.reportCategory}</td>
 											<td>${r.companyName}</td>
 											<td>${r.customerId}</td>
-											<td><a href="Page.html" onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">${r.reportContent}</a></td>
+											<td><a href="${pageContext.request.contextPath}/employee/company/getOrderOne?reportCategory=${serviceName}&content=${r.reportContent}" onclick="window.open(this.href, '_blank', 'width=1400, height=500'); return false;">${r.reportContent}</a></td>
 											<td>${r.reportMemo}</td>
 											<td>${r.createdate}</td>
 										</tr>

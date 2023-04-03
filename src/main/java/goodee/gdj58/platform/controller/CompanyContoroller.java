@@ -55,7 +55,6 @@ public class CompanyContoroller {
 			companyOrderList = companyService.getBookingOrderList(companyName);
 		} else if(serviceName.equals("쇼핑")) {
 			companyOrderList = companyService.getShoppingOrderList(companyName);
-			companyOrderList = companyService.getShoppingOrderList(companyName);
 		}
 		
 		
@@ -159,8 +158,7 @@ public class CompanyContoroller {
 				companyAddtionServiceList.add(arr[i]);
 				log.debug("\u001B[31m 서비스 종류 : "+companyAddtionServiceList.get(i));
 			}
-			
-			
+					
 			model.addAttribute("companyAddtionServiceList", companyAddtionServiceList);
 		} else if(serviceName.equals("쇼핑")) {
 			company = companyService.getShoppingCompanyOne(companyName);

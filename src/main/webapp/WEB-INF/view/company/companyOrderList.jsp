@@ -221,8 +221,7 @@
 																			<td>e</td>
 																			<td>f</td>
 																			<td>g</td>
-																		</tr>
-																		
+																		</tr>	
 																	</tbody>
 																</table>
 																<div class="modal-footer">
