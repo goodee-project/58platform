@@ -182,7 +182,7 @@
 		console.log(stomp);
 		
 		// ajax 채팅
-		setInterval(ajaxChat, 5000);
+		setInterval(ajaxChat, 2000);
 		//setTimeout(ajaxChat, 1000);
 		function ajaxChat(){
 				var msgArea = $('#msgArea');
@@ -202,7 +202,7 @@
 				}); // end for ajax
 		}
 		// ajax 채팅 리스트
-		setInterval(ajaxChatList, 5000);
+		setInterval(ajaxChatList, 2000);
 		//setTimeout(ajaxChat, 1000);
 		function ajaxChatList(){
 				$.ajax({
